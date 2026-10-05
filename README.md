@@ -4,10 +4,18 @@ Ref 是一个 macOS 菜单栏工具：截一张屏，给界面上的控件、文
 
 这个仓库只存放 Ref 的安装包和更新说明。
 
-## 下载
+## 安装
 
-从 [Releases](https://github.com/ddhjy/ref-releases/releases/latest) 下载 `Ref-<版本>.dmg`，把 Ref 拖进"应用程序"，然后启动。需要 macOS 26 或更高版本，同时支持 Apple 芯片和 Intel。
+用 Homebrew：
+
+```bash
+brew install --cask ddhjy/tap/ref
+```
+
+或者从 [Releases](https://github.com/ddhjy/ref-releases/releases/latest) 下载 `Ref-<版本>.dmg`，把 Ref 拖进"应用程序"，然后启动。
+
+需要 macOS 26 或更高版本，同时支持 Apple 芯片和 Intel。安装包由 Developer ID 签名并经过 Apple 公证。
 
 ## 更新
 
-Ref 每天检查一次这里的 Releases，有新版本会自己下载、校验并安装。也可以从菜单栏图标选择"检查更新…"。
+Ref 每天检查一次这里的 Releases，有新版本会自己下载、校验并安装。也可以从菜单栏图标选择"检查更新…"，或者执行 `brew upgrade --cask ref`。
