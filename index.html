@@ -1,0 +1,725 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ref — 一张图说清“我说的是哪个” · macOS 菜单栏截图标注工具</title>
+<meta name="description" content="macOS 菜单栏工具。按下热键冻住屏幕，点一点你想说的东西，Ref 读出它们是哪个文件、网址、按钮或代码行，编上号合成一张自带图例的图。粘贴给 Cursor、ChatGPT、Claude 或同事就行。">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#161617">
+<meta name="application-name" content="Ref">
+<meta name="apple-mobile-web-app-title" content="Ref">
+
+<link rel="canonical" href="https://ddhjy.github.io/ref-releases/">
+<link rel="alternate" hreflang="zh-Hans" href="https://ddhjy.github.io/ref-releases/">
+<link rel="alternate" hreflang="en" href="https://ddhjy.github.io/ref-releases/en/">
+<link rel="alternate" hreflang="x-default" href="https://ddhjy.github.io/ref-releases/">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Ref">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:locale:alternate" content="en_US">
+<meta property="og:title" content="Ref — 一张图说清“我说的是哪个”">
+<meta property="og:description" content="macOS 菜单栏工具。按下热键冻住屏幕，点一点你想说的东西，Ref 读出它们是什么，编上号合成一张自带图例的图。粘贴给 Cursor、ChatGPT、Claude 或同事就行。">
+<meta property="og:url" content="https://ddhjy.github.io/ref-releases/">
+<meta property="og:image" content="https://ddhjy.github.io/ref-releases/assets/img/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Ref：截图上的编号标记和底部的图例带">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Ref — 一张图说清“我说的是哪个”">
+<meta name="twitter:description" content="macOS 菜单栏工具。按下热键冻住屏幕，点一点你想说的东西，Ref 读出它们是什么，编上号合成一张自带图例的图。">
+<meta name="twitter:image" content="https://ddhjy.github.io/ref-releases/assets/img/og.png">
+
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="assets/img/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
+
+<link rel="preload" href="assets/img/icon-192.png" as="image">
+<link rel="preconnect" href="https://api.github.com" crossorigin>
+<link rel="stylesheet" href="assets/site.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Ref",
+  "operatingSystem": "macOS 26",
+  "applicationCategory": "UtilitiesApplication",
+  "description": "macOS 菜单栏工具。按下热键冻住屏幕，点一点你想说的东西，Ref 读出它们是什么，编上号合成一张自带图例的图，放进剪贴板。",
+  "softwareVersion": "0.3.4",
+  "downloadUrl": "https://github.com/ddhjy/ref-releases/releases/latest",
+  "releaseNotes": "https://github.com/ddhjy/ref-releases/releases",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "inLanguage": ["zh-Hans", "en"],
+  "image": "https://ddhjy.github.io/ref-releases/assets/img/icon-512.png",
+  "url": "https://ddhjy.github.io/ref-releases/"
+}
+</script>
+</head>
+<body>
+<a class="skip" href="#main">跳到正文</a>
+
+<header class="site-header">
+  <div class="container nav-bar">
+    <a class="brand" href="./" aria-label="Ref 首页">
+      <img src="assets/img/icon-192.png" width="32" height="32" alt="" decoding="async">
+      <span>Ref</span>
+    </a>
+    <nav class="nav-links" id="nav" aria-label="页面导航">
+      <a href="#how">怎么用</a>
+      <a href="#reads">能读出什么</a>
+      <a href="#details">细节</a>
+      <a href="#legend">图例</a>
+      <a href="#privacy">权限与隐私</a>
+      <a href="#faq">常见问题</a>
+      <a class="nav-lang" href="en/" lang="en" hreflang="en">English</a>
+    </nav>
+    <div class="nav-actions">
+      <a class="nav-lang" href="en/" lang="en" hreflang="en">English</a>
+      <a class="btn btn-primary btn-sm" href="https://github.com/ddhjy/ref-releases/releases/latest" data-download>下载</a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav" aria-label="打开菜单">
+        <span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+
+<!-- ========== Hero ========== -->
+<section class="hero" aria-labelledby="hero-title">
+  <div class="container hero-copy">
+    <a class="pill" href="https://github.com/ddhjy/ref-releases/releases/latest" data-release-link>
+      <span class="pill-dot" aria-hidden="true"></span>
+      <span data-version>v0.3.4</span>
+      <span class="pill-sep" aria-hidden="true">·</span>
+      <span>macOS 26 Tahoe</span>
+    </a>
+    <h1 id="hero-title"><span class="nowrap">一张图说清</span><span class="mark">“我说的是哪个”<b class="badge" aria-hidden="true">1</b></span></h1>
+    <p class="lede">Ref 是 macOS 菜单栏工具。按下热键冻住屏幕，点一点你想说的东西。Ref 自动读出它们是什么——哪个文件、哪个网址、哪个按钮、哪一行代码——编上号，连同你的说明合成一张自带图例的图，放进剪贴板。粘贴给 Cursor、ChatGPT、Claude 或同事就行。</p>
+    <div class="cta">
+      <a class="btn btn-primary btn-lg" href="https://github.com/ddhjy/ref-releases/releases/download/v0.3.4/Ref-0.3.4.dmg" data-download-dmg>
+        <svg class="i" viewBox="0 0 20 20" aria-hidden="true"><path d="M10 3v9m0 0 3.5-3.5M10 12 6.5 8.5M4 14.5v1A1.5 1.5 0 0 0 5.5 17h9a1.5 1.5 0 0 0 1.5-1.5v-1"/></svg>
+        下载 Ref for Mac
+      </a>
+      <button class="btn btn-secondary btn-lg copy" type="button" data-copy="brew install --cask ddhjy/tap/ref" title="复制 Homebrew 安装命令">
+        <span class="sr-only">复制 </span><code>brew install --cask ddhjy/tap/ref</code>
+        <svg class="i i-copy" viewBox="0 0 20 20" aria-hidden="true"><rect x="7" y="7" width="9" height="9" rx="2"/><path d="M4 13V5a1 1 0 0 1 1-1h8"/></svg>
+        <svg class="i i-done" viewBox="0 0 20 20" aria-hidden="true"><path d="m4.5 10.5 3.5 3.5 7.5-8"/></svg>
+      </button>
+    </div>
+    <p class="fine">免费 · 需要 macOS 26 或更高版本 · Developer ID 签名并经 Apple 公证 · <span data-dmg-size>4.6 MB</span> · 自动更新</p>
+  </div>
+
+  <div class="container-wide">
+    <figure class="demo" aria-label="Ref 复制出来的一张图：截图上有五个编号标记，底部的图例带逐条写明每个标记指的是什么">
+      <div class="demo-frame">
+      <div class="demo-screen" aria-hidden="true">
+        <div class="mbar">
+          <span class="mbar-apple"></span>
+          <b>Safari</b><span>文件</span><span>编辑</span><span>显示</span><span>历史记录</span><span>书签</span><span>窗口</span><span>帮助</span>
+          <span class="mbar-right"><i class="mbar-ref"></i><i class="mbar-glyph"></i><i class="mbar-glyph"></i><i class="mbar-glyph wide"></i><span>10月7日 周二 15:55</span></span>
+        </div>
+
+        <div class="win win-finder">
+          <div class="win-bar">
+            <span class="lights"><i></i><i></i><i></i></span>
+            <span class="win-title">ledger</span>
+          </div>
+          <div class="finder">
+            <aside class="finder-side">
+              <p>个人收藏</p>
+              <span>隔空投送</span><span>最近项目</span><span>应用程序</span><span>桌面</span><span>文稿</span><span>下载</span>
+              <p>位置</p>
+              <span>Macintosh HD</span>
+              <p>标签</p>
+              <span class="tag"><i style="--c:#ff5f57"></i>进行中</span><span class="tag"><i style="--c:#28c840"></i>已完成</span>
+            </aside>
+            <div class="finder-list">
+              <div class="finder-head"><span>名称</span><span>修改日期</span><span>大小</span></div>
+              <div class="row"><em class="tri open"></em><i class="ico folder"></i><span>src</span><span>今天 15:40</span><span>--</span></div>
+              <div class="row deep"><em class="tri"></em><i class="ico folder"></i><span>api</span><span>昨天 22:14</span><span>--</span></div>
+              <div class="row deep" data-mark="1"><em class="tri"></em><i class="ico folder"></i><span>components</span><span>今天 15:40</span><span>--</span></div>
+              <div class="row deep"><em class="tri"></em><i class="ico folder"></i><span>hooks</span><span>10月3日</span><span>--</span></div>
+              <div class="row deep"><em class="tri"></em><i class="ico folder"></i><span>pages</span><span>今天 09:12</span><span>--</span></div>
+              <div class="row deep"><em class="tri"></em><i class="ico folder"></i><span>styles</span><span>9月30日</span><span>--</span></div>
+              <div class="row"><em class="tri"></em><i class="ico folder"></i><span>public</span><span>9月28日</span><span>--</span></div>
+              <div class="row"><em></em><i class="ico file"></i><span>package.json</span><span>今天 09:12</span><span>2 KB</span></div>
+              <div class="row"><em></em><i class="ico file"></i><span>README.md</span><span>9月28日</span><span>4 KB</span></div>
+              <div class="row"><em></em><i class="ico file"></i><span>tsconfig.json</span><span>9月28日</span><span>1 KB</span></div>
+              <div class="row"><em></em><i class="ico file"></i><span>vite.config.ts</span><span>9月28日</span><span>1 KB</span></div>
+            </div>
+          </div>
+          <div class="finder-path"><span>Macintosh HD</span><span>用户</span><span>kai</span><span>Projects</span><span>ledger</span><span>src</span></div>
+        </div>
+
+        <div class="win win-safari">
+          <div class="win-bar safari-bar">
+            <span class="lights"><i></i><i></i><i></i></span>
+            <span class="sf-btn"></span><span class="sf-btn"></span>
+            <span class="url"><i></i>localhost:3100/invoices</span>
+            <span class="sf-btn"></span><span class="sf-btn"></span>
+          </div>
+          <div class="page">
+            <div class="page-nav">
+              <b>Ledger</b>
+              <span class="on">发票</span><span>客户</span><span>报表</span><span>设置</span>
+              <span class="page-btn" data-mark="2">新建发票</span>
+            </div>
+            <div class="page-body">
+              <div class="page-h"><span>发票</span><small>本月 24 张 · 待收 ¥128,400</small></div>
+              <div class="table">
+                <div class="th"><span>编号</span><span>客户</span><span>金额</span><span>状态</span></div>
+                <div class="tr"><span>INV-0241</span><span>Northwind</span><span>¥12,800</span><span class="st paid">已收款</span></div>
+                <div class="tr"><span>INV-0240</span><span>Acme</span><span>¥9,600</span><span class="st">待收</span></div>
+                <div class="tr"><span>INV-0239</span><span>Globex</span><span>¥32,000</span><span class="st">待收</span></div>
+                <div class="tr"><span>INV-0238</span><span>Initech</span><span>¥4,500</span><span class="st paid">已收款</span></div>
+                <div class="tr"><span>INV-0237</span><span>Umbrella</span><span>¥18,200</span><span class="st late">逾期</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Marks, numbered in the order they were placed -->
+        <span class="mk mk-frame" style="--x:13.6%;--y:22.9%;--w:31.8%;--h:3.4%" data-n="1"><b>1</b></span>
+        <span class="mk mk-frame" style="--x:90.4%;--y:11.6%;--w:5.4%;--h:3.4%" data-n="2"><b>2</b></span>
+        <span class="mk mk-region" style="--x:66%;--y:71%;--w:28%;--h:17%" data-n="3"><b>3</b></span>
+        <svg class="mk mk-arrow" viewBox="0 0 1000 625" preserveAspectRatio="none" data-n="4">
+          <defs><marker id="arrowhead" viewBox="0 0 10 10" refX="7.5" refY="5" markerWidth="4" markerHeight="4" orient="auto-start-reverse"><path d="M0 1 9 5 0 9z" fill="#ff3b30"/></marker></defs>
+          <path d="M 920 431 C 945 400, 955 350, 955 302" fill="none" stroke="#ff3b30" stroke-width="2.5" stroke-linecap="round" marker-end="url(#arrowhead)" vector-effect="non-scaling-stroke"/>
+        </svg>
+        <span class="mk mk-badge-only" style="--x:92%;--y:69%" data-n="4"><b>4</b></span>
+        <span class="mk mk-text" style="--x:52%;--y:78%" data-n="5"><b>5</b>文案：导出 CSV</span>
+      </div>
+
+      <pre class="demo-legend" data-legend><span class="ll" data-n="0">意图：照 ② 的样式在 ③ 加一个导出按钮，代码放到 ①</span>
+<span class="ll" data-n="1">├─ ① 新组件放这里
+│  <s>└─ folder · ~/Projects/ledger/src/components · 30%×25%</s></span>
+<span class="ll" data-n="2">├─ ② 参考它的样式
+│  <s>└─ AXButton “新建发票” · button.primary · 112×32 · Toolbar · src/components/Toolbar.tsx:18 · localhost:3100/invoices · 93%×13%</s></span>
+<span class="ll" data-n="3">├─ ③ 导出按钮放这里
+│  <s>└─ 区域 · 66%×71% – 94%×88%</s></span>
+<span class="ll" data-n="4">├─ ④ 右边和表格对齐
+│  <s>└─ 箭头 · 92%×69% 指向 96%×48%</s></span>
+<span class="ll" data-n="5">└─ ⑤ 文案：导出 CSV
+   <s>└─ 文字 · 52%×78%</s></span>
+
+<span class="ll sig" data-n="6">Ref · 2880×1800 px · com.apple.Safari “发票 — Ledger” · 2026-10-07 15:55</span></pre>
+      </div>
+      <figcaption class="demo-caption">复制出来的就是这一张：原始截图叠上编号标记，底部附一条图例带。图上的 ①–⑤ 和图例里的 ①–⑤ 一一对应，人和模型都能直接引用。</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ========== Paste targets ========== -->
+<section class="paste" aria-label="可以粘贴到的地方">
+  <div class="container">
+    <p class="paste-title">粘贴到任何能放图片的地方</p>
+    <ul class="paste-list">
+      <li>Cursor</li><li>ChatGPT</li><li>Claude</li><li>Codex</li><li>飞书</li><li>Slack</li><li>微信</li><li>Figma</li><li>Notion</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ========== Problem ========== -->
+<section class="section" id="why" aria-labelledby="why-title">
+  <div class="container split">
+    <div class="split-text">
+      <p class="eyebrow">它解决什么问题</p>
+      <h2 id="why-title">截图只说了一半</h2>
+      <p>想让 AI 或同事改屏幕上的某个东西，你通常得这样描述：</p>
+      <blockquote>“把左边文件树里那个 Overlay 目录……不是，是 Sources 下面那个……参考 Safari 里那个登录按钮的样式，在右下角那块空白加个导出按钮。”</blockquote>
+      <p>截图之后，对方看得到你指哪里，却看不到那个目录的真实路径、那个按钮属于哪个 app、那一行是哪个文件的第几行。这些信息还得你手动敲进去。</p>
+      <p><strong>Ref 替你敲。</strong>你点到的每个元素，它都会读出那是什么，写进图下方的图例。你只需要补一句“想让它怎样”。</p>
+    </div>
+    <div class="split-visual">
+      <div class="legend-card">
+        <p class="legend-card-title">同一段话，用 Ref 标出来</p>
+<pre class="legend">意图：照 ② 的样式在 ③ 加一个导出按钮，代码放到 ①
+├─ ① 把新模块放这里
+│  <s>└─ folder · ~/Projects/ref/Sources/Ref/Overlay · 18%×36%</s>
+├─ ② 参考它的样式
+│  <s>└─ AXButton “Login” · com.apple.Safari · 78%×18%</s>
+└─ ③ 导出按钮放这里
+   <s>└─ 区域 · 61%×67% – 82%×84%</s>
+
+<s>Ref · 2880×1800 px · com.apple.finder “Projects” · 2026-09-21 22:13</s></pre>
+        <p class="legend-card-note">目标在前，引用在后：第一行是整张图的意图，下面挂着每条编号的说明，说明下面才是它指的东西——哪个元素、在哪里。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== How it works ========== -->
+<section class="section section-alt" id="how" aria-labelledby="how-title">
+  <div class="container">
+    <header class="section-head">
+      <p class="eyebrow">怎么用</p>
+      <h2 id="how-title">按一下，点几下，写一句</h2>
+      <p class="section-lede">没有主窗口，不用先打开什么。在任意界面按下热键，整块屏幕就是画布。</p>
+    </header>
+    <ol class="steps">
+      <li class="step">
+        <div class="step-visual">
+          <span class="keycap big">⌥⌘R</span>
+        </div>
+        <h3><span class="step-n">1</span>冻住屏幕</h3>
+        <p>在任意界面按 <kbd>⌥⌘R</kbd>（可改）。屏幕冻住，底部出现图例面板。只想截图并复制？快速连按两次即可。</p>
+      </li>
+      <li class="step">
+        <div class="step-visual">
+          <div class="hover-card">
+            <div class="hover-row"><span>AXButton</span><em>按住空格复制</em></div>
+            <div class="hover-row"><span>名称</span><b>新建发票</b></div>
+            <div class="hover-row"><span>选择器</span><code>button.primary</code></div>
+            <div class="hover-row"><span>组件</span><code>Toolbar.tsx:18</code></div>
+            <div class="hover-row"><span>应用</span><b>Safari</b></div>
+          </div>
+        </div>
+        <h3><span class="step-n">2</span>点一点你想说的东西</h3>
+        <p>高亮框跟着光标下的元素走，旁边的卡片逐行列出 Ref 读到的内容。<strong>点击</strong>框选元素，<strong>拖拽</strong>框出区域；按 <kbd>A</kbd> 画箭头、<kbd>T</kbd> 放文字，编号接着往下排。</p>
+      </li>
+      <li class="step">
+        <div class="step-visual">
+          <div class="note-row">
+            <span class="note-badge">2</span>
+            <span class="note-desc">AXButton “新建发票”</span>
+            <span class="note-field"><span class="note-caret"></span>参考它的样式<kbd>Tab</kbd></span>
+          </div>
+        </div>
+        <h3><span class="step-n">3</span>补一句想让它怎样</h3>
+        <p>每放一个标记，面板里多出一行。按 <kbd>Tab</kbd> 进去写几个字，再按 <kbd>⏎</kbd> 回到画布；不想写就接着点下一处。说明边写边保存。</p>
+      </li>
+      <li class="step">
+        <div class="step-visual">
+          <div class="toast"><i></i>已复制 · 5 处标注</div>
+        </div>
+        <h3><span class="step-n">4</span>去粘贴</h3>
+        <p>按 <kbd>⌘⏎</kbd> 完成。图片立刻进入剪贴板，图例画在图里。或者按 <kbd>⌘1</kbd>…<kbd>⌘4</kbd> 直接发给 ChatGPT、Claude、WorkBuddy 或 QuickGPT。</p>
+      </li>
+    </ol>
+    <div class="shot-pair">
+      <figure class="shot">
+        <img src="assets/img/annotating-element-750.webp" srcset="assets/img/annotating-element-750.webp 750w, assets/img/annotating-element-1500.webp 1500w" sizes="(min-width: 1240px) 590px, (min-width: 901px) calc(50vw - 34px), calc(100vw - 48px)" width="1500" height="560" alt="真实截图：X 的页面上，被点中的“主页”和“@mattpocockuk”各套着红框，旁边分别放上编号 ① 和 ② 的红色徽标" loading="lazy" decoding="async">
+        <figcaption>点中的元素放上编号。</figcaption>
+      </figure>
+      <figure class="shot">
+        <img src="assets/img/annotating-panel-750.webp" srcset="assets/img/annotating-panel-750.webp 750w, assets/img/annotating-panel-1500.webp 1500w" sizes="(min-width: 1240px) 590px, (min-width: 901px) calc(50vw - 34px), calc(100vw - 48px)" width="1500" height="560" alt="真实截图：底部面板里有三行说明，分别是 AXStaticText “主页”“@mattpocockuk”和一段推文，各带一个说明输入框；“当前屏幕”一行写着“对比这几个字体大小”，下方是标记、箭头、文字、撤销、重做工具和取消、ChatGPT、复制按钮" loading="lazy" decoding="async">
+        <figcaption>面板里逐条写说明：每个标记一行，“当前屏幕”一行写整体意图。</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ========== What Ref reads ========== -->
+<section class="section" id="reads" aria-labelledby="reads-title">
+  <div class="container">
+    <header class="section-head">
+      <p class="eyebrow">Ref 能读出什么</p>
+      <h2 id="reads-title">点到哪里，就读出哪里</h2>
+      <p class="section-lede">取决于你点到的 app。读到的东西原样写进图例，路径和网址一行放不下就折行，从不省略。</p>
+    </header>
+    <div class="bento reads">
+      <article class="card">
+        <h3>访达</h3>
+        <p>文件、文件夹、边栏里的文件夹和磁盘，或窗口空白处——都是完整路径。</p>
+        <pre class="sample">① folder · ~/Projects/ref/Sources/Ref/Overlay</pre>
+      </article>
+      <article class="card">
+        <h3>代码编辑器</h3>
+        <p>文件树里是文件的完整路径；编辑区里是文件名和光标所在行。</p>
+        <pre class="sample">② MarkerRenderer.swift:142
+   ↳ ~/Projects/ref/Sources/Ref/Output</pre>
+        <ul class="apps"><li>Xcode</li><li>VS Code</li><li>Cursor</li><li>Trae</li><li>Windsurf</li><li>Zed</li><li>Sublime Text</li><li>Nova</li><li>TextMate</li><li>BBEdit</li></ul>
+      </article>
+      <article class="card">
+        <h3>终端</h3>
+        <p>光标所在的那一行。</p>
+        <pre class="sample">③ $ make release VERSION=0.3.4</pre>
+        <ul class="apps"><li>Terminal</li><li>iTerm2</li><li>Ghostty</li><li>Warp</li><li>kitty</li><li>WezTerm</li><li>Alacritty</li></ul>
+      </article>
+      <article class="card card-wide">
+        <h3>浏览器</h3>
+        <p>地址栏读出网址；页面里的元素读出类型、文字和所在页面的网址，表格里还有列名和所在行，以及所属区块标题。开启浏览器自动化后，另外读出 CSS 选择器、尺寸、字体与颜色；本地开发的 React / Vue / Svelte / Angular 页面还能读到组件名和源文件位置。</p>
+        <pre class="sample">④ AXButton “Login” · button.primary · 180×32 · 15px/600 #FFFFFF on #0D44E8
+   ↳ LoginForm · src/auth/LoginForm.tsx:42 · localhost:3100/login</pre>
+        <ul class="apps"><li>Safari</li><li>Chrome</li><li>Edge</li><li>Arc</li><li>Brave</li><li>Vivaldi</li><li>Firefox</li></ul>
+      </article>
+      <article class="card">
+        <h3>iOS 模拟器</h3>
+        <p>控件类型、文字、accessibilityIdentifier、提示文本和设备名。app 嵌入 <a href="https://github.com/QMUI/LookinServer" rel="noopener">LookinServer</a> 后，另外读出视图类名、所属控制器与 ivar、frame、字体、颜色、圆角和点击响应方法。</p>
+        <pre class="sample">⑤ UILabel “合计 ¥128.00” · 41%×62%
+   ↳ PriceLabel : UILabel · CartViewController.totalLabel · (16,&nbsp;612) 200×22&nbsp;pt · 17pt PingFangSC-Semibold #1A1C1F · 圆角 8</pre>
+      </article>
+      <article class="card">
+        <h3>其他任意 app</h3>
+        <p>控件类型加标题或文字。有些 app 不向系统暴露界面信息，这时改用拖拽框选，再加一句文字说明。</p>
+        <pre class="sample">⑥ AXButton “Login” · com.apple.Safari</pre>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ========== Details ========== -->
+<section class="section section-alt" id="details" aria-labelledby="details-title">
+  <div class="container">
+    <header class="section-head">
+      <p class="eyebrow">标注时的细节</p>
+      <h2 id="details-title">顺手的事，都在手边</h2>
+      <p class="section-lede">标注是一张表单，不是向导：每个标记一行，说明边写边存，面板上的东西不会自己消失。</p>
+    </header>
+    <div class="bento details">
+      <article class="card card-wide">
+        <div class="card-visual map">
+          <div class="map-wire">
+            <i class="w w1"></i><i class="w w2"></i><i class="w w3 sel"></i><i class="w w4 dash"></i>
+            <span class="cross"></span>
+          </div>
+          <ul class="map-rows">
+            <li>AXWindow <s>ledger</s></li>
+            <li class="in1">AXSplitGroup</li>
+            <li class="in2 sel">AXRow <s>components</s></li>
+            <li class="in3">AXStaticText <s>components</s></li>
+            <li class="in3 dim">AXImage</li>
+          </ul>
+        </div>
+        <h3>滚轮切层，小地图在旁</h3>
+        <p>光标下叠着好几个元素时，滚动滚轮在它们之间切换：往上是外层的父级，往下是子级和被挡住的元素。光标旁出现一张小地图，按层级列出它们，并按真实比例画出线框——大小和嵌套一眼可见。触控板每切一格轻震一下。</p>
+      </article>
+      <article class="card">
+        <div class="card-visual">
+          <div class="hover-card small">
+            <div class="hover-row"><span>AXStaticText</span><em>点一行复制</em></div>
+            <div class="hover-row copyable"><span>路径</span><code>~/Projects/ledger</code><i class="cp"></i></div>
+            <div class="hover-row copyable"><span>应用</span><b>Finder</b><i class="cp"></i></div>
+          </div>
+        </div>
+        <h3>按住空格，拿走一项</h3>
+        <p>按住 <kbd>空格</kbd>，高亮停在当前元素上，卡片换成点击后会记下的完整信息。把鼠标移过去点一行，就复制那一项——一个路径、一段文字——不截图也能拿到信息。</p>
+      </article>
+      <article class="card">
+        <div class="card-visual">
+          <div class="seg"><span class="on"><i class="t-frame"></i>标记<kbd>F</kbd></span><span><i class="t-arrow"></i>箭头<kbd>A</kbd></span><span><i class="t-text"></i>文字<kbd>T</kbd></span></div>
+        </div>
+        <h3>框、箭头、文字，一套编号</h3>
+        <p>框选、箭头、文字都是一条编号记录，图上的 ① 和图例里的 ① 一一对应。文字放下就直接打字，边打边出现在画布上。</p>
+      </article>
+      <article class="card">
+        <div class="card-visual">
+          <div class="send">
+            <span class="send-main">发给 ChatGPT<kbd>⌘1</kbd></span>
+            <span class="send-chev"></span>
+            <ul class="send-list"><li>ChatGPT<kbd>⌘1</kbd></li><li>Claude<kbd>⌘2</kbd></li><li>WorkBuddy<kbd>⌘3</kbd></li><li>QuickGPT<kbd>⌘4</kbd></li></ul>
+          </div>
+        </div>
+        <h3>直接发给 AI</h3>
+        <p>发送按钮记着上次用的那个，点它右端的小箭头换一个。ChatGPT 会新建一个 Codex 对话，说明预先填好，由你按发送。</p>
+      </article>
+      <article class="card">
+        <div class="card-visual">
+          <div class="keys"><span class="keycap">⌥⌘R</span><span class="keys-x">×2</span></div>
+        </div>
+        <h3>连按两次，只要截图</h3>
+        <p>不用等标注界面出现。复制的是第一次按下时的画面；多显示器时，复制第二次按下时鼠标所在的屏幕。</p>
+      </article>
+      <article class="card">
+        <div class="card-visual">
+          <div class="keys"><span class="keycap">⌘Z</span><span class="keycap">⇧⌘Z</span></div>
+        </div>
+        <h3>撤销，编号不重排</h3>
+        <p>点错了 <kbd>⌘Z</kbd> 撤销，<kbd>⇧⌘Z</kbd> 重做。想改说明，点已放置的徽标或面板里对应的行。<kbd>Esc</kbd> 逐层退出，有内容时要再按一次才会放弃。</p>
+      </article>
+      <article class="card">
+        <div class="card-visual">
+          <div class="displays"><span class="disp marked"><b>1</b><b>2</b></span><span class="disp"></span></div>
+        </div>
+        <h3>多显示器，各出各的</h3>
+        <p>只输出放了标记的屏幕，每块屏幕一张图，都是整屏，不裁剪。</p>
+      </article>
+      <article class="card">
+        <div class="card-visual">
+          <pre class="sample code">open ref://capture
+open ref://settings
+open ref://permissions</pre>
+        </div>
+        <h3>从脚本或快捷指令触发</h3>
+        <p>Ref 支持 <code>ref://</code> 链接，可以在 Raycast、Alfred、快捷指令或终端里调用。</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ========== Legend ========== -->
+<section class="section" id="legend" aria-labelledby="legend-title">
+  <div class="container">
+    <header class="section-head">
+      <p class="eyebrow">图例</p>
+      <h2 id="legend-title">目标在前，引用在后</h2>
+      <p class="section-lede">第一行是整张图的意图，下面挂着每条编号的说明，说明下面才是它指的东西。没写说明的编号直接写它指的东西；没写整体意图时，编号就是顶层。</p>
+    </header>
+    <div class="anatomy">
+      <pre class="legend anatomy-legend"><span class="hl" data-hl="1">意图：照 ② 的样式在 ③ 加一个导出按钮，代码放到 ①</span>
+<span class="hl" data-hl="2">├─ ① 把新模块放这里</span>
+<span class="hl" data-hl="3">│  <s>└─ folder · ~/Projects/ref/Sources/Ref/Overlay · 18%×36%</s></span>
+├─ ② 参考它的样式
+│  <s>└─ AXButton “Login” · com.apple.Safari · 78%×18%</s>
+├─ ③ 导出按钮放这里
+│  <s>└─ 区域 · 61%×67% – 82%×84%</s>
+├─ ④ 样式从这里来
+│  <s>└─ 箭头 · 66%×62% 指向 78%×22%</s>
+└─ ⑤ 图标用 square.and.arrow.up
+   <s>└─ 文字 · 62%×88%</s>
+
+<span class="hl" data-hl="4"><s>Ref · 2880×1800 px · com.apple.finder “Projects” · 2026-09-21 22:13</s></span></pre>
+      <ol class="anatomy-notes">
+        <li data-for="1"><b>意图</b>对整张图想说的一句话。什么都不标也可以只写这一句。</li>
+        <li data-for="2"><b>你的说明</b>每个编号一行，写的是“想让它怎样”。</li>
+        <li data-for="3"><b>Ref 读到的</b>它是什么、在哪个 app、在屏幕的哪里。路径、网址、选择器完整画出，不省略。</li>
+        <li data-for="4"><b>签名</b>屏幕尺寸、当时最前面的 app 和时间。</li>
+      </ol>
+    </div>
+    <div class="outputs">
+      <div class="output">
+        <h3>剪贴板里只有图</h3>
+        <p>图例画在图里。粘贴到支持图片的地方——Cursor、ChatGPT、飞书——一张图就够。</p>
+      </div>
+      <div class="output">
+        <h3>发给其他 App 时附上文字</h3>
+        <p>图例的短版：你写的整体说明、<code>截图 @路径</code>，然后每条编号一行——你的说明，一个破折号，Ref 读到的东西。</p>
+      </div>
+      <div class="output">
+        <h3>完整，不省略</h3>
+        <p>路径、网址、选择器和你写的说明都完整画出，一行放不下就折到下一行。只有从屏幕上读到的大段文字会截短，因为截图里本来就有。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== Privacy & permissions ========== -->
+<section class="section section-alt" id="privacy" aria-labelledby="privacy-title">
+  <div class="container">
+    <header class="section-head">
+      <p class="eyebrow">权限与隐私</p>
+      <h2 id="privacy-title">只在你按下热键的那一刻截图</h2>
+      <p class="section-lede">不会持续录屏，也不会上传任何内容。读到的信息只写进那张图，图只进你的剪贴板。</p>
+    </header>
+    <div class="perms">
+      <article class="perm">
+        <span class="level req">必需</span>
+        <h3>屏幕录制</h3>
+        <p>按热键时给每个显示器拍一张截图。</p>
+        <p class="perm-without">没有它：无法开始标注，按热键会提示前往系统设置。</p>
+      </article>
+      <article class="perm">
+        <span class="level rec">推荐</span>
+        <h3>辅助功能</h3>
+        <p>识别光标下的控件、文件、文字。</p>
+        <p class="perm-without">没有它：仍能截图、框选区域、画箭头、写文字，只是框选不带元素信息。</p>
+      </article>
+      <article class="perm">
+        <span class="level opt">可选</span>
+        <h3>访达自动化</h3>
+        <p>辅助功能拿不到文件路径时，向访达问一下。</p>
+        <p class="perm-without">仅影响访达里少数拿不到路径的情况；首次需要时 macOS 会询问一次。</p>
+      </article>
+    </div>
+    <div class="guide">
+      <div class="guide-text">
+        <h3>授权在系统设置旁完成</h3>
+        <p>点“允许…”后，Ref 不弹系统询问，直接打开系统设置对应的页面，并在窗口旁放一块小面板，只写当前这一步。开关一打开，Ref 自己会察觉、在面板上确认，然后回到你出发的窗口。只有在 macOS 确实要求重新打开 Ref 时，才会出现“重新启动 Ref”按钮。</p>
+      </div>
+      <div class="guide-visual" aria-hidden="true">
+        <div class="guide-panel">
+          <div class="guide-step"><span class="guide-icon"></span><p>在列表里打开 <b>Ref</b> 的开关</p></div>
+          <div class="guide-switch"><span class="sw"><i></i></span><span>Ref</span></div>
+          <p class="guide-ok"><i></i>已允许 · 正在返回</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== Settings & updates ========== -->
+<section class="section" id="settings" aria-labelledby="settings-title">
+  <div class="container two">
+    <div>
+      <p class="eyebrow">设置</p>
+      <h2 id="settings-title">能调的只有两项</h2>
+      <p>热键，和登录时启动。因为只有你能决定它们。</p>
+      <p>其余都由 Ref 自己决定：标注一律是红色，靠编号区分；图例里的固定用词跟随系统语言；输出总是整屏，只进剪贴板；更新自动完成。</p>
+    </div>
+    <div>
+      <p class="eyebrow">更新</p>
+      <h2>装好之后，不用再回来</h2>
+      <p>Ref 每天检查一次 GitHub Releases，有新版本就自己下载、校验签名、装好并重新启动，重启后提示“已更新到 Ref x.y.z”。正在标注时不会打断你。</p>
+      <p>想立刻查，用菜单栏 → “检查更新…”，会附带这一版的更新说明，由你点“安装更新”或“稍后”。用 Homebrew 装的也一样会自己更新。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ========== Shortcuts ========== -->
+<section class="section section-alt" id="shortcuts" aria-labelledby="shortcuts-title">
+  <div class="container">
+    <header class="section-head">
+      <p class="eyebrow">快捷键速查</p>
+      <h2 id="shortcuts-title">手不用离开键盘</h2>
+    </header>
+    <div class="keys-table">
+      <table>
+        <tbody>
+          <tr><th scope="row"><kbd>⌥⌘R</kbd></th><td>开始标注 / 完成并复制；快速连按两次直接截图并复制</td></tr>
+          <tr><th scope="row">点击 / 拖拽</th><td>框选元素 / 框选区域</td></tr>
+          <tr><th scope="row">滚轮</th><td>在光标下的元素之间切换：往上是父级，往下是子级和被遮挡的元素</td></tr>
+          <tr><th scope="row">按住 <kbd>空格</kbd></th><td>锁住当前高亮的元素，点信息卡里的一行复制那一项</td></tr>
+          <tr><th scope="row"><kbd>F</kbd> <kbd>A</kbd> <kbd>T</kbd></th><td>框选工具 / 箭头工具 / 文字工具</td></tr>
+          <tr><th scope="row"><kbd>⌘Z</kbd> <kbd>⇧⌘Z</kbd></th><td>撤销 / 重做，编号不重排</td></tr>
+        </tbody>
+      </table>
+      <table>
+        <tbody>
+          <tr><th scope="row"><kbd>Tab</kbd></th><td>进入印着 Tab 的那一行说明；在输入框中往下走到下一条、“当前屏幕”和按钮</td></tr>
+          <tr><th scope="row"><kbd>⏎</kbd></th><td>画布上进入当前那一行说明；输入框中回到画布。从不结束标注</td></tr>
+          <tr><th scope="row"><kbd>⌘⏎</kbd></th><td>完成并复制</td></tr>
+          <tr><th scope="row"><kbd>⌘1</kbd> … <kbd>⌘4</kbd></th><td>完成并发给 ChatGPT / Claude / WorkBuddy / QuickGPT</td></tr>
+          <tr><th scope="row"><kbd>Esc</kbd></th><td>退出一层：发送列表 / 锁住的高亮 → 输入框 → 画布 → 放弃；有内容时再按一次才放弃</td></tr>
+          <tr><th scope="row"><kbd>⌘0</kbd></th><td>直接取消</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ========== Install ========== -->
+<section class="section" id="install" aria-labelledby="install-title">
+  <div class="container">
+    <div class="install">
+      <div class="install-head">
+        <img src="assets/img/icon-256.png" width="96" height="96" alt="" decoding="async">
+        <div>
+          <p class="eyebrow">安装</p>
+          <h2 id="install-title">三种装法，<span class="nowrap">装上的是同一个包</span></h2>
+          <p class="section-lede">Ref 没有主窗口，启动后只在菜单栏出现一个图标。第一次启动会打开 设置 → 权限，逐项说明需要哪些权限、各自做什么。</p>
+        </div>
+      </div>
+      <div class="install-ways">
+        <div class="way">
+          <h3>下载 DMG</h3>
+          <p>把 Ref 拖进“应用程序”，然后启动。Universal，Apple 芯片和 Intel 都行。</p>
+          <a class="btn btn-primary" href="https://github.com/ddhjy/ref-releases/releases/download/v0.3.4/Ref-0.3.4.dmg" data-download-dmg>
+            <svg class="i" viewBox="0 0 20 20" aria-hidden="true"><path d="M10 3v9m0 0 3.5-3.5M10 12 6.5 8.5M4 14.5v1A1.5 1.5 0 0 0 5.5 17h9a1.5 1.5 0 0 0 1.5-1.5v-1"/></svg>
+            下载 <span data-dmg-name>Ref-0.3.4.dmg</span>
+          </a>
+          <p class="way-meta"><span data-dmg-size>4.6 MB</span> · Developer ID 签名并经 Apple 公证 · <a href="https://github.com/ddhjy/ref-releases/releases/latest" data-release-link>更新说明与校验和</a></p>
+        </div>
+        <div class="way">
+          <h3>Homebrew</h3>
+          <p>一行命令。以后 <code>brew upgrade --cask ref</code> 也能更新，Ref 自己也会更新。</p>
+          <button class="cmd copy" type="button" data-copy="brew install --cask ddhjy/tap/ref" title="复制 Homebrew 安装命令">
+            <span class="sr-only">复制 </span><code><span class="prompt" aria-hidden="true">$</span> brew install --cask ddhjy/tap/ref</code>
+            <svg class="i i-copy" viewBox="0 0 20 20" aria-hidden="true"><rect x="7" y="7" width="9" height="9" rx="2"/><path d="M4 13V5a1 1 0 0 1 1-1h8"/></svg>
+            <svg class="i i-done" viewBox="0 0 20 20" aria-hidden="true"><path d="m4.5 10.5 3.5 3.5 7.5-8"/></svg>
+          </button>
+          <p class="way-meta"><a href="https://github.com/ddhjy/homebrew-tap" rel="noopener">ddhjy/homebrew-tap</a></p>
+        </div>
+        <div class="way">
+          <h3>从源码</h3>
+          <p>装好 Xcode 26，在仓库目录执行 <code>make install</code>，会打包并安装到 /Applications。</p>
+          <p class="way-meta">需要 macOS 26 (Tahoe) 或更高版本。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== FAQ ========== -->
+<section class="section section-alt" id="faq" aria-labelledby="faq-title">
+  <div class="container narrow">
+    <header class="section-head">
+      <p class="eyebrow">支持</p>
+      <h2 id="faq-title">常见问题</h2>
+    </header>
+    <div class="faq">
+      <details open>
+        <summary>按热键没反应？</summary>
+        <p>通常是“屏幕录制”权限没开，或者授权后还没重新打开 Ref；按热键时 Ref 会直接打开 设置 → 权限。热键也可能和别的 app 冲突，去 设置 → 通用 换一个。</p>
+      </details>
+      <details>
+        <summary>只能框选，看不到元素名字？</summary>
+        <p>“辅助功能”权限没开。菜单栏 → “权限…” 进去允许即可。</p>
+      </details>
+      <details>
+        <summary>某个 app 里读不出有用信息？</summary>
+        <p>有些 app 不向系统暴露界面信息（比如部分沙盒应用、自绘界面的应用），Ref 只能拿到控件类型。改用拖拽框选，再加一句文字说明。</p>
+      </details>
+      <details>
+        <summary>网页元素怎么读出选择器和组件名？</summary>
+        <p>需要两步开启：在 Ref 设置里允许“浏览器自动化”，再在浏览器里打开“允许 Apple 事件中的 JavaScript”（Chrome：菜单栏的 显示 › 开发者；Safari：设置 › 开发者）。Ref 只在你点击标记时读一次被点中的元素，不会修改页面。</p>
+      </details>
+      <details>
+        <summary>粘贴不出东西？</summary>
+        <p>剪贴板里只有图片，目标输入框不支持图片就贴不进去。换个支持图片的地方粘贴。</p>
+      </details>
+      <details>
+        <summary>Chrome、VS Code 里第一次点进去有点慢？</summary>
+        <p>Chromium / Electron 应用（Chrome、VS Code、Slack、Figma 这类）第一次点进去会有短暂延迟，之后正常。</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ========== Footer ========== -->
+<footer class="site-footer">
+  <div class="footer-cta">
+    <div class="container">
+      <img src="assets/img/icon-192.png" width="80" height="80" alt="" decoding="async" loading="lazy">
+      <h2>下次要说“那个按钮”时，<br>按 ⌥⌘R。</h2>
+      <p>免费，需要 macOS 26 或更高版本。</p>
+      <div class="cta">
+        <a class="btn btn-contrast btn-lg" href="https://github.com/ddhjy/ref-releases/releases/download/v0.3.4/Ref-0.3.4.dmg" data-download-dmg>下载 Ref for Mac</a>
+      </div>
+    </div>
+  </div>
+  <div class="container footer-grid">
+    <div class="footer-brand">
+      <a class="brand" href="./" aria-label="Ref 首页">
+        <img src="assets/img/icon-192.png" width="28" height="28" alt="" decoding="async" loading="lazy">
+        <span>Ref</span>
+      </a>
+      <p>一张图说清“我说的是哪个”。</p>
+    </div>
+    <nav aria-label="产品">
+      <h3>产品</h3>
+      <a href="https://github.com/ddhjy/ref-releases/releases/latest" data-release-link>下载</a>
+      <a href="https://github.com/ddhjy/ref-releases/releases">更新日志</a>
+      <a href="https://github.com/ddhjy/homebrew-tap" rel="noopener">Homebrew</a>
+    </nav>
+    <nav aria-label="了解">
+      <h3>了解</h3>
+      <a href="#how">怎么用</a>
+      <a href="#reads">能读出什么</a>
+      <a href="#legend">图例</a>
+      <a href="#shortcuts">快捷键</a>
+    </nav>
+    <nav aria-label="支持">
+      <h3>支持</h3>
+      <a href="#privacy">权限与隐私</a>
+      <a href="#faq">常见问题</a>
+      <a href="https://github.com/ddhjy/ref-releases/issues" rel="noopener">问题反馈</a>
+    </nav>
+  </div>
+  <div class="container">
+    <div class="footer-bottom">
+      <p>© 2026 ddhjy · Ref 是 macOS 菜单栏工具，界面支持中文和英文。</p>
+      <p class="footer-langs"><span aria-current="page">中文</span><a href="en/" lang="en" hreflang="en">English</a></p>
+    </div>
+  </div>
+</footer>
+
+<div class="sr-live" aria-live="polite"></div>
+<script src="assets/site.js" defer></script>
+</body>
+</html>

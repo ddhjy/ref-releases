@@ -1,0 +1,15 @@
+{
+  "name": "Ref",
+  "short_name": "Ref",
+  "description": "macOS 菜单栏工具：按下热键，点一点你想说的东西，Ref 读出它们是什么，合成一张自带图例的图。",
+  "lang": "zh-CN",
+  "start_url": "./",
+  "scope": "./",
+  "display": "browser",
+  "background_color": "#ffffff",
+  "theme_color": "#ffffff",
+  "icons": [
+    { "src": "assets/img/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "assets/img/icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}

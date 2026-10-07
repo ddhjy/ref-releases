@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>404 · Ref</title>
+<meta name="robots" content="noindex">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="/ref-releases/assets/img/favicon.svg" type="image/svg+xml">
+<style>
+  :root {
+    color-scheme: light dark;
+    --bg: #fff; --ink: #161617; --ink-2: #6e6e73; --hair: rgba(0, 0, 0, 0.1); --red: #ff3b30; --red-tint: rgba(255, 59, 48, 0.08);
+    --font: -apple-system, BlinkMacSystemFont, "SF Pro Text", "PingFang SC", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg: #161617; --ink: #f5f5f7; --ink-2: #a1a1a6; --hair: rgba(255, 255, 255, 0.14); --red: #ff453a; --red-tint: rgba(255, 69, 58, 0.14); }
+  }
+  * { box-sizing: border-box; margin: 0; }
+  html, body { height: 100%; }
+  body {
+    display: grid; place-items: center; padding: 24px;
+    background: var(--bg); color: var(--ink); font: 17px/1.55 var(--font);
+    -webkit-font-smoothing: antialiased;
+  }
+  main { max-width: 520px; text-align: center; }
+  .icon { width: 72px; height: 72px; filter: drop-shadow(0 6px 16px rgba(0, 0, 0, 0.12)); }
+  .icon .paper { fill: url(#paper); }
+  @media (prefers-color-scheme: dark) { .icon .paper { fill: url(#ink); } }
+  pre {
+    display: inline-block; margin: 28px 0 0; padding: 14px 18px; text-align: left;
+    border-radius: 10px; background: #161617; color: #e8e8ed;
+    font: 500 13px/1.7 var(--mono); white-space: pre; overflow-x: auto; max-width: 100%;
+  }
+  @media (prefers-color-scheme: dark) { pre { background: #0d0d0e; } }
+  h1 { margin-top: 24px; font-size: 28px; font-weight: 600; letter-spacing: -0.01em; }
+  h1 .mark {
+    position: relative; display: inline-block; margin-left: 0.14em; padding: 0 0.12em;
+    border: 2px solid var(--red); border-radius: 6px; background: var(--red-tint);
+  }
+  h1 .mark .badge {
+    position: absolute; left: 0; top: 0; transform: translate(-50%, -45%);
+    width: 16px; height: 16px; border-radius: 50%; background: var(--red); color: #fff;
+    font: 600 10px/16px var(--font); text-align: center;
+  }
+  p { margin-top: 10px; color: var(--ink-2); }
+  p[lang="en"] { margin-top: 2px; }
+  nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 28px; }
+  a {
+    display: inline-block; padding: 10px 18px; border-radius: 999px; text-decoration: none; font-weight: 500; font-size: 15px;
+    color: var(--ink); border: 1px solid var(--hair);
+  }
+  a.primary { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+  a:hover { opacity: 0.85; }
+</style>
+</head>
+<body>
+<main>
+  <svg class="icon" viewBox="0 0 1024 1024" width="72" height="72" aria-hidden="true">
+    <defs>
+      <clipPath id="tile"><path d="M 407.93 0 L 616.07 0 C 733.53 0 792.26 0 855.48 19.99 C 924.51 45.11 978.89 99.49 1004.01 168.52 C 1024 231.74 1024 290.47 1024 407.93 L 1024 616.07 C 1024 733.53 1024 792.26 1004.01 855.48 C 978.89 924.51 924.51 978.89 855.48 1004.01 C 792.26 1024 733.53 1024 616.07 1024 L 407.93 1024 C 290.47 1024 231.74 1024 168.52 1004.01 C 99.49 978.89 45.11 924.51 19.99 855.48 C 0 792.26 0 733.53 0 616.07 L 0 407.93 C 0 290.47 0 231.74 19.99 168.52 C 45.11 99.49 99.49 45.11 168.52 19.99 C 231.74 0 290.47 0 407.93 0 Z"/></clipPath>
+      <linearGradient id="paper" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFFFFF"/><stop offset="1" stop-color="#F3F3F6"/></linearGradient>
+      <linearGradient id="ink" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2C2C2E"/><stop offset="1" stop-color="#1C1C1E"/></linearGradient>
+    </defs>
+    <g clip-path="url(#tile)">
+      <rect class="paper" width="1024" height="1024"/>
+      <path d="M 433.231 1088 V 531.692 A 98.462 98.462 0 0 1 531.692 433.231 H 1088 V 1088 Z" fill="#FF3B30" fill-opacity="0.16"/>
+      <path d="M 393.846 1088 V 531.692 A 137.846 137.846 0 0 1 531.692 393.846 H 1088 V 1088 Z M 433.231 1088 V 531.692 A 98.462 98.462 0 0 1 531.692 433.231 H 1088 V 1088 Z" fill-rule="evenodd" fill="#FF3B30"/>
+      <circle cx="295.38" cy="295.38" r="137.85" fill="#FF3B30"/>
+      <path d="M 330.831 236.308 L 330.831 354.462 A 19.692 19.692 0 0 1 291.446 354.462 L 291.446 283.849 L 275.832 299.463 A 19.692 19.692 0 0 1 247.983 271.614 L 297.214 222.383 A 19.692 19.692 0 0 1 330.831 236.308 Z" fill="#FFFFFF"/>
+    </g>
+  </svg>
+  <h1>这一页 <span class="mark"><span class="badge" aria-hidden="true">1</span>不存在</span></h1>
+  <p>它可能被移动了，或者链接打错了。</p>
+  <p lang="en">This page doesn’t exist. It may have moved, or the link has a typo.</p>
+  <pre aria-hidden="true">├─ ① 找不到这一页
+│  └─ 404 · 不存在的地址</pre>
+  <nav aria-label="去向 / Where to go">
+    <a class="primary" href="/ref-releases/">回到首页</a>
+    <a href="/ref-releases/en/" lang="en" hreflang="en">English home</a>
+    <a href="https://github.com/ddhjy/ref-releases/releases/latest">下载 Ref</a>
+  </nav>
+</main>
+</body>
+</html>
