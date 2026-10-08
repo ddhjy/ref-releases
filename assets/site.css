@@ -569,7 +569,7 @@ p code, td code, li code, h3 code { padding: 0.1em 0.4em; border-radius: 5px; ba
 .send-list li { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 5px 9px; border-radius: 6px; font-size: 12.5px; }
 .send-list li:first-child { background: var(--red-tint); }
 .send-list kbd { font-size: 10.5px; color: var(--ink-3); min-width: 0; padding: 0 5px; background: transparent; box-shadow: none; }
-.details .card-visual:has(.send) { align-items: flex-start; padding-top: 22px; min-height: 218px; }
+.details .card-visual:has(.send) { align-items: flex-start; padding-top: 22px; min-height: 248px; }
 
 .displays { display: flex; align-items: flex-end; gap: 14px; }
 .disp { position: relative; width: 120px; height: 76px; border-radius: 8px; background: var(--card); box-shadow: 0 0 0 1.5px var(--ink-3); }
