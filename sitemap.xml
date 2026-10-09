@@ -2,15 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://ddhjy.github.io/ref-releases/</loc>
-    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://ddhjy.github.io/ref-releases/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://ddhjy.github.io/ref-releases/en/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://ddhjy.github.io/ref-releases/"/>
+    <loc>https://ref.suixinapp.com/</loc>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://ref.suixinapp.com/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ref.suixinapp.com/en/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ref.suixinapp.com/"/>
   </url>
   <url>
-    <loc>https://ddhjy.github.io/ref-releases/en/</loc>
-    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://ddhjy.github.io/ref-releases/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://ddhjy.github.io/ref-releases/en/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://ddhjy.github.io/ref-releases/"/>
+    <loc>https://ref.suixinapp.com/en/</loc>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://ref.suixinapp.com/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://ref.suixinapp.com/en/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ref.suixinapp.com/"/>
   </url>
 </urlset>
