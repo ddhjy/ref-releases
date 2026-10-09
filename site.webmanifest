@@ -1,7 +1,7 @@
 {
   "name": "Ref",
   "short_name": "Ref",
-  "description": "macOS 菜单栏工具：按下热键，点一点你想说的东西，Ref 读出它们是什么，合成一张自带图例的图。",
+  "description": "macOS 菜单栏工具：按下热键，点一点你想说的东西，Ref 读出它们是什么，合成一张自带标注说明的图。",
   "lang": "zh-CN",
   "start_url": "./",
   "scope": "./",

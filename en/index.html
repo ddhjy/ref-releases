@@ -21,7 +21,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:locale:alternate" content="zh_CN">
 <meta property="og:title" content="Ref — One image that says exactly which one you mean">
-<meta property="og:description" content="A macOS menu bar tool. Press a hotkey to freeze the screen, click the things you mean, and Ref reads what they are, numbers them, and composes one image with its own legend. Paste it into Cursor, ChatGPT, Claude, or a chat with a colleague.">
+<meta property="og:description" content="A macOS menu bar tool. Press a hotkey to freeze the screen, click the things you mean, and Ref reads what they are, numbers them, and composes one image with its own legend. Paste it into Cursor, ChatGPT or Claude.">
 <meta property="og:url" content="https://ref.suixinapp.com/en/">
 <meta property="og:image" content="https://ref.suixinapp.com/assets/img/og-en.png">
 <meta property="og:image:width" content="1200">
@@ -68,11 +68,11 @@
       <span>Ref</span>
     </a>
     <nav class="nav-links" id="nav" aria-label="Page">
-      <a href="#how">How it works</a>
       <a href="#reads">What Ref reads</a>
-      <a href="#details">Details</a>
-      <a href="#legend">Legend</a>
-      <a href="#privacy">Permissions &amp; privacy</a>
+      <a href="#details">Annotating</a>
+      <a href="#legend">The legend</a>
+      <a href="#shortcuts">Shortcuts</a>
+      <a href="#install">Install</a>
       <a href="#faq">FAQ</a>
       <a class="nav-lang" href="../" lang="zh-Hans" hreflang="zh-Hans">中文</a>
     </nav>
@@ -91,14 +91,9 @@
 <!-- ========== Hero ========== -->
 <section class="hero" aria-labelledby="hero-title">
   <div class="container hero-copy">
-    <a class="pill" href="https://github.com/ddhjy/ref-releases/releases/latest" data-release-link>
-      <span class="pill-dot" aria-hidden="true"></span>
-      <span data-version>v0.3.5</span>
-      <span class="pill-sep" aria-hidden="true">·</span>
-      <span>macOS 26 Tahoe</span>
-    </a>
     <h1 id="hero-title">One image that says <span class="mark">“this one”<b class="badge" aria-hidden="true">1</b></span></h1>
-    <p class="lede">Ref is a macOS menu bar tool. Press a hotkey to freeze the screen, then click the things you mean. Ref reads what they are — which file, which URL, which button, which line of code — numbers them, and composes one image with your notes and a legend, straight onto the clipboard. Paste it into Cursor, ChatGPT, Claude, or a chat with a colleague.</p>
+    <p class="lede">Ref is a macOS menu bar tool. Press a hotkey to freeze the screen, then click the things you mean. Ref reads what they are — which file, which URL, which button, which line of code — numbers them, and composes one image with your requests and a legend, straight onto the clipboard.</p>
+    <p class="lede">Paste it into Cursor, ChatGPT or Claude.</p>
     <div class="cta">
       <a class="btn btn-primary btn-lg" href="https://github.com/ddhjy/ref-releases/releases/download/v0.3.5/Ref-0.3.5.dmg" data-download-dmg>
         <svg class="i" viewBox="0 0 20 20" aria-hidden="true"><path d="M10 3v9m0 0 3.5-3.5M10 12 6.5 8.5M4 14.5v1A1.5 1.5 0 0 0 5.5 17h9a1.5 1.5 0 0 0 1.5-1.5v-1"/></svg>
@@ -113,7 +108,24 @@
     <p class="fine">Free · Requires macOS 26 or later · Developer ID signed and notarized by Apple · <span data-dmg-size>4.7 MB</span> · Updates itself</p>
   </div>
 
+</section>
+
+<!-- ========== Problem ========== -->
+<section class="section" id="why" aria-labelledby="why-title">
+  <div class="container">
+    <h2 id="why-title">A screenshot only says half of it</h2>
+    <p class="why-intro">To get an AI to change something on your screen, you usually end up describing it:</p>
+    <blockquote class="why-quote">“<mark>The components folder</mark> in the Finder window on the left… no, the one under src… make it look like <mark>the New invoice button</mark> in Safari, and put an export button in <mark>that empty space</mark> under the table, bottom right.”</blockquote>
+    <p class="why-because">Why that doesn’t get through</p>
+    <ol class="why-reasons">
+      <li><b>“That folder”</b>More than one folder has that name. The AI needs the full path, and a screenshot doesn’t show it.</li>
+      <li><b>“That button”</b>A screenshot only shows what it looks like. Which component it is, and which file and line it’s written on, the AI has to guess or search for.</li>
+      <li><b>“That empty space”</b>How big, from where to where — a sentence can’t pin it down.</li>
+    </ol>
+    <p class="vs-foot"><strong>Ref types it for you.</strong> For every element you click, it reads what that is and writes it into the legend under the image. You only add “what should happen to it”.</p>
+  </div>
   <div class="container-wide">
+    <p class="demo-lead">The same request, marked with Ref</p>
     <figure class="demo" aria-label="An image copied by Ref: five numbered marks on a screenshot, and a legend band underneath that spells out what each mark refers to">
       <div class="demo-frame">
       <div class="demo-screen" aria-hidden="true">
@@ -182,134 +194,41 @@
           </div>
         </div>
 
-        <!-- Marks, numbered in the order they were placed -->
-        <span class="mk mk-frame" style="--x:13.6%;--y:22.9%;--w:31.8%;--h:3.4%" data-n="1"><b>1</b></span>
-        <span class="mk mk-frame" style="--x:88.7%;--y:11.6%;--w:7.1%;--h:3.4%" data-n="2"><b>2</b></span>
-        <span class="mk mk-region" style="--x:66%;--y:71%;--w:28%;--h:17%" data-n="3"><b>3</b></span>
-        <svg class="mk mk-arrow" viewBox="0 0 1000 625" preserveAspectRatio="none" data-n="4">
-          <defs><marker id="arrowhead" viewBox="0 0 10 10" refX="7.5" refY="5" markerWidth="4" markerHeight="4" orient="auto-start-reverse"><path d="M0 1 9 5 0 9z" fill="#ff3b30"/></marker></defs>
-          <path d="M 920 431 C 945 400, 955 350, 955 302" fill="none" stroke="#ff3b30" stroke-width="2.5" stroke-linecap="round" marker-end="url(#arrowhead)" vector-effect="non-scaling-stroke"/>
+        <!-- Marks as the app draws them: a square ring outside the frame, the badge off its
+             top-left corner; a straight arrow with the badge behind its tail; text beside its badge. -->
+        <span class="mk mk-frame" style="--x:19.7%;--y:23.4%;--w:5.7%;--h:2.3%" data-n="1"><b>1</b></span>
+        <span class="mk mk-frame" style="--x:88.67%;--y:11.58%;--w:7.13%;--h:3.36%" data-n="2"><b>2</b></span>
+        <span class="mk mk-region" style="--x:74.5%;--y:71%;--w:20%;--h:17%" data-n="3"><b>3</b></span>
+        <svg class="mk mk-arrow" viewBox="0 0 1000 625" preserveAspectRatio="none" data-n="4" data-tail="920 412.5" data-head="956 295">
+          <path d="M920 412.5 L955.08 297.99 M938.52 306.78 L955.08 297.99 L963.87 314.55"/>
         </svg>
-        <span class="mk mk-badge-only" style="--x:92%;--y:69%" data-n="4"><b>4</b></span>
-        <span class="mk mk-text" style="--x:50%;--y:78%" data-n="5"><b>5</b>Label: Export CSV</span>
+        <span class="mk mk-badge-only" style="--x:92%;--y:66%;--ux:0.2929;--uy:-0.9561" data-n="4"><b>4</b></span>
+        <span class="mk mk-text" style="--x:76.1%;--y:78%" data-n="5"><b>5</b>Label: Export CSV</span>
       </div>
 
-      <pre class="demo-legend" data-legend><span class="ll" data-n="0">Intent: add an Export button in ③, styled like ②; the code goes in ①</span>
-<span class="ll" data-n="1">├─ ① New component goes here
-│  <s>└─ folder · ~/Projects/ledger/src/components · 30%×25%</s></span>
-<span class="ll" data-n="2">├─ ② Match this style
-│  <s>└─ AXButton “New invoice” · button.primary · 124×32 · Toolbar · src/components/Toolbar.tsx:18 · localhost:3100/invoices · 92%×13%</s></span>
-<span class="ll" data-n="3">├─ ③ Export button goes here
-│  <s>└─ region · 66%×71% – 94%×88%</s></span>
-<span class="ll" data-n="4">├─ ④ Right edge lines up with the table
-│  <s>└─ arrow · 92%×69% to 96%×48%</s></span>
-<span class="ll" data-n="5">└─ ⑤ Label: Export CSV
-   <s>└─ text · 50%×78%</s></span>
-
-<span class="ll sig" data-n="6">Ref · 2880×1800 px · com.apple.Safari “Invoices — Ledger” · 2026-10-07 15:55</span></pre>
+      <pre class="demo-legend" data-legend><span class="ll" data-n="0"><em>Overall request: </em>add an Export button in 3, styled like 2; the code goes in 1</span>
+<span class="ll" data-n="1">├─ <i class="lb" data-n="1">①</i> New component goes here
+│  └─ AXTextField “components” · folder · ~/Projects/ledger/src/components ·
+│     com.apple.finder · 23%×25%</span>
+<span class="ll" data-n="2">├─ <i class="lb" data-n="2">②</i> Match this style
+│  └─ AXButton “New invoice” · 92%×13%
+│     ↳ Toolbar @ src/components/Toolbar.tsx:18 · button.primary · 124×32
+│       13px Inter 600 #FFFFFF bg #0D44E8</span>
+<span class="ll" data-n="3">├─ <i class="lb" data-n="3">③</i> Export button goes here
+│  └─ region · 75%×71% – 95%×88%</span>
+<span class="ll" data-n="4">├─ <i class="lb" data-n="4">④</i> Right edge lines up with the table
+│  └─ arrow · 92%×66% to 96%×47%</span>
+<span class="ll" data-n="5">└─ <i class="lb" data-n="5">⑤</i> Label: Export CSV
+   └─ text · 76%×78%</span>
+<span class="ll sig" data-n="6">page · http://localhost:3100/invoices
+Ref · 2880×1800 px · com.apple.Safari “Invoices — Ledger” · 2026-10-07 15:55</span></pre>
       </div>
-      <figcaption class="demo-caption">This is what lands on the clipboard: the original screenshot with numbered marks, and a legend band underneath. ①–⑤ on the image match ①–⑤ in the legend, so people and models can refer to them directly.</figcaption>
+      <figcaption class="demo-caption">This is what lands on the clipboard: the original screenshot with numbered marks, and a legend band underneath. ①–⑤ on the image match ①–⑤ in the legend, so the AI can refer to them by number.</figcaption>
     </figure>
   </div>
-</section>
-
-<!-- ========== Paste targets ========== -->
-<section class="paste" aria-label="Where you can paste it">
-  <div class="container">
-    <p class="paste-title">Paste it anywhere that takes an image</p>
-    <ul class="paste-list">
-      <li>Cursor</li><li>ChatGPT</li><li>Claude</li><li>Codex</li><li>Slack</li><li>Linear</li><li>Figma</li><li>Notion</li><li>Messages</li>
-    </ul>
-  </div>
-</section>
-
-<!-- ========== Problem ========== -->
-<section class="section" id="why" aria-labelledby="why-title">
-  <div class="container split">
-    <div class="split-text">
-      <p class="eyebrow">The problem</p>
-      <h2 id="why-title">A screenshot only says half of it</h2>
-      <p>To get an AI or a colleague to change something on your screen, you usually end up describing it:</p>
-      <blockquote>“The Overlay folder in the file tree on the left… no, the one under Sources… make it look like the login button in Safari, and put an export button in that empty space at the bottom right.”</blockquote>
-      <p>With a screenshot they can see where you’re pointing, but not the folder’s real path, which app that button belongs to, or which file and line that is. You still have to type all of that in by hand.</p>
-      <p><strong>Ref types it for you.</strong> For every element you click, it reads what that is and writes it into the legend under the image. You only add “what should happen to it”.</p>
-    </div>
-    <div class="split-visual">
-      <div class="legend-card">
-        <p class="legend-card-title">The same request, marked with Ref</p>
-<pre class="legend">Intent: add an Export button in ③, styled like ②; the code goes in ①
-├─ ① New module goes here
-│  <s>└─ folder · ~/Projects/ref/Sources/Ref/Overlay · 18%×36%</s>
-├─ ② Match this style
-│  <s>└─ AXButton “Login” · com.apple.Safari · 78%×18%</s>
-└─ ③ Export button goes here
-   <s>└─ region · 61%×67% – 82%×84%</s>
-
-<s>Ref · 2880×1800 px · com.apple.finder “Projects” · 2026-09-21 22:13</s></pre>
-        <p class="legend-card-note">Goal first, references second: the first line is the intent for the whole image. Under it hangs each numbered note, and under each note, what it points at — which element, and where.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ========== How it works ========== -->
-<section class="section section-alt" id="how" aria-labelledby="how-title">
-  <div class="container">
-    <header class="section-head">
-      <p class="eyebrow">How it works</p>
-      <h2 id="how-title">Press once, click a few things, write a line</h2>
-      <p class="section-lede">There is no main window and nothing to open first. Press the hotkey in any app and the whole screen is your canvas.</p>
-    </header>
-    <ol class="steps">
-      <li class="step">
-        <div class="step-visual">
-          <span class="keycap big">⌥⌘R</span>
-        </div>
-        <h3><span class="step-n">1</span>Freeze the screen</h3>
-        <p>Press <kbd>⌥⌘R</kbd> (changeable) anywhere. The screen freezes and the legend panel appears at the bottom. Just want a screenshot on the clipboard? Press it twice quickly.</p>
-      </li>
-      <li class="step">
-        <div class="step-visual">
-          <div class="hover-card">
-            <div class="hover-row"><span>AXButton</span><em>Hold Space to copy</em></div>
-            <div class="hover-row"><span>Name</span><b>New invoice</b></div>
-            <div class="hover-row"><span>Selector</span><code>button.primary</code></div>
-            <div class="hover-row"><span>Source</span><code>Toolbar.tsx:18</code></div>
-            <div class="hover-row"><span>App</span><b>Safari</b></div>
-          </div>
-        </div>
-        <h3><span class="step-n">2</span>Click what you mean</h3>
-        <p>A highlight follows the element under the cursor, and a card lists what Ref read, line by line. <strong>Click</strong> to frame an element, <strong>drag</strong> to frame a region; press <kbd>A</kbd> for an arrow or <kbd>T</kbd> for text, and the numbering continues.</p>
-      </li>
-      <li class="step">
-        <div class="step-visual">
-          <div class="note-row">
-            <span class="note-badge">2</span>
-            <span class="note-desc">AXButton “New invoice”</span>
-            <span class="note-field"><span class="note-caret"></span>Match this style<kbd>Tab</kbd></span>
-          </div>
-        </div>
-        <h3><span class="step-n">3</span>Add a line about what should happen</h3>
-        <p>Every mark adds a row to the panel. Press <kbd>Tab</kbd> to write a few words, then <kbd>⏎</kbd> to get back to the canvas — or skip it and click the next thing. Notes save as you type.</p>
-      </li>
-      <li class="step">
-        <div class="step-visual">
-          <div class="toast"><i></i>Copied · 5 annotations</div>
-        </div>
-        <h3><span class="step-n">4</span>Go paste</h3>
-        <p>Press <kbd>⌘⏎</kbd> to finish. The image is on the clipboard immediately, legend included. Or press <kbd>⌘1</kbd>…<kbd>⌘5</kbd> to send it straight to ChatGPT, Claude, WorkBuddy, QuickGPT, or Grok Bot.</p>
-      </li>
-    </ol>
-    <div class="shot-pair">
-      <figure class="shot">
-        <img src="../assets/img/annotating-element-750.webp" srcset="../assets/img/annotating-element-750.webp 750w, ../assets/img/annotating-element-1500.webp 1500w" sizes="(min-width: 1240px) 590px, (min-width: 901px) calc(50vw - 34px), calc(100vw - 48px)" width="1500" height="560" alt="Real screenshot: on X, the “Home” nav item and the “@mattpocockuk” handle that were clicked each sit in a red frame, with red badges numbered ① and ②" loading="lazy" decoding="async">
-        <figcaption>The element you click gets a number.</figcaption>
-      </figure>
-      <figure class="shot">
-        <img src="../assets/img/annotating-panel-750.webp" srcset="../assets/img/annotating-panel-750.webp 750w, ../assets/img/annotating-panel-1500.webp 1500w" sizes="(min-width: 1240px) 590px, (min-width: 901px) calc(50vw - 34px), calc(100vw - 48px)" width="1500" height="560" alt="Real screenshot of the bottom panel: three rows — AXStaticText “Home”, “@mattpocockuk” and a tweet — each with a note field; the “Current screen” row reads “Compare these font sizes”; below are the Mark, Arrow, Text, undo and redo tools and the Cancel, ChatGPT and Copy buttons" loading="lazy" decoding="async">
-        <figcaption>Notes go in the panel, one row per mark. The “Current screen” row is for the overall intent. (Shown in Chinese here; Ref follows your system language.)</figcaption>
-      </figure>
-    </div>
+  <div class="container paste">
+    <p class="paste-title">Paste it into any AI that reads images</p>
+    <ul class="paste-list"><li>Cursor</li><li>ChatGPT</li><li>Claude</li><li>Codex</li><li>Grok</li><li>WorkBuddy</li><li>QuickGPT</li></ul>
   </div>
 </section>
 
@@ -317,46 +236,49 @@
 <section class="section" id="reads" aria-labelledby="reads-title">
   <div class="container">
     <header class="section-head">
-      <p class="eyebrow">What Ref reads</p>
-      <h2 id="reads-title">Wherever you click, Ref reads what’s there</h2>
-      <p class="section-lede">It depends on the app you click in. Whatever Ref reads goes into the legend as is — paths and URLs wrap to the next line rather than get cut.</p>
+      <h2 id="reads-title">What Ref reads</h2>
+      <p class="section-lede"><strong>Wherever you click, Ref reads what’s there.</strong> It depends on the app you click in. Whatever Ref reads goes into the legend as is — paths and URLs wrap to the next line rather than get cut.</p>
     </header>
     <div class="bento reads">
       <article class="card">
         <h3>Finder</h3>
         <p>Files, folders, folders and disks in the sidebar, or the empty part of a window — always the full path.</p>
-        <pre class="sample">① folder · ~/Projects/ref/Sources/Ref/Overlay</pre>
+        <pre class="sample">AXTextField “Overlay” · folder · ~/Projects/<wbr>ref/<wbr>Sources/<wbr>Ref/<wbr>Overlay</pre>
       </article>
       <article class="card">
         <h3>Code editors</h3>
         <p>In the file tree, the file’s full path; in the editor, the file name and the line the cursor is on.</p>
-        <pre class="sample">② MarkerRenderer.swift:142
-   ↳ ~/Projects/ref/Sources/Ref/Output</pre>
+        <pre class="sample">line · ~/Projects/<wbr>ref/<wbr>Sources/<wbr>Ref/<wbr>Output/<wbr>MarkerRenderer.swift:142
+↳ “ctx.fillEllipse(in: rect)”</pre>
         <ul class="apps"><li>Xcode</li><li>VS Code</li><li>Cursor</li><li>Trae</li><li>Windsurf</li><li>Zed</li><li>Sublime Text</li><li>Nova</li><li>TextMate</li><li>BBEdit</li></ul>
       </article>
       <article class="card">
         <h3>Terminals</h3>
         <p>The line the cursor is on.</p>
-        <pre class="sample">③ $ make release VERSION=0.3.4</pre>
+        <pre class="sample">line “make release VERSION=0.3.4”
+↳ line 12</pre>
         <ul class="apps"><li>Terminal</li><li>iTerm2</li><li>Ghostty</li><li>Warp</li><li>kitty</li><li>WezTerm</li><li>Alacritty</li></ul>
       </article>
       <article class="card card-wide">
         <h3>Browsers</h3>
-        <p>The address bar gives the URL. Page elements give their type, text and the page’s URL; table cells add the column name and row, and anything inside a section adds its heading. With browser automation on, Ref also reads the CSS selector, size, font and colors — and on local React / Vue / Svelte / Angular pages, the component name and source location.</p>
-        <pre class="sample">④ AXButton “Login” · button.primary · 180×32 · 15px/600 #FFFFFF on #0D44E8
-   ↳ LoginForm · src/auth/LoginForm.tsx:42 · localhost:3100/login</pre>
+        <p>The address bar gives the URL. Page elements give their type, text and the page’s URL; table cells add the column name and row, and anything inside a section adds its heading.</p>
+        <p>With browser automation on, Ref also reads the CSS selector, size, font and colors — and on local React / Vue / Svelte / Angular pages, the component name and source location.</p>
+        <pre class="sample">AXButton “Login”
+↳ LoginForm @ src/<wbr>auth/<wbr>LoginForm.tsx:42 · button.primary · 180×32
+  15px Inter 600 #FFFFFF bg #0D44E8
+page · http://localhost:3100/<wbr>login</pre>
         <ul class="apps"><li>Safari</li><li>Chrome</li><li>Edge</li><li>Arc</li><li>Brave</li><li>Vivaldi</li><li>Firefox</li></ul>
       </article>
       <article class="card">
         <h3>iOS Simulator</h3>
         <p>Control type, text, accessibilityIdentifier, hint and device name. If the app embeds <a href="https://github.com/QMUI/LookinServer" rel="noopener">LookinServer</a>, also the view class, owning controller and ivar, frame, font, colors, corner radius and the action it triggers.</p>
-        <pre class="sample">⑤ UILabel “Total $128.00” · 41%×62%
-   ↳ PriceLabel : UILabel · CartViewController.totalLabel · (16,&nbsp;612) 200×22&nbsp;pt · 17pt SFPro-Semibold #1A1C1F · radius 8</pre>
+        <pre class="sample">UILabel “Total $128.00” · 41%×62%
+↳ PriceLabel : UILabel · CartViewController.totalLabel · (16,&nbsp;612) 200×22&nbsp;pt · 17pt SFPro-Semibold #1A1C1F · radius 8</pre>
       </article>
       <article class="card">
-        <h3>Any other app</h3>
-        <p>Control type plus its title or text. Some apps expose nothing to the system; drag a region there instead and add a line of text.</p>
-        <pre class="sample">⑥ AXButton “Login” · com.apple.Safari</pre>
+        <h3>Other apps</h3>
+        <p>Control type plus its title or text. Some apps expose nothing to the system; drag a region there instead and write a request.</p>
+        <pre class="sample">AXButton “Export”</pre>
       </article>
     </div>
   </div>
@@ -366,24 +288,26 @@
 <section class="section section-alt" id="details" aria-labelledby="details-title">
   <div class="container">
     <header class="section-head">
-      <p class="eyebrow">While you annotate</p>
-      <h2 id="details-title">The handy things are within reach</h2>
-      <p class="section-lede">Annotating is a form, not a wizard: one row per mark, notes save as you type, and nothing on the panel disappears on its own.</p>
+      <h2 id="details-title">Annotating</h2>
+      <p class="section-lede"><strong>Annotating is a form, not a wizard.</strong> One row per mark, requests save as you type, and nothing on the panel disappears on its own.</p>
     </header>
     <div class="bento details">
       <article class="card card-wide">
-        <div class="card-visual map">
-          <div class="map-wire">
-            <i class="w w1"></i><i class="w w2"></i><i class="w w3 sel"></i><i class="w w4 dash"></i>
-            <span class="cross"></span>
+        <div class="card-visual">
+          <div class="lmap">
+            <div class="map-wire">
+              <i class="w w1"></i><i class="w w2"></i><i class="w w3 sel"></i><i class="w w4 dash"></i>
+              <span class="cross"></span>
+            </div>
+            <ul class="map-rows">
+              <li>AXWindow <s>ledger</s></li>
+              <li class="in1">AXSplitGroup</li>
+              <li class="in2">AXScrollArea</li>
+              <li class="in3 sel">AXRow</li>
+              <li class="in4">AXTextField <s>components</s><i class="hit"></i></li>
+              <li class="in4">AXImage</li>
+            </ul>
           </div>
-          <ul class="map-rows">
-            <li>AXWindow <s>ledger</s></li>
-            <li class="in1">AXSplitGroup</li>
-            <li class="in2 sel">AXRow <s>components</s></li>
-            <li class="in3">AXStaticText <s>components</s></li>
-            <li class="in3 dim">AXImage</li>
-          </ul>
         </div>
         <h3>Scroll through layers, with a minimap</h3>
         <p>When several elements are stacked under the cursor, scroll to move between them: up for the parent, down for children and anything covered. A minimap appears next to the cursor listing them by level, with their outlines drawn to scale — size and nesting at a glance. On a trackpad, each step gives a light tap.</p>
@@ -391,9 +315,10 @@
       <article class="card">
         <div class="card-visual">
           <div class="hover-card small">
-            <div class="hover-row"><span>AXStaticText</span><em>Click a row to copy</em></div>
-            <div class="hover-row copyable"><span>Path</span><code>~/Projects/ledger</code><i class="cp"></i></div>
-            <div class="hover-row copyable"><span>App</span><b>Finder</b><i class="cp"></i></div>
+            <div class="hover-row"><span>AXTextField</span><em>Click a row to copy</em></div>
+            <div class="hover-row"><span>Name</span><b>components</b><i class="cp"></i></div>
+            <div class="hover-row on"><span>Path</span><code>/Users/<wbr>kai/<wbr>Projects/<wbr>ledger/<wbr>src/<wbr>components</code><i class="cp"></i></div>
+            <div class="hover-row"><span>App</span><code>com.apple.finder</code><i class="cp"></i></div>
           </div>
         </div>
         <h3>Hold Space, take one item</h3>
@@ -401,7 +326,7 @@
       </article>
       <article class="card">
         <div class="card-visual">
-          <div class="seg"><span class="on"><i class="t-frame"></i>Frame<kbd>F</kbd></span><span><i class="t-arrow"></i>Arrow<kbd>A</kbd></span><span><i class="t-text"></i>Text<kbd>T</kbd></span></div>
+          <div class="tools"><span class="tool on"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.4 1.8l9.4 5.4-4 1.1 2.4 4.3-1.9 1.1-2.4-4.3-3 2.9z" fill="currentColor"/></svg><kbd>F</kbd></span><span class="tool"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M12.5 3.5l-9 9m0-6.2v6.2h6.2" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg><kbd>A</kbd></span><span class="tool"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 13L8 3l4.5 10M5.3 9.4h5.4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg><kbd>T</kbd></span></div>
         </div>
         <h3>Frames, arrows and text share one numbering</h3>
         <p>A frame, an arrow or a piece of text is one numbered record each, so ① on the image is ① in the legend. Place text and just type: it appears on the canvas as you go.</p>
@@ -409,27 +334,20 @@
       <article class="card">
         <div class="card-visual">
           <div class="send">
-            <span class="send-main">Send to ChatGPT<kbd>⌘1</kbd></span>
-            <span class="send-chev"></span>
-            <ul class="send-list"><li>ChatGPT<kbd>⌘1</kbd></li><li>Claude<kbd>⌘2</kbd></li><li>WorkBuddy<kbd>⌘3</kbd></li><li>QuickGPT<kbd>⌘4</kbd></li><li>Grok Bot<kbd>⌘5</kbd></li></ul>
+            <ul class="send-list"><li class="cur">ChatGPT<kbd>⌘1</kbd></li><li class="on">Claude<kbd>⌘2</kbd></li><li>WorkBuddy<kbd>⌘3</kbd></li><li>QuickGPT<kbd>⌘4</kbd></li><li>Grok Bot<kbd>⌘5</kbd></li></ul>
+            <span class="send-btn">ChatGPT<i></i><b></b></span>
           </div>
         </div>
         <h3>Send straight to an AI</h3>
-        <p>The send button remembers the last app you used; the small arrow at its end switches. ChatGPT opens a new Codex chat with your notes filled in, and you press send. Grok Bot opens the Bot you choose, picked once on the first send.</p>
+        <p>The send button remembers the last app you used; the small arrow at its end switches. It sends to ChatGPT, Claude, WorkBuddy, QuickGPT or Grok Bot, on <kbd>⌘1</kbd>–<kbd>⌘5</kbd>.</p>
+        <p>ChatGPT opens a new Codex chat with your requests filled in, and you press send. Grok Bot opens the Bot you choose, picked once on the first send.</p>
       </article>
       <article class="card">
         <div class="card-visual">
-          <div class="keys"><span class="keycap">⌥⌘R</span><span class="keys-x">×2</span></div>
+          <div class="keys"><span class="keycap">⇧⌘R</span><span class="keys-x">×2</span></div>
         </div>
         <h3>Press twice for just a screenshot</h3>
-        <p>No need to wait for the annotation view. You get the screen as it was on the first press; with several displays, the one the mouse is on at the second press.</p>
-      </article>
-      <article class="card">
-        <div class="card-visual">
-          <div class="keys"><span class="keycap">⌘Z</span><span class="keycap">⇧⌘Z</span></div>
-        </div>
-        <h3>Undo without renumbering</h3>
-        <p>Clicked the wrong thing? <kbd>⌘Z</kbd> undoes, <kbd>⇧⌘Z</kbd> redoes. To change a note, click its badge or its row in the panel. <kbd>Esc</kbd> backs out one level at a time, and asks again before discarding anything you placed.</p>
+        <p>Press <kbd>⇧⌘R</kbd> twice — no need to wait for the annotation view. You get the screen as it was on the first press; with several displays, the one the mouse is on at the second press.</p>
       </article>
       <article class="card">
         <div class="card-visual">
@@ -438,7 +356,7 @@
         <h3>Several displays, one image each</h3>
         <p>Only displays with marks on them are output — one image per display, always the full screen, never cropped.</p>
       </article>
-      <article class="card">
+      <article class="card card-wide">
         <div class="card-visual">
           <pre class="sample code">open ref://capture
 open ref://settings
@@ -455,106 +373,29 @@ open ref://permissions</pre>
 <section class="section" id="legend" aria-labelledby="legend-title">
   <div class="container">
     <header class="section-head">
-      <p class="eyebrow">The legend</p>
-      <h2 id="legend-title">Goal first, references second</h2>
-      <p class="section-lede">The first line is the intent for the whole image. Under it hangs each numbered note, and under each note, what it points at. A mark without a note just shows what it points at; without an overall intent, the marks are the top level.</p>
+      <h2 id="legend-title">The legend</h2>
+      <p class="section-lede"><strong>Goal first, references second.</strong> The first line is the overall request for the whole image. Under it hangs each numbered request, and under each request, what it points at — which element, and where. Anything left unwritten shows as “-”, so the structure never changes.</p>
     </header>
     <div class="anatomy">
-      <pre class="legend anatomy-legend"><span class="hl" data-hl="1">Intent: add an Export button in ③, styled like ②; code in ①</span>
-<span class="hl" data-hl="2">├─ ① New module goes here</span>
-<span class="hl" data-hl="3">│  <s>└─ folder · ~/Projects/ref/Sources/Ref/Overlay · 18%×36%</s></span>
-├─ ② Match this style
-│  <s>└─ AXButton “Login” · com.apple.Safari · 78%×18%</s>
-├─ ③ Export button goes here
-│  <s>└─ region · 61%×67% – 82%×84%</s>
-├─ ④ Style comes from here
-│  <s>└─ arrow · 66%×62% to 78%×22%</s>
-└─ ⑤ Icon: square.and.arrow.up
-   <s>└─ text · 62%×88%</s>
-
-<span class="hl" data-hl="4"><s>Ref · 2880×1800 px · com.apple.finder “Projects” · 2026-09-21 22:13</s></span></pre>
+      <pre class="legend anatomy-legend"><span class="hl" data-hl="1"><em>Overall request: </em>add an Export button in 3, styled like 2; code in 1</span>
+<span class="hl" data-hl="2">├─ <i class="lb" data-n="1">①</i> New module goes here</span>
+<span class="hl" data-hl="3">│  └─ AXTextField “Overlay” · folder · ~/Projects/<wbr>ref/<wbr>Sources/<wbr>Ref/<wbr>Overlay · 18%×36%</span>
+├─ <i class="lb" data-n="2">②</i> Match this style
+│  └─ AXButton “Login” · com.apple.Safari · 78%×18%
+├─ <i class="lb" data-n="3">③</i> Export button goes here
+│  └─ region · 61%×67% – 82%×84%
+├─ <i class="lb" data-n="4">④</i> Style comes from here
+│  └─ arrow · 66%×62% to 78%×22%
+└─ <i class="lb" data-n="5">⑤</i> Icon: square.and.arrow.up
+   └─ text · 62%×88%
+<span class="hl sig" data-hl="4">page · http://localhost:3100/login
+Ref · 2880×1800 px · com.apple.finder “Projects” · 2026-09-21 22:13</span></pre>
       <ol class="anatomy-notes">
-        <li data-for="1"><b>Intent</b>One line about the whole image. You can mark nothing at all and still write just this.</li>
-        <li data-for="2"><b>Your note</b>One per number: what should happen to it.</li>
-        <li data-for="3"><b>What Ref read</b>What it is, which app it’s in, and where on the screen. Paths, URLs and selectors are drawn in full, never shortened.</li>
-        <li data-for="4"><b>Signature</b>Screen size, the frontmost app at the time, and the time.</li>
+        <li data-for="1"><b>Overall request</b>One line about the whole image. You can mark nothing at all and still write just this.</li>
+        <li data-for="2"><b>Your request</b>One per number: what should happen to it.</li>
+        <li data-for="3"><b>What Ref read</b>What it is, which app it’s in, and where on the screen. Paths, URLs and selectors are written in full, never shortened.</li>
+        <li data-for="4"><b>Signature</b>The page’s URL when a web element is marked, then the screen size, the frontmost app at the time, and the time.</li>
       </ol>
-    </div>
-    <div class="outputs">
-      <div class="output">
-        <h3>The clipboard holds only the image</h3>
-        <p>The legend is drawn into it. Paste anywhere that takes an image — Cursor, ChatGPT, Slack — and one image is enough.</p>
-      </div>
-      <div class="output">
-        <h3>Sending to another app adds text</h3>
-        <p>A short form of the legend: your overall note, <code>Screenshot @path</code>, then one line per number — your note, a dash, what Ref read.</p>
-      </div>
-      <div class="output">
-        <h3>Complete, never elided</h3>
-        <p>Paths, URLs, selectors and your notes are drawn in full; a line that doesn’t fit wraps to the next. Only long runs of text read off the screen are shortened, because they’re already in the screenshot.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ========== Privacy & permissions ========== -->
-<section class="section section-alt" id="privacy" aria-labelledby="privacy-title">
-  <div class="container">
-    <header class="section-head">
-      <p class="eyebrow">Permissions &amp; privacy</p>
-      <h2 id="privacy-title">One screenshot, only when you press the hotkey</h2>
-      <p class="section-lede">Ref never records video and never uploads anything. What it reads goes into that one image, and the image goes only to your clipboard.</p>
-    </header>
-    <div class="perms">
-      <article class="perm">
-        <span class="level req">Required</span>
-        <h3>Screen Recording</h3>
-        <p>Takes one screenshot of each display when you press the hotkey.</p>
-        <p class="perm-without">Without it: no capture can start; pressing the hotkey points you to System Settings.</p>
-      </article>
-      <article class="perm">
-        <span class="level rec">Recommended</span>
-        <h3>Accessibility</h3>
-        <p>Recognizes the control, file or text under the cursor.</p>
-        <p class="perm-without">Without it: you can still capture, frame regions, draw arrows and write text — frames just carry no element info.</p>
-      </article>
-      <article class="perm">
-        <span class="level opt">Optional</span>
-        <h3>Finder Automation</h3>
-        <p>Asks Finder for a path when Accessibility can’t provide one.</p>
-        <p class="perm-without">Only affects the few Finder cases where the path isn’t readable; macOS asks once, the first time it’s needed.</p>
-      </article>
-    </div>
-    <div class="guide">
-      <div class="guide-text">
-        <h3>Granting happens right next to System Settings</h3>
-        <p>Click “Allow…” and Ref doesn’t show a system prompt. It opens the right page in System Settings and puts a small panel beside the window with just the current step. The moment you flip the switch, Ref notices, confirms it on the panel, and returns to the window you came from. A “Relaunch Ref” button appears only when macOS actually requires reopening Ref.</p>
-      </div>
-      <div class="guide-visual" aria-hidden="true">
-        <div class="guide-panel">
-          <div class="guide-step"><span class="guide-icon"></span><p>Turn on the switch for <b>Ref</b> in the list</p></div>
-          <div class="guide-switch"><span class="sw"><i></i></span><span>Ref</span></div>
-          <p class="guide-ok"><i></i>Allowed · Returning</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ========== Settings & updates ========== -->
-<section class="section" id="settings" aria-labelledby="settings-title">
-  <div class="container two">
-    <div>
-      <p class="eyebrow">Settings</p>
-      <h2 id="settings-title">Only two things to set</h2>
-      <p>The hotkey, and whether Ref opens at login. Because only you can decide those.</p>
-      <p>Ref decides the rest: marks are always red and told apart by number; the legend’s fixed words follow the system language; output is always the full screen and goes only to the clipboard; updates install themselves.</p>
-    </div>
-    <div>
-      <p class="eyebrow">Updates</p>
-      <h2>Install it once and don’t come back</h2>
-      <p>Ref checks GitHub Releases once a day. When there’s a new version it downloads it, verifies the signature, installs and relaunches, then says “Updated to Ref x.y.z”. It never interrupts a capture in progress.</p>
-      <p>To check right now, use the menu bar → “Check for Updates…”. That shows this version’s release notes, and you choose “Install Update” or “Later”. Homebrew installs update themselves the same way.</p>
     </div>
   </div>
 </section>
@@ -563,13 +404,12 @@ open ref://permissions</pre>
 <section class="section section-alt" id="shortcuts" aria-labelledby="shortcuts-title">
   <div class="container">
     <header class="section-head">
-      <p class="eyebrow">Keyboard reference</p>
-      <h2 id="shortcuts-title">Hands stay on the keyboard</h2>
+      <h2 id="shortcuts-title">Shortcuts</h2>
     </header>
     <div class="keys-table">
       <table>
         <tbody>
-          <tr><th scope="row"><kbd>⌥⌘R</kbd></th><td>Start a capture / finish and copy; press twice quickly to capture and copy right away</td></tr>
+          <tr><th scope="row"><kbd>⇧⌘R</kbd></th><td>Start a capture / finish and copy; press twice to capture and copy right away</td></tr>
           <tr><th scope="row">Click / drag</th><td>Frame an element / frame a region</td></tr>
           <tr><th scope="row">Scroll</th><td>Move between the elements under the cursor: up for the parent, down for children and covered elements</td></tr>
           <tr><th scope="row">Hold <kbd>Space</kbd></th><td>Lock the current highlight; click a row in the card to copy that item</td></tr>
@@ -579,11 +419,11 @@ open ref://permissions</pre>
       </table>
       <table>
         <tbody>
-          <tr><th scope="row"><kbd>Tab</kbd></th><td>Enter the note marked Tab; inside a field, move on to the next note, “Current screen” and the buttons</td></tr>
-          <tr><th scope="row"><kbd>⏎</kbd></th><td>On the canvas, enter the current note; in a field, return to the canvas. Never ends the capture</td></tr>
+          <tr><th scope="row"><kbd>Tab</kbd></th><td>Enter the request marked Tab; inside a field, move on to the next one</td></tr>
+          <tr><th scope="row"><kbd>⏎</kbd></th><td>On the canvas, enter the current request; in a field, return to the canvas. Never ends the capture</td></tr>
           <tr><th scope="row"><kbd>⌘⏎</kbd></th><td>Finish and copy</td></tr>
           <tr><th scope="row"><kbd>⌘1</kbd> … <kbd>⌘5</kbd></th><td>Finish and send to ChatGPT / Claude / WorkBuddy / QuickGPT / Grok Bot</td></tr>
-          <tr><th scope="row"><kbd>Esc</kbd></th><td>Back out one level: send list / locked highlight → field → canvas → discard; asks again when there is content</td></tr>
+          <tr><th scope="row"><kbd>Esc</kbd></th><td>Back out one level; asks again when there is content</td></tr>
           <tr><th scope="row"><kbd>⌘0</kbd></th><td>Discard right away</td></tr>
         </tbody>
       </table>
@@ -598,9 +438,8 @@ open ref://permissions</pre>
       <div class="install-head">
         <img src="../assets/img/icon-256.png" width="96" height="96" alt="" decoding="async">
         <div>
-          <p class="eyebrow">Install</p>
-          <h2 id="install-title">Three ways to install, <span class="nowrap">one and the same build</span></h2>
-          <p class="section-lede">Ref has no main window; once running it is just an icon in the menu bar. On first launch it opens Settings → Permissions and explains, item by item, which permissions it needs and what each one does.</p>
+          <h2 id="install-title">Install</h2>
+          <p class="section-lede"><strong>Three ways to install, one and the same build.</strong> Ref has no main window; once running it is just an icon in the menu bar. On first launch it opens Settings → Permissions and explains, item by item, which permissions it needs and what each one does.</p>
         </div>
       </div>
       <div class="install-ways">
@@ -626,9 +465,9 @@ open ref://permissions</pre>
         <div class="way">
           <h3>From source</h3>
           <p>With Xcode 26 installed, run <code>make install</code> in the repository. It builds, packages and installs Ref into /Applications.</p>
-          <p class="way-meta">Requires macOS 26 (Tahoe) or later.</p>
         </div>
       </div>
+      <p class="install-req">Requires macOS 26 (Tahoe) or later.</p>
     </div>
   </div>
 </section>
@@ -637,8 +476,7 @@ open ref://permissions</pre>
 <section class="section section-alt" id="faq" aria-labelledby="faq-title">
   <div class="container narrow">
     <header class="section-head">
-      <p class="eyebrow">Support</p>
-      <h2 id="faq-title">Frequently asked questions</h2>
+      <h2 id="faq-title">FAQ</h2>
     </header>
     <div class="faq">
       <details open>
@@ -647,23 +485,19 @@ open ref://permissions</pre>
       </details>
       <details>
         <summary>I can only frame regions, with no element names</summary>
-        <p>Accessibility isn’t allowed. Open menu bar → “Permissions…” and allow it.</p>
+        <p>Accessibility isn’t allowed.</p>
       </details>
       <details>
         <summary>Some app gives nothing useful</summary>
-        <p>Some apps expose no interface information to the system (certain sandboxed apps, apps that draw their own UI), so Ref only gets the control type. Drag a region there instead and add a line of text.</p>
+        <p>Some apps expose no interface information to the system. Drag a region there instead and write a request.</p>
       </details>
       <details>
         <summary>How do I get selectors and component names for web elements?</summary>
-        <p>Two switches: allow “Browser automation” in Ref’s settings, and turn on “Allow JavaScript from Apple Events” in the browser (Chrome: View › Developer in the menu bar; Safari: Settings › Developer). Ref reads the clicked element once, when you place the mark, and never modifies the page.</p>
-      </details>
-      <details>
-        <summary>Pasting gives me nothing</summary>
-        <p>The clipboard holds only an image, so a field that doesn’t accept images can’t take it. Paste somewhere that does.</p>
+        <p>Turn on browser automation.</p>
       </details>
       <details>
         <summary>The first click in Chrome or VS Code is a bit slow</summary>
-        <p>Chromium and Electron apps (Chrome, VS Code, Slack, Figma and the like) take a moment the first time you click into them. After that it’s instant.</p>
+        <p>Activating the accessibility interface takes a few seconds the first time. After that it’s fast.</p>
       </details>
     </div>
   </div>
@@ -676,7 +510,7 @@ open ref://permissions</pre>
   <div class="footer-cta">
     <div class="container">
       <img src="../assets/img/icon-192.png" width="80" height="80" alt="" decoding="async" loading="lazy">
-      <h2>Next time you’d say “that button”,<br>press ⌥⌘R.</h2>
+      <h2>Next time you’d say “that button”,<br>press ⇧⌘R.</h2>
       <p>Free. Requires macOS 26 or later.</p>
       <div class="cta">
         <a class="btn btn-contrast btn-lg" href="https://github.com/ddhjy/ref-releases/releases/download/v0.3.5/Ref-0.3.5.dmg" data-download-dmg>Download Ref for Mac</a>
@@ -699,14 +533,12 @@ open ref://permissions</pre>
     </nav>
     <nav aria-label="Learn">
       <h3>Learn</h3>
-      <a href="#how">How it works</a>
       <a href="#reads">What Ref reads</a>
-      <a href="#legend">Legend</a>
+      <a href="#legend">The legend</a>
       <a href="#shortcuts">Shortcuts</a>
     </nav>
     <nav aria-label="Support">
       <h3>Support</h3>
-      <a href="#privacy">Permissions &amp; privacy</a>
       <a href="#faq">FAQ</a>
       <a href="https://github.com/ddhjy/ref-releases/issues" rel="noopener">Report an issue</a>
     </nav>
