@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024">
+<style>
+  .paper{fill:url(#paper)}
+  .rim{fill:none;stroke:#fff;stroke-opacity:0.9}
+  .edge{fill:none;stroke:url(#edge)}
+  @media (prefers-color-scheme: dark){.paper{fill:url(#ink)}.rim{stroke-opacity:0.14}.edge{stroke:url(#edge-dark)}}
+</style>
+<defs>
+  <clipPath id="tile"><path d="M 407.93 0 L 616.07 0 C 733.53 0 792.26 0 855.48 19.99 C 924.51 45.11 978.89 99.49 1004.01 168.52 C 1024 231.74 1024 290.47 1024 407.93 L 1024 616.07 C 1024 733.53 1024 792.26 1004.01 855.48 C 978.89 924.51 924.51 978.89 855.48 1004.01 C 792.26 1024 733.53 1024 616.07 1024 L 407.93 1024 C 290.47 1024 231.74 1024 168.52 1004.01 C 99.49 978.89 45.11 924.51 19.99 855.48 C 0 792.26 0 733.53 0 616.07 L 0 407.93 C 0 290.47 0 231.74 19.99 168.52 C 45.11 99.49 99.49 45.11 168.52 19.99 C 231.74 0 290.47 0 407.93 0 Z"/></clipPath>
+  <linearGradient id="paper" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFFFFF"/><stop offset="1" stop-color="#F3F3F6"/></linearGradient>
+  <linearGradient id="ink" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2C2C2E"/><stop offset="1" stop-color="#1C1C1E"/></linearGradient>
+  <!-- The tile's edge the way glass catches light: faint along the top, firmer underneath. -->
+  <linearGradient id="edge" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#000" stop-opacity="0.06"/><stop offset="1" stop-color="#000" stop-opacity="0.15"/></linearGradient>
+  <linearGradient id="edge-dark" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity="0.30"/><stop offset="1" stop-color="#fff" stop-opacity="0.10"/></linearGradient>
+</defs>
+<g clip-path="url(#tile)">
+  <rect class="paper" width="1024" height="1024"/>
+  <path d="M 433.231 1088 V 531.692 A 98.462 98.462 0 0 1 531.692 433.231 H 1088 V 1088 Z" fill="#FF3B30" fill-opacity="0.16"/>
+  <path d="M 393.846 1088 V 531.692 A 137.846 137.846 0 0 1 531.692 393.846 H 1088 V 1088 Z M 433.231 1088 V 531.692 A 98.462 98.462 0 0 1 531.692 433.231 H 1088 V 1088 Z" fill-rule="evenodd" fill="#FF3B30"/>
+  <circle cx="295.38" cy="295.38" r="137.85" fill="#FF3B30"/>
+  <path d="M 330.831 236.308 L 330.831 354.462 A 19.692 19.692 0 0 1 291.446 354.462 L 291.446 283.849 L 275.832 299.463 A 19.692 19.692 0 0 1 247.983 271.614 L 297.214 222.383 A 19.692 19.692 0 0 1 330.831 236.308 Z" fill="#FFFFFF"/>
+  <!-- Strokes are twice their visible width; the clip keeps the inner half. A bright bevel, then the hairline over it. -->
+  <path class="rim" d="M 407.93 0 L 616.07 0 C 733.53 0 792.26 0 855.48 19.99 C 924.51 45.11 978.89 99.49 1004.01 168.52 C 1024 231.74 1024 290.47 1024 407.93 L 1024 616.07 C 1024 733.53 1024 792.26 1004.01 855.48 C 978.89 924.51 924.51 978.89 855.48 1004.01 C 792.26 1024 733.53 1024 616.07 1024 L 407.93 1024 C 290.47 1024 231.74 1024 168.52 1004.01 C 99.49 978.89 45.11 924.51 19.99 855.48 C 0 792.26 0 733.53 0 616.07 L 0 407.93 C 0 290.47 0 231.74 19.99 168.52 C 45.11 99.49 99.49 45.11 168.52 19.99 C 231.74 0 290.47 0 407.93 0 Z" stroke-width="120"/>
+  <path class="edge" d="M 407.93 0 L 616.07 0 C 733.53 0 792.26 0 855.48 19.99 C 924.51 45.11 978.89 99.49 1004.01 168.52 C 1024 231.74 1024 290.47 1024 407.93 L 1024 616.07 C 1024 733.53 1024 792.26 1004.01 855.48 C 978.89 924.51 924.51 978.89 855.48 1004.01 C 792.26 1024 733.53 1024 616.07 1024 L 407.93 1024 C 290.47 1024 231.74 1024 168.52 1004.01 C 99.49 978.89 45.11 924.51 19.99 855.48 C 0 792.26 0 733.53 0 616.07 L 0 407.93 C 0 290.47 0 231.74 19.99 168.52 C 45.11 99.49 99.49 45.11 168.52 19.99 C 231.74 0 290.47 0 407.93 0 Z" stroke-width="44"/>
+</g>
+</svg>
