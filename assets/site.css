@@ -481,6 +481,34 @@ p code, td code, li code, h3 code { padding: 0.1em 0.4em; border-radius: 5px; ba
 .d-card i { color: #6e6e73; }
 .d-card em.code { font-family: var(--mono); }
 
+/* The layer map, beside the pointer while the wheel turns: the elements under it as a
+   wireframe to scale, then a row each, indented by nesting. */
+.d-map {
+  position: absolute; z-index: 6; min-width: calc(160 * var(--pt)); max-width: calc(300 * var(--pt)); padding: calc(5 * var(--pt)); border-radius: calc(12 * var(--pt));
+  background: rgba(255, 255, 255, 0.94); -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px);
+  box-shadow: 0 0 0 0.5px rgba(0, 0, 0, 0.16), 0 calc(6 * var(--pt)) calc(18 * var(--pt)) calc(-4 * var(--pt)) rgba(0, 0, 0, 0.26);
+  white-space: nowrap; opacity: 0; transition: opacity 0.15s;
+}
+.d-map.on { opacity: 1; }
+.d-wire { display: flex; align-items: center; height: calc(48 * var(--pt)); margin-bottom: calc(5 * var(--pt)); padding: calc(8 * var(--pt)); border-radius: calc(7 * var(--pt)); background: rgba(0, 0, 0, 0.04); }
+.d-wire-in { position: relative; width: 100%; aspect-ratio: var(--ar); }
+/* The selected element in the marker color, the one holding it darker than the rest. */
+.d-box { position: absolute; border: calc(1 * var(--pt)) solid rgba(60, 60, 67, 0.3); }
+.d-box.hold { border-color: rgba(60, 60, 67, 0.6); }
+.d-box.cur { z-index: 1; border: calc(1.5 * var(--pt)) solid var(--mark); background: rgba(255, 59, 48, 0.2); }
+.d-cross {
+  position: absolute; z-index: 2; width: calc(9 * var(--pt)); height: calc(9 * var(--pt)); transform: translate(-50%, -50%);
+  background: linear-gradient(#1d1d1f, #1d1d1f) center / 100% calc(1 * var(--pt)) no-repeat, linear-gradient(#1d1d1f, #1d1d1f) center / calc(1 * var(--pt)) 100% no-repeat;
+  filter: drop-shadow(0 0 calc(1 * var(--pt)) #fff);
+}
+.d-lrow {
+  display: flex; align-items: center; height: calc(20 * var(--pt)); padding: 0 calc(7 * var(--pt)) 0 calc((7 + 10 * var(--depth)) * var(--pt)); border-radius: calc(7 * var(--pt));
+  font: 500 calc(11 * var(--pt))/1 var(--mono); color: #6e6e73;
+}
+.d-lrow em { margin-left: calc(7 * var(--pt)); font: 400 calc(11 * var(--pt))/1 var(--font); color: #a1a1a6; }
+.d-lrow svg { flex: none; width: calc(11 * var(--pt)); height: calc(11 * var(--pt)); margin-left: auto; padding-left: calc(6 * var(--pt)); box-sizing: content-box; }
+.d-lrow.cur { background: rgba(0, 0, 0, 0.08); color: #1d1d1f; }
+.d-lrow.cur em { color: #6e6e73; }
 .d-panel {
   position: absolute; left: 50%; bottom: calc(16 * var(--pt)); z-index: 7; width: calc(640 * var(--pt)); padding: calc(8 * var(--pt)); border-radius: calc(24 * var(--pt));
   background: rgba(250, 250, 250, 0.88); -webkit-backdrop-filter: blur(24px) saturate(1.6); backdrop-filter: blur(24px) saturate(1.6);

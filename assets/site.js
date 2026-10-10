@@ -114,7 +114,7 @@
     const d = zh
       ? {
         hotkey: "⇧⌘R", request: "要求", typeText: "输入文字", overall: "整体要求", whole: "当前屏幕", cancel: "取消", copy: "复制",
-        toast: "已复制 · 5 处标注", result: "标注效果", play: "看过程",
+        toast: "已复制 · 5 处标注", result: "标注效果", play: "看过程", wheel: "滚轮",
         hints: { frame: "点击元素或拖出区域 · 滚动切换父/子及被遮挡的元素", arrow: "拖动画出箭头", text: "点击要放文字的位置" },
         rows: ["选框 · AXTextField “components” · ~/Projects/ledger/src/components · 访达", "选框 · AXButton “新建发票”", "区域", "箭头", "文字"],
         cardHint: "按住空格可复制",
@@ -126,7 +126,7 @@
       }
       : {
         hotkey: "⇧⌘R", request: "Request", typeText: "Type text", overall: "Overall request", whole: "Whole capture", cancel: "Cancel", copy: "Copy",
-        toast: "Copied · 5 annotations", result: "The result", play: "Watch it made",
+        toast: "Copied · 5 annotations", result: "The result", play: "Watch it made", wheel: "Scroll",
         hints: { frame: "Click an element or drag a region · Scroll for parent/child and covered elements", arrow: "Drag to draw an arrow", text: "Click where the text should go" },
         rows: ["Framed element · AXTextField “components” · ~/Projects/ledger/src/components · Finder", "Framed element · AXButton “New invoice”", "Region", "Arrow", "Text"],
         cardHint: "Hold Space to copy",
@@ -177,6 +177,7 @@
     const field = (placeholder) => `<span class="d-field"><span class="d-val"></span><i class="d-caret"></i><span class="d-ph">${placeholder}</span><span class="d-tab">Tab</span></span>`;
     const ui = el("div", "d-ui");
     const card = el("div", "d-card");
+    const map = el("div", "d-map");
     const keys = el("span", "d-keys");
     const toast = el("span", "d-toast", `<i></i>${d.toast}`);
 const cursor = el("span", "d-cursor", '<svg viewBox="0 0 23 23" aria-hidden="true"><path d="M11.5 1v21M1 11.5h21" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="square"/><path d="M11.5 1v21M1 11.5h21" fill="none" stroke="#000" stroke-width="1"/></svg>');
@@ -195,12 +196,71 @@ const cursor = el("span", "d-cursor", '<svg viewBox="0 0 23 23" aria-hidden="tru
     const copyButton = bar.querySelector(".primary");
     panel.append(rows, slot, whole, bar);
     const undo = bar.querySelector(".undo");
-    ui.append(card, panel, keys, toast, cursor);
+    ui.append(card, map, panel, keys, toast, cursor);
     screen.append(ui);
     /* Says what the picture is, then offers to play how it was made. */
     const playButton = el("button", "demo-play", `<span>${d.result}</span><i></i><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.5 1.2v9.6L10.6 6z" fill="currentColor"/></svg>${d.play}`);
     playButton.type = "button";
     frame.append(playButton);
+
+    const sides = ["--x", "--y", "--w", "--h"];
+    const home = sides.map((name) => m1.style.getPropertyValue(name));
+    const showCard = (title, fields) => {
+      card.innerHTML = `<b><em></em><small></small></b>${fields.map(() => "<span><i></i><em></em></span>").join("")}`;
+      /* The names share one column, as wide as the longest. */
+      card.style.setProperty("--names", `${Math.max(...fields.map(([name]) => Array.from(name).reduce((n, c) => n + (c.charCodeAt(0) > 255 ? 1 : 0.58), 0)))}em`);
+      card.firstChild.firstChild.textContent = title;
+      card.firstChild.lastChild.textContent = d.cardHint;
+      fields.forEach(([name, value, code], r) => {
+        const cells = card.children[r + 1].children;
+        cells[0].textContent = name;
+        cells[1].textContent = value;
+        cells[1].classList.toggle("code", !!code);
+      });
+    };
+    const cardBelow = ([x, y, , h]) => Object.assign(card.style, { left: `${x}%`, right: "auto", top: `calc(${y + h}% + 8 * var(--pt))`, bottom: "auto" });
+
+    /* What the wheel walks under the pointer at ①, outermost first: the list row, the name's
+       cell, the name itself. Boxes are [x, y, w, h] in percent of the screen, read off the
+       picture's own row. */
+    const layers = () => {
+      const row = screen.querySelector('[data-mark="1"]');
+      const all = screen.getBoundingClientRect();
+      const box = (...nodes) => {
+        const r = nodes.map((n) => n.getBoundingClientRect());
+        const left = Math.min(...r.map((b) => b.left)), top = Math.min(...r.map((b) => b.top));
+        return [(left - all.left) / all.width * 100, (top - all.top) / all.height * 100,
+          (Math.max(...r.map((b) => b.right)) - left) / all.width * 100, (Math.max(...r.map((b) => b.bottom)) - top) / all.height * 100];
+      };
+      const [title, fields] = d.cards[0];
+      /* The screen is 1440 by 900 points. */
+      const brief = (b) => [[fields[2][0], `${Math.round(b[2] * 14.4)}×${Math.round(b[3] * 9)} pt`, 1], fields[3]];
+      /* The cell is as tall as its row, and as wide as the name column. */
+      const line = box(row), name = box(row.querySelector("em"), row.querySelector("span"));
+      const outer = [["AXRow", line], ["AXCell", [name[0], line[1], name[2], line[3]]]]
+        .map(([role, b]) => ({ role, box: b, fields: brief(b) }));
+      return [...outer, { role: title, name: fields[0][1], box: home.map(parseFloat), fields }];
+    };
+    /* LayerMap: a wireframe of the elements to scale over one row each, indented by nesting,
+       the pointer's own hit marked with its glyph. */
+    const buildMap = (stack, [px, py]) => {
+      const [ex, ey, ew, eh] = stack[0].box;
+      map.innerHTML = `<div class="d-wire"><div class="d-wire-in" style="--ar:${(ew * 14.4) / (eh * 9)}">`
+        + stack.map(({ box: [x, y, w, h] }) => `<i class="d-box" style="left:${(x - ex) / ew * 100}%;top:${(y - ey) / eh * 100}%;width:${w / ew * 100}%;height:${h / eh * 100}%"></i>`).join("")
+        + `<i class="d-cross" style="left:${(px - ex) / ew * 100}%;top:${(py - ey) / eh * 100}%"></i></div></div>`
+        + stack.map((layer, depth) => `<div class="d-lrow" style="--depth:${depth}">${layer.role}${layer.name ? `<em>${layer.name}</em>` : ""}`
+          + `${depth === stack.length - 1 ? icon("M3.4 1.8l9.4 5.4-4 1.1 2.4 4.3-1.9 1.1-2.4-4.3-3 2.9z", true) : ""}</div>`).join("");
+      /* Right of the pointer, the hit's row — the last — level with it. */
+      Object.assign(map.style, { left: `calc(${px}% + 16 * var(--pt))`, bottom: `calc(${100 - py}% - 15 * var(--pt))` });
+    };
+    /* The selection moves: the map's row and box, the highlight on the canvas, the card. */
+    const select = (stack, k) => {
+      map.querySelectorAll(".d-lrow").forEach((r, i) => r.classList.toggle("cur", i === k));
+      map.querySelectorAll(".d-box").forEach((b, i) => { b.classList.toggle("cur", i === k); b.classList.toggle("hold", i === k - 1); });
+      sides.forEach((name, i) => m1.style.setProperty(name, `${stack[k].box[i]}%`));
+      showCard(stack[k].role, stack[k].fields);
+      cardBelow(stack[k].box);
+    };
 
     /* The legend keeps its place while the capture plays: dimmed, each line lighting up as
        its mark gets its request, so nothing below the hero moves and nothing sits empty. */
@@ -223,6 +283,7 @@ const cursor = el("span", "d-cursor", '<svg viewBox="0 0 23 23" aria-hidden="tru
       return row.querySelector(".d-field");
     };
     const restore = () => {
+      sides.forEach((name, i) => m1.style.setProperty(name, home[i]));
       m3.style.transition = "";
       m3.style.setProperty("--w", final.w);
       m3.style.setProperty("--h", final.h);
@@ -233,7 +294,7 @@ const cursor = el("span", "d-cursor", '<svg viewBox="0 0 23 23" aria-hidden="tru
     const reset = () => {
       restore();
       marks.forEach((m) => m.classList.remove("on", "set"));
-      [card, panel, keys, toast].forEach((n) => n.classList.remove("on"));
+      [card, map, panel, keys, toast].forEach((n) => n.classList.remove("on"));
       ui.querySelectorAll(".d-ripple").forEach((n) => n.remove());
       rows.textContent = "";
       undo.classList.add("dim");
@@ -321,19 +382,10 @@ const cursor = el("span", "d-cursor", '<svg viewBox="0 0 23 23" aria-hidden="tru
         /* ① ② — point: the highlight is the frame itself and the card says what Ref read; click adds the badge. */
         for (const [i, m] of [m1, m2].entries()) {
           const [x, y, w, h] = ["--x", "--y", "--w", "--h"].map((name) => pct(m, name));
-          await moveTo(x + w * 0.5, y + h * 0.5, i ? 750 : 650);
-          const [title, fields] = d.cards[i];
-          card.innerHTML = `<b><em></em><small></small></b>${fields.map(() => "<span><i></i><em></em></span>").join("")}`;
-          /* The names share one column, as wide as the longest. */
-          card.style.setProperty("--names", `${Math.max(...fields.map(([name]) => Array.from(name).reduce((n, c) => n + (c.charCodeAt(0) > 255 ? 1 : 0.58), 0)))}em`);
-          card.firstChild.firstChild.textContent = title;
-          card.firstChild.lastChild.textContent = d.cardHint;
-          fields.forEach(([name, value, code], r) => {
-            const cells = card.children[r + 1].children;
-            cells[0].textContent = name;
-            cells[1].textContent = value;
-            cells[1].classList.toggle("code", !!code);
-          });
+          /* ① is pointed at near its end, so the map coming up beside the pointer leaves the name in view. */
+          const at = [x + w * (i ? 0.5 : 0.82), y + h * 0.5];
+          await moveTo(...at, i ? 750 : 650);
+          showCard(...d.cards[i]);
           /* Above the element, else below; kept inside the screen. */
           Object.assign(card.style, i
             ? { left: "auto", right: "calc(8 * var(--pt))", top: `calc(${y + h}% + 8 * var(--pt))`, bottom: "auto" }
@@ -341,7 +393,26 @@ const cursor = el("span", "d-cursor", '<svg viewBox="0 0 23 23" aria-hidden="tru
           m.classList.add("on");
           card.classList.add("on");
           /* The card is the point of hovering: hold long enough to read it, the first one longest. */
-          await wait(i ? 1300 : 1700);
+          await wait(i ? 1300 : 1400);
+          if (!i) {
+            /* The wheel: the first notch only brings up the map and the card gives way below;
+               then out to the cell and the row, and back in to the name. */
+            const stack = layers();
+            const notch = async (k, ms) => { select(stack, k); await wait(ms); };
+            buildMap(stack, at);
+            keys.textContent = `${d.wheel} ↑`;
+            keys.classList.add("on");
+            map.classList.add("on");
+            await notch(2, 750);
+            await notch(1, 500);
+            await notch(0, 950);
+            keys.textContent = `${d.wheel} ↓`;
+            await notch(1, 500);
+            await notch(2, 800);
+            keys.classList.remove("on");
+            map.classList.remove("on");
+            await wait(450);
+          }
           ripple();
           card.classList.remove("on");
           m.classList.add("set");
