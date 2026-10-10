@@ -69,14 +69,19 @@
   });
 
   /* Latest release: version, direct DMG link and size. The page ships with the
-     release current at build time, so this only ever moves it forward. */
+     release current at build time, so this only ever moves it forward: the
+     shipped buttons download a copy from this site, which gets through where
+     GitHub does not, and stay as they are unless GitHub has something newer. */
   const REPO = "ddhjy/ref-releases";
   const CACHE_KEY = "ref.release";
   const CACHE_TTL = 60 * 60 * 1000;
   const formatSize = (bytes) => `${(bytes / 1e6).toFixed(1)} MB`;
+  const shippedName = document.querySelector("[data-dmg-name]");
+  const shipped = ((shippedName && shippedName.textContent.match(/\d+\.\d+\.\d+/)) || [""])[0];
   const applyRelease = (release) => {
     const tag = release.tag_name;
     if (!/^v\d+\.\d+\.\d+$/.test(tag)) return;
+    if (shipped && tag.slice(1).localeCompare(shipped, undefined, { numeric: true }) <= 0) return;
     const dmg = (release.assets || []).find((a) => /^Ref-\d+\.\d+\.\d+\.dmg$/.test(a.name));
     document.querySelectorAll("[data-version]").forEach((el) => { el.textContent = tag; });
     document.querySelectorAll("[data-release-link]").forEach((el) => { if (release.html_url) el.href = release.html_url; });
