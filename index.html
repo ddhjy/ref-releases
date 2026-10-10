@@ -237,30 +237,30 @@ Ref · 2880×1800 px · com.apple.Safari “发票 — Ledger” · 2026-10-07 1
   <div class="container">
     <header class="section-head">
       <h2 id="reads-title">能读出什么</h2>
-      <p class="section-lede"><strong>点到哪里，就读出哪里。</strong>取决于你点到的 app。读到的东西原样写进标注说明，路径和网址一行放不下就折行，从不省略。</p>
+      <p class="section-lede"><strong>点到哪里，就读出哪里。</strong>取决于你点到的 app。读到的东西原样写进标注说明。</p>
     </header>
     <div class="bento reads">
       <article class="card">
-        <h3>访达</h3>
+        <h3><img class="app-icon" src="assets/img/app-finder.svg" alt="" width="28" height="28">访达</h3>
         <p>文件、文件夹、边栏里的文件夹和磁盘，或窗口空白处——都是完整路径。</p>
         <pre class="sample">AXTextField “Overlay” · folder · ~/Projects/<wbr>ref/<wbr>Sources/<wbr>Ref/<wbr>Overlay</pre>
       </article>
       <article class="card">
-        <h3>代码编辑器</h3>
+        <h3><img class="app-icon" src="assets/img/app-editor.svg" alt="" width="28" height="28">代码编辑器</h3>
         <p>文件树里是文件的完整路径；编辑区里是文件名和光标所在行。</p>
         <pre class="sample">line · ~/Projects/<wbr>ref/<wbr>Sources/<wbr>Ref/<wbr>Output/<wbr>MarkerRenderer.swift:142
 ↳ “ctx.fillEllipse(in: rect)”</pre>
         <ul class="apps"><li>Xcode</li><li>VS Code</li><li>Cursor</li><li>Trae</li><li>Windsurf</li><li>Zed</li><li>Sublime Text</li><li>Nova</li><li>TextMate</li><li>BBEdit</li></ul>
       </article>
       <article class="card">
-        <h3>终端</h3>
+        <h3><img class="app-icon" src="assets/img/app-terminal.svg" alt="" width="28" height="28">终端</h3>
         <p>光标所在的那一行。</p>
         <pre class="sample">line “make release VERSION=0.3.4”
 ↳ 行号 12</pre>
         <ul class="apps"><li>Terminal</li><li>iTerm2</li><li>Ghostty</li><li>Warp</li><li>kitty</li><li>WezTerm</li><li>Alacritty</li></ul>
       </article>
       <article class="card card-wide">
-        <h3>浏览器</h3>
+        <h3><img class="app-icon" src="assets/img/app-browser.svg" alt="" width="28" height="28">浏览器</h3>
         <p>地址栏读出网址；页面里的元素读出类型、文字和所在页面的网址，表格里还有列名和所在行，以及所属区块标题。</p>
         <p>在浏览器里打开“允许 Apple 事件中的 JavaScript”后，另外读出 CSS 选择器、尺寸、字体与颜色；本地开发的 React / Vue / Svelte / Angular 页面还能读到组件名和源文件位置。</p>
         <pre class="sample">AXButton “Login”
@@ -270,13 +270,13 @@ Ref · 2880×1800 px · com.apple.Safari “发票 — Ledger” · 2026-10-07 1
         <ul class="apps"><li>Safari</li><li>Chrome</li><li>Edge</li><li>Arc</li><li>Brave</li><li>Vivaldi</li><li>Firefox</li></ul>
       </article>
       <article class="card">
-        <h3>iOS 模拟器</h3>
+        <h3><img class="app-icon" src="assets/img/app-simulator.svg" alt="" width="28" height="28">iOS 模拟器</h3>
         <p>控件类型、文字、accessibilityIdentifier、提示文本和设备名。app 嵌入 <a href="https://github.com/QMUI/LookinServer" rel="noopener">LookinServer</a> 后，另外读出视图类名、所属控制器与 ivar、frame、字体、颜色、圆角和点击响应方法。</p>
         <pre class="sample">UILabel “合计 ¥128.00” · 41%×62%
 ↳ PriceLabel : UILabel · CartViewController.totalLabel · (16,&nbsp;612) 200×22&nbsp;pt · 17pt PingFangSC-Semibold #1A1C1F · 圆角 8</pre>
       </article>
       <article class="card">
-        <h3>其他 app</h3>
+        <h3><img class="app-icon" src="assets/img/app-other.svg" alt="" width="28" height="28">其他 app</h3>
         <p>控件类型加标题或文字。有些 app 不向系统暴露界面信息，这时改用拖拽框选，再写一句要求。</p>
         <pre class="sample">AXButton “导出”</pre>
       </article>

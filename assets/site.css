@@ -663,6 +663,9 @@ p code, td code, li code, h3 code { padding: 0.1em 0.4em; border-radius: 5px; ba
   font: 400 12.5px/1.6 var(--mono); white-space: pre-wrap; overflow-wrap: anywhere;
 }
 .sample.code { background: var(--legend-bg); }
+/* What kind of app the card is about, as an icon of its own drawing — not any one app's. */
+.reads h3 { display: flex; align-items: center; gap: 10px; }
+.app-icon { flex: none; width: 28px; height: 28px; filter: drop-shadow(0 1px 1.5px rgba(0, 0, 0, 0.18)); }
 .apps { display: flex; flex-wrap: wrap; gap: 6px; margin-top: auto; padding-top: 6px; }
 .apps li { padding: 3px 9px; border-radius: 999px; background: var(--bg-3); font-size: 12.5px; font-weight: 500; color: var(--ink-2); }
 .section-alt .apps li { background: var(--bg-2); }

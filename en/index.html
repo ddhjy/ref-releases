@@ -237,30 +237,30 @@ Ref · 2880×1800 px · com.apple.Safari “Invoices — Ledger” · 2026-10-07
   <div class="container">
     <header class="section-head">
       <h2 id="reads-title">What Ref reads</h2>
-      <p class="section-lede"><strong>Wherever you click, Ref reads what’s there.</strong> It depends on the app you click in. Whatever Ref reads goes into the legend as is — paths and URLs wrap to the next line rather than get cut.</p>
+      <p class="section-lede"><strong>Wherever you click, Ref reads what’s there.</strong> It depends on the app you click in. Whatever Ref reads goes into the legend as is.</p>
     </header>
     <div class="bento reads">
       <article class="card">
-        <h3>Finder</h3>
+        <h3><img class="app-icon" src="../assets/img/app-finder.svg" alt="" width="28" height="28">Finder</h3>
         <p>Files, folders, folders and disks in the sidebar, or the empty part of a window — always the full path.</p>
         <pre class="sample">AXTextField “Overlay” · folder · ~/Projects/<wbr>ref/<wbr>Sources/<wbr>Ref/<wbr>Overlay</pre>
       </article>
       <article class="card">
-        <h3>Code editors</h3>
+        <h3><img class="app-icon" src="../assets/img/app-editor.svg" alt="" width="28" height="28">Code editors</h3>
         <p>In the file tree, the file’s full path; in the editor, the file name and the line the cursor is on.</p>
         <pre class="sample">line · ~/Projects/<wbr>ref/<wbr>Sources/<wbr>Ref/<wbr>Output/<wbr>MarkerRenderer.swift:142
 ↳ “ctx.fillEllipse(in: rect)”</pre>
         <ul class="apps"><li>Xcode</li><li>VS Code</li><li>Cursor</li><li>Trae</li><li>Windsurf</li><li>Zed</li><li>Sublime Text</li><li>Nova</li><li>TextMate</li><li>BBEdit</li></ul>
       </article>
       <article class="card">
-        <h3>Terminals</h3>
+        <h3><img class="app-icon" src="../assets/img/app-terminal.svg" alt="" width="28" height="28">Terminals</h3>
         <p>The line the cursor is on.</p>
         <pre class="sample">line “make release VERSION=0.3.4”
 ↳ line 12</pre>
         <ul class="apps"><li>Terminal</li><li>iTerm2</li><li>Ghostty</li><li>Warp</li><li>kitty</li><li>WezTerm</li><li>Alacritty</li></ul>
       </article>
       <article class="card card-wide">
-        <h3>Browsers</h3>
+        <h3><img class="app-icon" src="../assets/img/app-browser.svg" alt="" width="28" height="28">Browsers</h3>
         <p>The address bar gives the URL. Page elements give their type, text and the page’s URL; table cells add the column name and row, and anything inside a section adds its heading.</p>
         <p>With Allow JavaScript from Apple Events turned on in the browser, Ref also reads the CSS selector, size, font and colors — and on local React / Vue / Svelte / Angular pages, the component name and source location.</p>
         <pre class="sample">AXButton “Login”
@@ -270,13 +270,13 @@ page · http://localhost:3100/<wbr>login</pre>
         <ul class="apps"><li>Safari</li><li>Chrome</li><li>Edge</li><li>Arc</li><li>Brave</li><li>Vivaldi</li><li>Firefox</li></ul>
       </article>
       <article class="card">
-        <h3>iOS Simulator</h3>
+        <h3><img class="app-icon" src="../assets/img/app-simulator.svg" alt="" width="28" height="28">iOS Simulator</h3>
         <p>Control type, text, accessibilityIdentifier, hint and device name. If the app embeds <a href="https://github.com/QMUI/LookinServer" rel="noopener">LookinServer</a>, also the view class, owning controller and ivar, frame, font, colors, corner radius and the action it triggers.</p>
         <pre class="sample">UILabel “Total $128.00” · 41%×62%
 ↳ PriceLabel : UILabel · CartViewController.totalLabel · (16,&nbsp;612) 200×22&nbsp;pt · 17pt SFPro-Semibold #1A1C1F · radius 8</pre>
       </article>
       <article class="card">
-        <h3>Other apps</h3>
+        <h3><img class="app-icon" src="../assets/img/app-other.svg" alt="" width="28" height="28">Other apps</h3>
         <p>Control type plus its title or text. Some apps expose nothing to the system; drag a region there instead and write a request.</p>
         <pre class="sample">AXButton “Export”</pre>
       </article>
