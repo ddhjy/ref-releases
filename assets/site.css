@@ -165,6 +165,15 @@ table { border-collapse: collapse; }
 .copy .i-done { display: none; }
 .copy.copied .i-copy { display: none; }
 .copy.copied .i-done { display: block; color: var(--green); }
+/* The icon swap alone is easy to miss: a word says it too. */
+.copy .copy-done { display: none; }
+.copy.copied .copy-idle { display: none; }
+.copy.copied .copy-done { display: inline; }
+.link-btn {
+  padding: 0; border: 0; background: none; color: var(--ink); font-weight: 600; cursor: pointer;
+  text-decoration: underline; text-decoration-color: var(--hair-2); text-underline-offset: 3px;
+}
+.link-btn:hover { text-decoration-color: currentColor; }
 
 kbd {
   display: inline-block; min-width: 1.6em; padding: 0.05em 0.45em; margin: 0 0.05em;
@@ -242,6 +251,14 @@ p code, td code, li code, h3 code { padding: 0.1em 0.4em; border-radius: 5px; ba
 .lede + .lede { margin-top: 10px; color: var(--ink); font-weight: 500; }
 .cta { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-top: 36px; }
 .fine { margin-top: 18px; font-size: 13px; color: var(--ink-3); font-variant-numeric: tabular-nums; }
+.fine a { text-decoration: underline; text-decoration-color: var(--hair-2); text-underline-offset: 3px; }
+.fine a:hover { color: var(--ink); text-decoration-color: currentColor; }
+/* Shown by site.js when the visitor is not on a Mac: the download would be of no use there. */
+.notice {
+  max-width: 36em; margin-top: 16px; padding: 10px 16px; border-radius: 12px;
+  background: var(--bg-2); box-shadow: 0 0 0 1px var(--hair); font-size: 14px; line-height: 1.6; color: var(--ink-2); text-wrap: pretty;
+}
+.notice[hidden] { display: none; }
 
 /* ---------- Demo (the output image) ---------- */
 
@@ -665,8 +682,8 @@ p code, td code, li code, h3 code { padding: 0.1em 0.4em; border-radius: 5px; ba
   font-size: 12.5px; line-height: 1.45;
 }
 .hover-row { display: grid; grid-template-columns: 56px 1fr auto; align-items: baseline; gap: 10px; padding: 3px 6px; border-radius: 6px; }
-.hover-row:first-child { grid-template-columns: 1fr auto; margin-bottom: 2px; }
-.hover-row:first-child span { font-weight: 600; color: var(--ink); font-family: var(--mono); font-size: 12px; }
+.hover-row:first-child { grid-template-columns: minmax(0, 1fr) auto; margin-bottom: 2px; }
+.hover-row:first-child span { font-weight: 600; color: var(--ink); font-family: var(--mono); font-size: 12px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .hover-row em { font-style: normal; color: var(--ink-3); font-size: 11.5px; }
 .hover-row > span { color: var(--ink-3); }
 .hover-row b, .hover-row code { font-weight: 500; color: var(--ink); overflow-wrap: anywhere; background: none; padding: 0; }
@@ -679,6 +696,47 @@ p code, td code, li code, h3 code { padding: 0.1em 0.4em; border-radius: 5px; ba
 @keyframes caret { 50% { opacity: 0; } }
 
 
+
+/* ---------- Quick start ---------- */
+
+.steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+.steps li {
+  display: flex; flex-direction: column; gap: 10px; padding: 28px; border-radius: var(--r-lg);
+  background: var(--card); box-shadow: 0 0 0 1px var(--hair);
+}
+.steps h3 { font-size: 19px; }
+.steps p { color: var(--ink-2); font-size: 15.5px; line-height: 1.6; }
+.step-n {
+  display: grid; place-items: center; width: 28px; height: 28px; border-radius: 50%;
+  background: var(--ink); color: var(--bg); font-size: 14px; font-weight: 600; font-variant-numeric: tabular-nums;
+}
+.step-visual {
+  display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 14px 16px; min-height: 132px;
+  margin: 4px -8px 8px; padding: 20px 16px; border-radius: 14px; background: var(--bg-2);
+}
+.step-then { font-size: 22px; color: var(--ink-3); }
+/* A mark as the app draws one, at the size it has on screen. */
+.step-mark {
+  position: relative; display: inline-block; padding: 3px 10px; margin-left: 10px;
+  outline: 2px solid var(--red); background: var(--red-tint); color: var(--ink); font-size: 15px; font-weight: 500; white-space: nowrap;
+}
+.step-mark b {
+  position: absolute; left: -10px; top: -10px; transform: translate(-50%, -50%);
+  width: 22px; height: 22px; border-radius: 50%; background: var(--red); color: #fff;
+  font: 700 12px/1 var(--font); display: grid; place-items: center;
+}
+/* The request field from the panel, with its Tab hint. */
+.step-field {
+  display: inline-flex; align-items: center; gap: 10px; height: 30px; padding: 0 6px 0 12px; border-radius: 15px;
+  background: var(--bg-3); color: var(--ink); font-size: 13.5px; white-space: nowrap;
+}
+.step-field i { padding: 1px 7px; border-radius: 6px; background: var(--kbd-bg); box-shadow: 0 0 0 1px var(--hair-2); font-size: 11px; font-style: normal; font-weight: 500; color: var(--ink-3); }
+.steps-foot { margin-top: 24px; font-size: 15px; color: var(--ink-2); }
+.steps-foot[hidden] { display: none; }
+@media (max-width: 900px) {
+  .steps { grid-template-columns: minmax(0, 1fr); }
+  .step-visual { min-height: 108px; }
+}
 
 /* ---------- Reads ---------- */
 
@@ -812,8 +870,16 @@ p code, td code, li code, h3 code { padding: 0.1em 0.4em; border-radius: 5px; ba
 .way h3 { font-size: 18px; }
 .way p { color: var(--ink-2); font-size: 15px; }
 .way .btn { align-self: flex-start; margin-top: 4px; }
-.install-req { margin-top: 20px; font-size: 14px; color: var(--ink-3); }
-.way-meta { margin-top: auto; padding-top: 6px; font-size: 13px; color: var(--ink-3); }
+.way-steps { display: flex; flex-direction: column; gap: 8px; counter-reset: way-step; }
+.way-steps li { position: relative; padding-left: 30px; color: var(--ink-2); font-size: 15px; line-height: 1.6; }
+.way-steps li::before {
+  counter-increment: way-step; content: counter(way-step);
+  position: absolute; left: 0; top: 2px; width: 20px; height: 20px; border-radius: 50%;
+  background: var(--ink); color: var(--bg); font: 600 11.5px/20px var(--font); text-align: center;
+}
+.install-req { max-width: 64em; margin-top: 20px; font-size: 14px; line-height: 1.6; color: var(--ink-3); text-wrap: pretty; }
+.way-meta { margin-top: auto; padding-top: 6px; font-size: 13px; line-height: 1.6; color: var(--ink-3); }
+.cmd .copy-done { flex: none; font: 600 13px/1 var(--font); color: var(--green); }
 .cmd {
   display: flex; align-items: center; gap: 12px; margin-top: 4px; padding: 13px 14px; min-height: 48px;
   border: 0; border-radius: 12px; background: var(--legend-bg); color: var(--legend-ink);
@@ -937,7 +1003,10 @@ p code, td code, li code, h3 code { padding: 0.1em 0.4em; border-radius: 5px; ba
   .paste-list li { font-size: 17px; }
   .section-head { margin-bottom: 36px; }
   .section-lede { font-size: 17px; }
+  /* One column on phones: two side-by-side cards leave no room for the code samples and mock UI. */
+  .bento { grid-template-columns: minmax(0, 1fr); }
   .card-wide, .details .card:last-child { grid-column: auto; }
+  .card-visual { min-height: 196px; }
   .card, .way { padding: 22px; }
   .map { grid-template-columns: minmax(0, 1fr); }
   .anatomy-legend { font-size: 12.5px; padding: 18px 16px; }

@@ -38,6 +38,15 @@
     window.matchMedia("(min-width: 1121px)").addEventListener("change", (e) => { if (e.matches) setOpen(false); });
   }
 
+  /* Not on a Mac: say so next to the download, since the DMG is of no use there. iPadOS
+     Safari calls itself a Mac but has a touch screen, which a Mac never does. */
+  const notMac = document.querySelectorAll("[data-not-mac]");
+  if (notMac.length) {
+    const platform = (navigator.userAgentData && navigator.userAgentData.platform) || navigator.platform || "";
+    const isMac = /mac/i.test(platform) && !(navigator.maxTouchPoints > 1);
+    if (!isMac) notMac.forEach((el) => { el.hidden = false; });
+  }
+
   /* Copy buttons. */
   const copyText = async (text) => {
     if (navigator.clipboard && window.isSecureContext) {
@@ -527,11 +536,18 @@ const cursor = el("span", "d-cursor", '<svg viewBox="0 0 23 23" aria-hidden="tru
       screen.scrollIntoView({ block: "center", behavior: "smooth" });
       play();
     });
+    /* The quick-start section offers the same playback; it only exists while the demo does. */
+    document.querySelectorAll("[data-play-demo]").forEach((button) => {
+      const holder = button.closest("[data-demo-link]");
+      if (holder) holder.hidden = false;
+      button.addEventListener("click", () => playButton.click());
+    });
     reduceMotion.addEventListener("change", (e) => {
       if (!e.matches) return;
       run += 1;
       restore();
       demo.classList.remove("animate", "staged", "done");
+      document.querySelectorAll("[data-demo-link]").forEach((el) => { el.hidden = true; });
     });
   }
 
