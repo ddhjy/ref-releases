@@ -115,7 +115,7 @@
   <div class="container">
     <h2 id="why-title">截图只说了一半</h2>
     <p class="why-intro">想让 AI 改屏幕上的某个东西，你通常得这样描述：</p>
-    <blockquote class="why-quote">“把左边访达里<mark>那个 components 文件夹</mark>……不是，是 src 下面那个……参考 Safari 里<mark>那个“新建发票”按钮</mark>的样式，在表格<mark>右下角那块空白</mark>加个导出按钮。”</blockquote>
+    <blockquote class="why-quote">“把左边访达里<mark>那个 components 文件夹</mark>……不是，是 src 下面那个……参考 Safari 里<mark>那个“新建发票”按钮</mark>的样式，在表格<mark>右下角那块空白</mark>加个导出按钮。iOS 版也加一个，放在模拟器里<mark>右上角那个按钮</mark>左边。”</blockquote>
     <p class="why-because">这段话说不清，因为</p>
     <ol class="why-reasons">
       <li><b>“那个文件夹”</b>同名的文件夹不止一个。AI 要的是完整路径，截图里看不到。</li>
@@ -126,7 +126,7 @@
   </div>
   <div class="container-wide">
     <p class="demo-lead">同一段话，用 Ref 标出来</p>
-    <figure class="demo" aria-label="Ref 复制出来的一张图：截图上有五个编号标记，底部的标注说明逐条写明每个标记指的是什么">
+    <figure class="demo" aria-label="Ref 复制出来的一张图：截图上有六个编号标记，底部的标注说明逐条写明每个标记指的是什么">
       <div class="demo-frame">
       <div class="demo-screen" aria-hidden="true">
         <div class="mbar">
@@ -194,19 +194,39 @@
           </div>
         </div>
 
+        <div class="win win-sim">
+          <div class="win-bar sim-bar">
+            <span class="lights"><i></i><i></i><i></i></span>
+            <span class="sim-name"><b>iPhone 17 Pro</b><small>iOS 26.0</small></span>
+          </div>
+          <div class="phone">
+            <div class="phone-status"><b>15:55</b><span><i></i><i></i><i class="wide"></i></span></div>
+            <div class="phone-nav"><b>发票</b><span class="phone-btn" data-mark="3">新建</span></div>
+            <div class="phone-sub">本月 24 张 · 待收 ¥128,400</div>
+            <div class="phone-list">
+              <div class="phone-cell"><b>Northwind</b><span>¥12,800</span><small>INV-0241</small><span class="st paid">已收款</span></div>
+              <div class="phone-cell"><b>Acme</b><span>¥9,600</span><small>INV-0240</small><span class="st">待收</span></div>
+              <div class="phone-cell"><b>Globex</b><span>¥32,000</span><small>INV-0239</small><span class="st">待收</span></div>
+              <div class="phone-cell"><b>Initech</b><span>¥4,500</span><small>INV-0238</small><span class="st paid">已收款</span></div>
+              <div class="phone-cell"><b>Umbrella</b><span>¥18,200</span><small>INV-0237</small><span class="st late">逾期</span></div>
+            </div>
+          </div>
+        </div>
+
         <!-- Marks as the app draws them: a square ring outside the frame, the badge off its
              top-left corner; a straight arrow with the badge behind its tail; text beside its badge. -->
         <span class="mk mk-frame" style="--x:19.7%;--y:23.4%;--w:5.7%;--h:2.3%" data-n="1"><b>1</b></span>
         <span class="mk mk-frame" style="--x:90.36%;--y:11.58%;--w:5.44%;--h:3.36%" data-n="2"><b>2</b></span>
-        <span class="mk mk-region" style="--x:74.5%;--y:71%;--w:20%;--h:17%" data-n="3"><b>3</b></span>
-        <svg class="mk mk-arrow" viewBox="0 0 1000 625" preserveAspectRatio="none" data-n="4" data-tail="920 412.5" data-head="956 295">
+        <span class="mk mk-frame" style="--x:42.39%;--y:37.32%;--w:3.16%;--h:2.72%" data-n="3"><b>3</b></span>
+        <span class="mk mk-region" style="--x:74.5%;--y:71%;--w:20%;--h:17%" data-n="4"><b>4</b></span>
+        <svg class="mk mk-arrow" viewBox="0 0 1000 625" preserveAspectRatio="none" data-n="5" data-tail="920 412.5" data-head="956 295">
           <path d="M920 412.5 L955.08 297.99 M938.52 306.78 L955.08 297.99 L963.87 314.55"/>
         </svg>
-        <span class="mk mk-badge-only" style="--x:92%;--y:66%;--ux:0.2929;--uy:-0.9561" data-n="4"><b>4</b></span>
-        <span class="mk mk-text" style="--x:77.1%;--y:78%" data-n="5"><b>5</b>文案：导出 CSV</span>
+        <span class="mk mk-badge-only" style="--x:92%;--y:66%;--ux:0.2929;--uy:-0.9561" data-n="5"><b>5</b></span>
+        <span class="mk mk-text" style="--x:77.1%;--y:78%" data-n="6"><b>6</b>文案：导出 CSV</span>
       </div>
 
-      <pre class="demo-legend" data-legend><span class="ll" data-n="0"><em>整体要求：</em>照 2 的样式在 3 加一个导出按钮，代码放到 1</span>
+      <pre class="demo-legend" data-legend><span class="ll" data-n="0"><em>整体要求：</em>照 2 的样式在 4 加一个导出按钮，代码放到 1，iOS 端加在 3 旁边</span>
 <span class="ll" data-n="1">├─ <i class="lb" data-n="1">①</i> 新组件放这里
 │  └─ AXTextField “components” · folder · ~/Projects/ledger/src/components ·
 │     com.apple.finder · 23%×25%</span>
@@ -214,16 +234,20 @@
 │  └─ AXButton “新建发票” · 93%×13%
 │     ↳ Toolbar @ src/components/Toolbar.tsx:18 · button.primary · 112×32
 │       13px Inter 600 #FFFFFF bg #0D44E8</span>
-<span class="ll" data-n="3">├─ <i class="lb" data-n="3">③</i> 导出按钮放这里
+<span class="ll" data-n="3">├─ <i class="lb" data-n="3">③</i> iOS 端加在它左边
+│  └─ UIButton “新建” · com.apple.iphonesimulator · 44%×39%
+│     ↳ PillButton : UIButton · InvoiceListViewController.addButton ·
+│       (296, 62) 80×44 pt · 17pt SFProText-Semibold #FFFFFF bg #0D44E8 · 圆角 22</span>
+<span class="ll" data-n="4">├─ <i class="lb" data-n="4">④</i> 导出按钮放这里
 │  └─ 区域 · 75%×71% – 95%×88%</span>
-<span class="ll" data-n="4">├─ <i class="lb" data-n="4">④</i> 右边和表格对齐
+<span class="ll" data-n="5">├─ <i class="lb" data-n="5">⑤</i> 右边和表格对齐
 │  └─ 箭头 · 92%×66% 指向 96%×47%</span>
-<span class="ll" data-n="5">└─ <i class="lb" data-n="5">⑤</i> 文案：导出 CSV
+<span class="ll" data-n="6">└─ <i class="lb" data-n="6">⑥</i> 文案：导出 CSV
    └─ 文字 · 77%×78%</span>
-<span class="ll sig" data-n="6">页面 · http://localhost:3100/invoices
+<span class="ll sig" data-n="7">页面 · http://localhost:3100/invoices
 Ref · 2880×1800 px · com.apple.Safari “发票 — Ledger” · 2026-10-07 15:55</span></pre>
       </div>
-      <figcaption class="demo-caption">复制出来的就是这一张：原始截图叠上编号标记，底部附一段标注说明。图上的 ①–⑤ 和标注说明里的 ①–⑤ 一一对应，AI 可以直接按编号引用。</figcaption>
+      <figcaption class="demo-caption">复制出来的就是这一张：原始截图叠上编号标记，底部附一段标注说明。图上的 ①–⑥ 和标注说明里的 ①–⑥ 一一对应，AI 可以直接按编号引用。</figcaption>
     </figure>
   </div>
   <div class="container paste">

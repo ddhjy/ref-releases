@@ -340,6 +340,31 @@ p code, td code, li code, h3 code { padding: 0.1em 0.4em; border-radius: 5px; ba
 .finder-path { display: flex; gap: 1.2cqw; height: 2cqw; align-items: center; padding: 0 1cqw; border-top: 1px solid rgba(0, 0, 0, 0.08); background: #f7f7f9; font-size: 0.76cqw; color: #6e6e73; flex: none; }
 .finder-path span + span::before { content: "›"; margin-right: 1.2cqw; color: #aeaeb2; }
 
+/* The Simulator, over the Finder window's empty corner: a dark window holding the device's screen. */
+.win-sim { left: 30.5%; top: 29%; width: 16.5%; height: 63%; background: #1c1c1e; }
+.sim-bar { height: 2.3cqw; gap: 0.7cqw; padding: 0 0.8cqw; background: #2c2c2e; border-bottom: 0; }
+.sim-bar .lights { gap: 0.4cqw; }
+.sim-bar .lights i { width: 0.7cqw; height: 0.7cqw; }
+.sim-name { display: flex; flex-direction: column; line-height: 1.15; font-size: 0.7cqw; color: #fff; }
+.sim-name b { font-weight: 600; }
+.sim-name small { font-size: 0.58cqw; color: #98989d; }
+.phone { flex: 1; min-height: 0; display: flex; flex-direction: column; margin: 0 0.45cqw 0.45cqw; border-radius: 1.7cqw; overflow: hidden; background: #f2f2f7; }
+.phone-status { display: flex; align-items: center; justify-content: space-between; height: 2.2cqw; padding: 0 1.3cqw; font-size: 0.72cqw; flex: none; }
+.phone-status b { font-weight: 600; }
+.phone-status span { display: flex; gap: 0.25cqw; }
+.phone-status i { width: 0.7cqw; height: 0.5cqw; border-radius: 0.12cqw; background: #1d1d1f; }
+.phone-status i.wide { width: 1.1cqw; }
+.phone-nav { display: flex; align-items: center; justify-content: space-between; padding: 0.5cqw 1cqw 0.2cqw; }
+.phone-nav b { font-size: 1.5cqw; font-weight: 700; }
+.phone-btn { display: inline-flex; align-items: center; height: 1.7cqw; padding: 0 0.8cqw; border-radius: 999px; background: #0d44e8; color: #fff; font-size: 0.78cqw; font-weight: 600; }
+.phone-sub { padding: 0 1cqw 0.7cqw; font-size: 0.7cqw; color: #6e6e73; }
+.phone-list { margin: 0 0.8cqw; border-radius: 0.9cqw; background: #fff; }
+.phone-cell { display: grid; grid-template-columns: 1fr auto; align-items: center; row-gap: 0.15cqw; padding: 0.55cqw 0.8cqw; font-size: 0.8cqw; }
+.phone-cell + .phone-cell { border-top: 1px solid rgba(0, 0, 0, 0.06); }
+.phone-cell b { font-weight: 600; }
+.phone-cell span:nth-child(2) { text-align: right; font-variant-numeric: tabular-nums; }
+.phone-cell small { font: 0.66cqw var(--mono); color: #6e6e73; }
+.phone-cell .st { justify-self: end; }
 .win-safari { left: 48.4%; top: 5%; width: 49.2%; height: 89%; }
 .safari-bar { gap: 0.7cqw; }
 .sf-btn { width: 1.6cqw; height: 1.2cqw; border-radius: 0.3cqw; background: rgba(0, 0, 0, 0.07); }

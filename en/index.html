@@ -115,7 +115,7 @@
   <div class="container">
     <h2 id="why-title">A screenshot only says half of it</h2>
     <p class="why-intro">To get an AI to change something on your screen, you usually end up describing it:</p>
-    <blockquote class="why-quote">“<mark>The components folder</mark> in the Finder window on the left… no, the one under src… make it look like <mark>the New invoice button</mark> in Safari, and put an export button in <mark>that empty space</mark> under the table, bottom right.”</blockquote>
+    <blockquote class="why-quote">“<mark>The components folder</mark> in the Finder window on the left… no, the one under src… make it look like <mark>the New invoice button</mark> in Safari, and put an export button in <mark>that empty space</mark> under the table, bottom right. Same on iOS — left of <mark>that button top right</mark> in the Simulator.”</blockquote>
     <p class="why-because">Why that doesn’t get through</p>
     <ol class="why-reasons">
       <li><b>“That folder”</b>More than one folder has that name. The AI needs the full path, and a screenshot doesn’t show it.</li>
@@ -126,7 +126,7 @@
   </div>
   <div class="container-wide">
     <p class="demo-lead">The same request, marked with Ref</p>
-    <figure class="demo" aria-label="An image copied by Ref: five numbered marks on a screenshot, and a legend band underneath that spells out what each mark refers to">
+    <figure class="demo" aria-label="An image copied by Ref: six numbered marks on a screenshot, and a legend band underneath that spells out what each mark refers to">
       <div class="demo-frame">
       <div class="demo-screen" aria-hidden="true">
         <div class="mbar">
@@ -194,19 +194,39 @@
           </div>
         </div>
 
+        <div class="win win-sim">
+          <div class="win-bar sim-bar">
+            <span class="lights"><i></i><i></i><i></i></span>
+            <span class="sim-name"><b>iPhone 17 Pro</b><small>iOS 26.0</small></span>
+          </div>
+          <div class="phone">
+            <div class="phone-status"><b>3:55</b><span><i></i><i></i><i class="wide"></i></span></div>
+            <div class="phone-nav"><b>Invoices</b><span class="phone-btn" data-mark="3">New</span></div>
+            <div class="phone-sub">24 this month · $128,400 outstanding</div>
+            <div class="phone-list">
+              <div class="phone-cell"><b>Northwind</b><span>$12,800</span><small>INV-0241</small><span class="st paid">Paid</span></div>
+              <div class="phone-cell"><b>Acme</b><span>$9,600</span><small>INV-0240</small><span class="st">Due</span></div>
+              <div class="phone-cell"><b>Globex</b><span>$32,000</span><small>INV-0239</small><span class="st">Due</span></div>
+              <div class="phone-cell"><b>Initech</b><span>$4,500</span><small>INV-0238</small><span class="st paid">Paid</span></div>
+              <div class="phone-cell"><b>Umbrella</b><span>$18,200</span><small>INV-0237</small><span class="st late">Overdue</span></div>
+            </div>
+          </div>
+        </div>
+
         <!-- Marks as the app draws them: a square ring outside the frame, the badge off its
              top-left corner; a straight arrow with the badge behind its tail; text beside its badge. -->
         <span class="mk mk-frame" style="--x:19.7%;--y:23.4%;--w:5.7%;--h:2.3%" data-n="1"><b>1</b></span>
         <span class="mk mk-frame" style="--x:88.67%;--y:11.58%;--w:7.13%;--h:3.36%" data-n="2"><b>2</b></span>
-        <span class="mk mk-region" style="--x:74.5%;--y:71%;--w:20%;--h:17%" data-n="3"><b>3</b></span>
-        <svg class="mk mk-arrow" viewBox="0 0 1000 625" preserveAspectRatio="none" data-n="4" data-tail="920 412.5" data-head="956 295">
+        <span class="mk mk-frame" style="--x:42.23%;--y:37.32%;--w:3.32%;--h:2.72%" data-n="3"><b>3</b></span>
+        <span class="mk mk-region" style="--x:74.5%;--y:71%;--w:20%;--h:17%" data-n="4"><b>4</b></span>
+        <svg class="mk mk-arrow" viewBox="0 0 1000 625" preserveAspectRatio="none" data-n="5" data-tail="920 412.5" data-head="956 295">
           <path d="M920 412.5 L955.08 297.99 M938.52 306.78 L955.08 297.99 L963.87 314.55"/>
         </svg>
-        <span class="mk mk-badge-only" style="--x:92%;--y:66%;--ux:0.2929;--uy:-0.9561" data-n="4"><b>4</b></span>
-        <span class="mk mk-text" style="--x:76.1%;--y:78%" data-n="5"><b>5</b>Label: Export CSV</span>
+        <span class="mk mk-badge-only" style="--x:92%;--y:66%;--ux:0.2929;--uy:-0.9561" data-n="5"><b>5</b></span>
+        <span class="mk mk-text" style="--x:76.1%;--y:78%" data-n="6"><b>6</b>Label: Export CSV</span>
       </div>
 
-      <pre class="demo-legend" data-legend><span class="ll" data-n="0"><em>Overall request: </em>add an Export button in 3, styled like 2; the code goes in 1</span>
+      <pre class="demo-legend" data-legend><span class="ll" data-n="0"><em>Overall request: </em>add an Export button in 4, styled like 2; the code goes in 1; on iOS, next to 3</span>
 <span class="ll" data-n="1">├─ <i class="lb" data-n="1">①</i> New component goes here
 │  └─ AXTextField “components” · folder · ~/Projects/ledger/src/components ·
 │     com.apple.finder · 23%×25%</span>
@@ -214,16 +234,20 @@
 │  └─ AXButton “New invoice” · 92%×13%
 │     ↳ Toolbar @ src/components/Toolbar.tsx:18 · button.primary · 124×32
 │       13px Inter 600 #FFFFFF bg #0D44E8</span>
-<span class="ll" data-n="3">├─ <i class="lb" data-n="3">③</i> Export button goes here
+<span class="ll" data-n="3">├─ <i class="lb" data-n="3">③</i> On iOS, put it left of this
+│  └─ UIButton “New” · com.apple.iphonesimulator · 44%×39%
+│     ↳ PillButton : UIButton · InvoiceListViewController.addButton ·
+│       (296, 62) 80×44 pt · 17pt SFProText-Semibold #FFFFFF bg #0D44E8 · radius 22</span>
+<span class="ll" data-n="4">├─ <i class="lb" data-n="4">④</i> Export button goes here
 │  └─ region · 75%×71% – 95%×88%</span>
-<span class="ll" data-n="4">├─ <i class="lb" data-n="4">④</i> Right edge lines up with the table
+<span class="ll" data-n="5">├─ <i class="lb" data-n="5">⑤</i> Right edge lines up with the table
 │  └─ arrow · 92%×66% to 96%×47%</span>
-<span class="ll" data-n="5">└─ <i class="lb" data-n="5">⑤</i> Label: Export CSV
+<span class="ll" data-n="6">└─ <i class="lb" data-n="6">⑥</i> Label: Export CSV
    └─ text · 76%×78%</span>
-<span class="ll sig" data-n="6">page · http://localhost:3100/invoices
+<span class="ll sig" data-n="7">page · http://localhost:3100/invoices
 Ref · 2880×1800 px · com.apple.Safari “Invoices — Ledger” · 2026-10-07 15:55</span></pre>
       </div>
-      <figcaption class="demo-caption">This is what lands on the clipboard: the original screenshot with numbered marks, and a legend band underneath. ①–⑤ on the image match ①–⑤ in the legend, so the AI can refer to them by number.</figcaption>
+      <figcaption class="demo-caption">This is what lands on the clipboard: the original screenshot with numbered marks, and a legend band underneath. ①–⑥ on the image match ①–⑥ in the legend, so the AI can refer to them by number.</figcaption>
     </figure>
   </div>
   <div class="container paste">

@@ -114,26 +114,30 @@
     const d = zh
       ? {
         hotkey: "⇧⌘R", request: "要求", typeText: "输入文字", overall: "整体要求", whole: "当前屏幕", cancel: "取消", copy: "复制",
-        toast: "已复制 · 5 处标注", result: "标注效果", play: "看过程", wheel: "滚轮",
+        toast: "已复制 · 6 处标注", result: "标注效果", play: "看过程", wheel: "滚轮",
         hints: { frame: "点击元素或拖出区域 · 滚动切换父/子及被遮挡的元素", arrow: "拖动画出箭头", text: "点击要放文字的位置" },
-        rows: ["选框 · AXTextField “components” · ~/Projects/ledger/src/components · 访达", "选框 · AXButton “新建发票”", "区域", "箭头", "文字"],
+        rows: ["选框 · AXTextField “components” · ~/Projects/ledger/src/components · 访达", "选框 · AXButton “新建发票”", "选框 · UIButton “新建” · 模拟器", "区域", "箭头", "文字"],
         cardHint: "按住空格可复制",
         cards: [
           ["AXTextField", [["名称", "components"], ["路径", "/Users/kai/Projects/ledger/src/components", 1], ["尺寸", "82×21 pt", 1], ["应用", "com.apple.finder", 1]]],
           ["AXButton", [["名称", "新建发票"], ["组件", "Toolbar", 1], ["源码", "src/components/Toolbar.tsx:18", 1], ["选择器", "button.primary", 1], ["尺寸", "112×32", 1],
             ["字体", "13px Inter 600", 1], ["颜色", "#FFFFFF", 1], ["背景", "#0D44E8", 1], ["页面", "http://localhost:3100/invoices", 1], ["应用", "com.apple.Safari", 1]]],
+          ["UIButton", [["名称", "新建"], ["类", "PillButton", 1], ["属性", "InvoiceListViewController.addButton", 1], ["Frame", "(296, 62) 80×44 pt", 1],
+            ["字体", "17pt SFProText-Semibold", 1], ["颜色", "#FFFFFF", 1], ["背景", "#0D44E8", 1], ["圆角", "22", 1], ["设备", "iPhone 17 Pro"], ["应用", "com.apple.iphonesimulator", 1]]],
         ],
       }
       : {
         hotkey: "⇧⌘R", request: "Request", typeText: "Type text", overall: "Overall request", whole: "Whole capture", cancel: "Cancel", copy: "Copy",
-        toast: "Copied · 5 annotations", result: "The result", play: "Watch it made", wheel: "Scroll",
+        toast: "Copied · 6 annotations", result: "The result", play: "Watch it made", wheel: "Scroll",
         hints: { frame: "Click an element or drag a region · Scroll for parent/child and covered elements", arrow: "Drag to draw an arrow", text: "Click where the text should go" },
-        rows: ["Framed element · AXTextField “components” · ~/Projects/ledger/src/components · Finder", "Framed element · AXButton “New invoice”", "Region", "Arrow", "Text"],
+        rows: ["Framed element · AXTextField “components” · ~/Projects/ledger/src/components · Finder", "Framed element · AXButton “New invoice”", "Framed element · UIButton “New” · Simulator", "Region", "Arrow", "Text"],
         cardHint: "Hold Space to copy",
         cards: [
           ["AXTextField", [["Name", "components"], ["Path", "/Users/kai/Projects/ledger/src/components", 1], ["Size", "82×21 pt", 1], ["App", "com.apple.finder", 1]]],
           ["AXButton", [["Name", "New invoice"], ["Component", "Toolbar", 1], ["Source", "src/components/Toolbar.tsx:18", 1], ["Selector", "button.primary", 1], ["Size", "124×32", 1],
             ["Font", "13px Inter 600", 1], ["Color", "#FFFFFF", 1], ["Background", "#0D44E8", 1], ["Page", "http://localhost:3100/invoices", 1], ["App", "com.apple.Safari", 1]]],
+          ["UIButton", [["Name", "New"], ["Class", "PillButton", 1], ["Property", "InvoiceListViewController.addButton", 1], ["Frame", "(296, 62) 80×44 pt", 1],
+            ["Font", "17pt SFProText-Semibold", 1], ["Color", "#FFFFFF", 1], ["Background", "#0D44E8", 1], ["Corner radius", "22", 1], ["Device", "iPhone 17 Pro"], ["App", "com.apple.iphonesimulator", 1]]],
         ],
       };
 
@@ -148,12 +152,13 @@
 
     const m1 = screen.querySelector('.mk-frame[data-n="1"]');
     const m2 = screen.querySelector('.mk-frame[data-n="2"]');
+    const mSim = screen.querySelector('.mk-frame[data-n="3"]');
     const m3 = screen.querySelector(".mk-region");
     const arrow = screen.querySelector(".mk-arrow");
     const arrowPath = arrow.querySelector(":scope > path");
     const m4 = screen.querySelector(".mk-badge-only");
     const m5 = screen.querySelector(".mk-text");
-    const marks = [m1, m2, m3, arrow, m4, m5];
+    const marks = [m1, m2, mSim, m3, arrow, m4, m5];
     const label = m5.lastChild;
     const final = { w: m3.style.getPropertyValue("--w"), h: m3.style.getPropertyValue("--h"), d: arrowPath.getAttribute("d"), label: label.textContent };
     const view = arrow.viewBox.baseVal;
@@ -379,15 +384,15 @@ const cursor = el("span", "d-cursor", '<svg viewBox="0 0 23 23" aria-hidden="tru
         /* Let the panel be seen before anything moves. */
         await wait(1200);
 
-        /* ① ② — point: the highlight is the frame itself and the card says what Ref read; click adds the badge. */
-        for (const [i, m] of [m1, m2].entries()) {
+        /* ① ② ③ — point: the highlight is the frame itself and the card says what Ref read; click adds the badge. */
+        for (const [i, m] of [m1, m2, mSim].entries()) {
           const [x, y, w, h] = ["--x", "--y", "--w", "--h"].map((name) => pct(m, name));
           /* ① is pointed at near its end, so the map coming up beside the pointer leaves the name in view. */
           const at = [x + w * (i ? 0.5 : 0.82), y + h * 0.5];
           await moveTo(...at, i ? 750 : 650);
           showCard(...d.cards[i]);
           /* Above the element, else below; kept inside the screen. */
-          Object.assign(card.style, i
+          Object.assign(card.style, i === 1
             ? { left: "auto", right: "calc(8 * var(--pt))", top: `calc(${y + h}% + 8 * var(--pt))`, bottom: "auto" }
             : { left: `${x}%`, right: "auto", top: "auto", bottom: `calc(${100 - y}% + 8 * var(--pt))` });
           m.classList.add("on");
@@ -422,7 +427,7 @@ const cursor = el("span", "d-cursor", '<svg viewBox="0 0 23 23" aria-hidden="tru
           await wait(200);
         }
 
-        /* ③ — drag a region out. */
+        /* ④ — drag a region out. */
         const [x3, y3] = [pct(m3, "--x"), pct(m3, "--y")];
         await moveTo(x3, y3, 550);
         await wait(200);
@@ -440,11 +445,11 @@ const cursor = el("span", "d-cursor", '<svg viewBox="0 0 23 23" aria-hidden="tru
         await wait(300);
         m3.style.transition = "";
         m3.classList.add("set");
-        await write(addRow(3, d.request), note(3), null, 450);
-        light(3);
+        await write(addRow(4, d.request), note(4), null, 450);
+        light(4);
         await wait(150);
 
-        /* ④ — A, then drag an arrow: it grows from the tail, the badge lands behind it on release. */
+        /* ⑤ — A, then drag an arrow: it grows from the tail, the badge lands behind it on release. */
         setTool("arrow");
         await press("A", 550);
         const toScreen = ([x, y]) => [(x / view.width) * 100, (y / view.height) * 100];
@@ -464,11 +469,11 @@ const cursor = el("span", "d-cursor", '<svg viewBox="0 0 23 23" aria-hidden="tru
         arrowPath.setAttribute("d", final.d);
         await wait(300);
         m4.classList.add("on", "set");
-        await write(addRow(4, d.request), note(4), null, 450);
-        light(4);
+        await write(addRow(5, d.request), note(5), null, 450);
+        light(5);
         await wait(150);
 
-        /* ⑤ — T, click, type: a text annotation's request is the text on the canvas. */
+        /* ⑥ — T, click, type: a text annotation's request is the text on the canvas. */
         setTool("text");
         await press("T", 550);
         await moveTo(pct(m5, "--x"), pct(m5, "--y"), 450);
@@ -478,11 +483,11 @@ const cursor = el("span", "d-cursor", '<svg viewBox="0 0 23 23" aria-hidden="tru
         m5.append(canvasCaret);
         m5.classList.add("on", "set");
         /* Typed at once: its row takes the keyboard as it appears. */
-        const typed = addRow(5, d.typeText);
+        const typed = addRow(6, d.typeText);
         typed.classList.add("focus");
         await write(typed, final.label, (text) => { label.textContent = text; }, 500);
         canvasCaret.remove();
-        light(5);
+        light(6);
 
         /* The overall request, then ⌘↩. */
         const overall = whole.querySelector(".d-field");
@@ -499,7 +504,7 @@ const cursor = el("span", "d-cursor", '<svg viewBox="0 0 23 23" aria-hidden="tru
         panel.classList.remove("on");
         cursor.classList.add("gone");
         await wait(450);
-        light(6);
+        light(7);
         demo.classList.remove("staged");
         await wait(700);
         toast.classList.add("on");
