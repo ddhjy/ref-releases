@@ -136,7 +136,7 @@
     const d = zh
       ? {
         hotkey: "⇧⌘R", request: "要求", typeText: "输入文字", overall: "整体要求", whole: "当前屏幕", cancel: "取消", copy: "复制",
-        toast: "已复制 · 6 处标注", result: "标注效果", play: "看过程", wheel: "滚轮", skip: "跳过",
+        toast: "已复制 · 6 处标注", play: "播放标注过程", length: "0:38", wheel: "滚轮", skip: "跳过",
         hints: { frame: "点击元素或拖出区域 · 滚动切换父/子及被遮挡的元素", arrow: "拖动画出箭头", text: "点击要放文字的位置" },
         rows: ["选框 · AXTextField “components” · ~/Projects/ledger/src/components · 访达", "选框 · AXButton “新建发票”", "选框 · UIButton “新建” · 模拟器", "区域", "箭头", "文字"],
         cardHint: "按住空格可复制",
@@ -150,7 +150,7 @@
       }
       : {
         hotkey: "⇧⌘R", request: "Request", typeText: "Type text", overall: "Overall request", whole: "Whole capture", cancel: "Cancel", copy: "Copy",
-        toast: "Copied · 6 annotations", result: "The result", play: "Watch it made", wheel: "Scroll", skip: "Skip",
+        toast: "Copied · 6 annotations", play: "Watch how it’s made", length: "0:40", wheel: "Scroll", skip: "Skip",
         hints: { frame: "Click an element or drag a region · Scroll for parent/child and covered elements", arrow: "Drag to draw an arrow", text: "Click where the text should go" },
         rows: ["Framed element · AXTextField “components” · ~/Projects/ledger/src/components · Finder", "Framed element · AXButton “New invoice”", "Framed element · UIButton “New” · Simulator", "Region", "Arrow", "Text"],
         cardHint: "Hold Space to copy",
@@ -225,8 +225,10 @@ const cursor = el("span", "d-cursor", '<svg viewBox="0 0 23 23" aria-hidden="tru
     const undo = bar.querySelector(".undo");
     ui.append(card, map, panel, keys, toast, cursor);
     screen.append(ui);
-    /* Says what the picture is, then offers to play how it was made. */
-    const playButton = el("button", "demo-play", `<span>${d.result}</span><i></i><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.5 1.2v9.6L10.6 6z" fill="currentColor"/></svg>${d.play}`);
+    /* The one control on the picture, offered the way a video's poster offers itself: a play
+       disc, what it plays, and how long the run below takes — d.length, which differs by
+       language because the typing does. */
+    const playButton = el("button", "demo-play", `<i><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.5 1.2v9.6L10.6 6z" fill="currentColor"/></svg></i>${d.play}<small aria-hidden="true">${d.length}</small>`);
     playButton.type = "button";
     /* The shutter at ⌘↩: a white flash over the whole frame, the way the screen flashes for a screenshot. */
     const flash = el("i", "d-flash");
@@ -426,12 +428,19 @@ const cursor = el("span", "d-cursor", '<svg viewBox="0 0 23 23" aria-hidden="tru
     };
     scrim.addEventListener("click", stop);
     skipButton.addEventListener("click", stop);
-    /* The play button's own click passes through here once the run has begun. */
-    frame.addEventListener("click", (e) => { if (!e.target.closest(".demo-play")) stop(); });
+    /* At rest the whole screen is the play button's target, the way a click anywhere on a
+       video's poster plays it; once a run has begun, a click anywhere on the frame ends it. The
+       play button's own click passes through here too and is left to its own listener. */
+    frame.addEventListener("click", (e) => {
+      if (e.target.closest(".demo-play")) return;
+      if (phase !== "rest") stop(); else if (screen.contains(e.target)) play();
+    });
     document.addEventListener("keydown", (e) => { if (e.key === "Escape") stop(); });
 
     const play = async () => {
       if (phase === "settling") return;
+      cue.disconnect();
+      demo.classList.remove("cue");
       const id = ++run;
       const wait = (ms) => new Promise((resolve, reject) => setTimeout(() => (id === run ? resolve() : reject(0)), ms));
       const tween = (ms, fn) => new Promise((resolve, reject) => {
@@ -672,10 +681,19 @@ const cursor = el("span", "d-cursor", '<svg viewBox="0 0 23 23" aria-hidden="tru
       }
     };
 
+    /* The first time the play button is well inside the window it calls for the eye: a ring goes
+       out from it a few times, then nothing more. A run puts an end to it. */
+    const cue = new IntersectionObserver(([entry]) => {
+      if (!entry.isIntersecting) return;
+      cue.disconnect();
+      demo.classList.add("cue");
+    }, { rootMargin: "-15% 0px", threshold: 1 });
+
     finish();
     demo.classList.add("animate", "done");
     measure();
     new ResizeObserver(measure).observe(frame);
+    cue.observe(playButton);
     playButton.addEventListener("click", play);
     /* The quick-start section offers the same playback; it only exists while the demo does. */
     document.querySelectorAll("[data-play-demo]").forEach((button) => {
@@ -688,8 +706,9 @@ const cursor = el("span", "d-cursor", '<svg viewBox="0 0 23 23" aria-hidden="tru
       run += 1;
       phase = "rest";
       removeEventListener("resize", lift);
+      cue.disconnect();
       restore();
-      demo.classList.remove("animate", "staged", "done", "up", "rewind");
+      demo.classList.remove("animate", "staged", "done", "up", "rewind", "cue");
       demo.style.removeProperty("--lift");
       scrim.classList.remove("on");
       unlock();

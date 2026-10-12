@@ -253,8 +253,14 @@ p code, td code, li code, h3 code { padding: 0.1em 0.4em; border-radius: 5px; ba
   background: var(--red); color: #fff;
   display: grid; place-items: center;
 }
+/* In English the marked words fall on the second line, where the badge would land on the line
+   above it: the mark keeps the room its badge needs. */
+:lang(en) .hero h1 .mark { margin-top: 0.38em; }
 .lede { margin: 28px 0 0; max-width: 46em; font-size: 19px; line-height: 1.65; color: var(--ink-2); text-wrap: pretty; }
 .lede + .lede { margin-top: 10px; color: var(--ink); font-weight: 500; }
+/* Chinese breaks between any two characters, which splits words at a line's end; here, where
+   two centred lines are all there is, break at the punctuation instead. */
+:lang(zh) .lede { word-break: keep-all; overflow-wrap: break-word; }
 .cta { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-top: 36px; }
 .fine { margin-top: 18px; font-size: 13px; color: var(--ink-3); font-variant-numeric: tabular-nums; }
 .fine a { text-decoration: underline; text-decoration-color: var(--hair-2); text-underline-offset: 3px; }
@@ -272,28 +278,8 @@ p code, td code, li code, h3 code { padding: 0.1em 0.4em; border-radius: 5px; ba
 /* ---------- Demo (the output image) ---------- */
 
 .demo { container-type: inline-size; margin: 0 auto; max-width: var(--w-wide); }
-/* The problem, told plainly: what you would have to say, why each vague phrase in it
-   fails, and then the picture that replaces it. */
-.why-intro { margin-top: 20px; font-size: 19px; line-height: 1.6; color: var(--ink-2); }
-.why-quote {
-  max-width: 900px; margin: 18px 0 0; padding: 22px 26px; border-left: 3px solid var(--hair-2); border-radius: 4px 14px 14px 4px;
-  background: var(--bg-2); color: var(--ink); font-size: 20px; line-height: 1.7; text-wrap: pretty;
-}
-/* The phrases that carry no information for the reader are the ones marked. */
-.why-quote mark { padding: 0.08em 0.2em; border-radius: 5px; background: rgba(255, 149, 0, 0.2); color: inherit; }
-.why-because { margin-top: 36px; font-size: 15px; font-weight: 600; color: var(--ink); }
-.why-reasons { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; margin-top: 14px; }
-.why-reasons li { padding-top: 14px; border-top: 2px solid var(--hair-2); color: var(--ink-2); font-size: 15.5px; line-height: 1.6; }
-.why-reasons b { display: block; margin-bottom: 4px; color: var(--ink); font-size: 16px; font-weight: 600; }
-.why-reasons b::before { content: ""; display: inline-block; width: 0.7em; height: 0.7em; margin-right: 0.45em; border-radius: 3px; background: rgba(255, 149, 0, 0.55); }
-.vs-foot { max-width: 820px; margin-top: 36px; font-size: 19px; line-height: 1.6; color: var(--ink-2); text-wrap: pretty; }
-.vs-foot strong { color: var(--ink); font-weight: 600; }
-@media (max-width: 760px) {
-  .why-quote { font-size: 17px; padding: 18px 20px; }
-  .why-reasons { grid-template-columns: minmax(0, 1fr); gap: 16px; }
-}
 .demo-frame {
-  border-radius: var(--r-lg); overflow: hidden;
+  position: relative; border-radius: var(--r-lg); overflow: hidden;
   box-shadow: var(--shadow-lg), 0 0 0 1px var(--hair);
   background: var(--legend-bg);
 }
@@ -468,6 +454,40 @@ p code, td code, li code, h3 code { padding: 0.1em 0.4em; border-radius: 5px; ba
 }
 .demo-legend .sig, .legend .sig { color: #c0c0c0; }
 .demo-caption { margin: 0; padding: 18px 24px 0; text-align: center; font-size: 14px; color: var(--ink-3); text-wrap: pretty; }
+:lang(zh) .demo-caption { word-break: keep-all; overflow-wrap: break-word; }
+
+/* Not part of the image: two notes on the finished picture's legend, each tied to the lines that
+   show what sets it apart from an ordinary screenshot — a number the legend repeats, the lines
+   Ref read. The third thing, that a click is all a mark takes, is the play button's to show, so
+   the screen carries nothing but that button. The notes are laid out in the picture's own
+   units, so they only show where the legend is still drawn to scale (its type stops shrinking at
+   10px, a 900px picture), and they step aside while the capture plays. */
+.demo-guides { position: absolute; inset: 0; z-index: 10; pointer-events: none; transition: opacity 0.25s, visibility 0.25s; }
+.demo.animate:not(.done) .demo-guides { opacity: 0; visibility: hidden; }
+@container (max-width: 899px) { .demo-guides { display: none; } }
+.dg {
+  position: absolute; display: inline-flex; align-items: center; gap: 0.62em; height: 2.3em; padding: 0 1em; border-radius: 999px;
+  color: #fff; font: 600 clamp(11px, 1.02cqw, 13px)/1 var(--font); white-space: nowrap;
+}
+.dg span { font-weight: 500; color: rgba(255, 255, 255, 0.72); }
+.dg i { width: 1px; height: 1.1em; background: rgba(255, 255, 255, 0.28); }
+.dg b { display: grid; place-items: center; width: 1.45em; height: 1.45em; margin: 0 -0.1em; border-radius: 50%; background: #ff3b30; font: 700 0.8em/1 var(--font); font-variant-numeric: tabular-nums; }
+.dg::before, .dg::after { content: ""; position: absolute; }
+/* On the legend band, whose lines are 1.6667cqw tall under 0.9cqw of padding below the 62.5cqw
+   screen: --line counts lines from the top, --x is where the note starts. A note is taller than
+   a line, so it starts clear of the text on the lines above and below its own, and a rule runs
+   back along its line to --from, just past where that line's text ends. */
+.dg-num, .dg-read { --row: 1.6667cqw; --band: calc(62.5cqw + 0.9cqw); background: #3a3a3c; transform: translateY(-50%); }
+.dg-num { left: var(--x); top: calc(var(--band) + (var(--line) + 0.5) * var(--row)); }
+.dg-num::before { right: 100%; top: 50%; width: calc(var(--x) - var(--from)); height: 1px; background: rgba(255, 255, 255, 0.5); }
+.dg-num::after { right: calc(100% + var(--x) - var(--from)); top: 50%; width: 5px; height: 5px; margin: -2px -2.5px 0 0; border-radius: 50%; background: rgba(255, 255, 255, 0.75); }
+/* A bracket down the lines it speaks for, --lines of them from --line. */
+.dg-read { left: calc(var(--x) + 1.7cqw); top: calc(var(--band) + (var(--line) + var(--lines) / 2) * var(--row)); }
+.dg-read::before {
+  right: calc(100% + 0.9cqw); top: 50%; width: 0.7cqw; height: calc(var(--lines) * var(--row) - 0.5cqw); transform: translateY(-50%);
+  border: 1px solid rgba(255, 255, 255, 0.5); border-left: 0;
+}
+.dg-read::after { right: 100%; top: 50%; width: 0.9cqw; height: 1px; background: rgba(255, 255, 255, 0.5); }
 
 /* The hero rests on the finished image; its button plays the capture that made it:
    the hotkey, each pick, the panel filling in, ⌘↩, and the image again. site.js adds
@@ -529,22 +549,42 @@ html.demo-lock { overflow: hidden; }
   10% { opacity: 1; animation-timing-function: cubic-bezier(0.2, 0.6, 0.4, 1); }
   100% { opacity: 0; }
 }
-/* Dead centre of the screen (the screen is 62.5cqw tall; the frame also holds the legend). */
+/* The one control on the picture, dead centre of the screen (the screen is 62.5cqw tall; the
+   frame also holds the legend). It is drawn as a play button and as nothing else on the picture
+   is: a white disc with the triangle, what it plays, how long that takes — large and lifted,
+   where the notes on the legend are small and flat. Its measures are in em, so its font-size
+   alone scales it down with the picture; the smallest keeps a 44px target. */
 .demo-play {
-  position: absolute; left: 50%; top: 31.25cqw; z-index: 11; transform: translate(-50%, -50%);
-  display: inline-flex; align-items: center; gap: 8px; height: 40px; padding: 0 18px; border: 0; border-radius: 999px;
-  background: rgba(28, 28, 30, 0.86); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
-  box-shadow: 0 0 0 0.5px rgba(255, 255, 255, 0.18), 0 8px 24px -8px rgba(0, 0, 0, 0.5);
-  color: #fff; font: 600 14px/1 var(--font); white-space: nowrap; cursor: pointer;
-  opacity: 0; visibility: hidden; transition: opacity 0.25s, visibility 0.25s, background 0.15s;
+  position: absolute; left: 50%; top: 31.25cqw; z-index: 11; translate: -50% -50%;
+  display: inline-flex; align-items: center; gap: 0.75em; height: 3.5em; padding: 0 1.375em 0 0.5em; border: 0; border-radius: 999px;
+  background: rgba(28, 28, 30, 0.9); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
+  box-shadow: 0 0 0 0.5px rgba(255, 255, 255, 0.18), 0 12px 32px -8px rgba(0, 0, 0, 0.55);
+  color: #fff; font: 600 16px/1 var(--font); white-space: nowrap; cursor: pointer;
+  opacity: 0; visibility: hidden;
+  transition: opacity 0.25s, visibility 0.25s, background 0.15s, scale 0.2s cubic-bezier(0.2, 0.7, 0.2, 1);
 }
-.demo-play svg { width: 12px; height: 12px; }
-.demo-play span { font-weight: 500; color: rgba(255, 255, 255, 0.72); }
-.demo-play i { width: 1px; height: 14px; margin: 0 4px; background: rgba(255, 255, 255, 0.28); }
+.demo-play i { flex: none; display: grid; place-items: center; width: 2.5em; height: 2.5em; border-radius: 50%; background: #fff; color: #1d1d1f; }
+/* The triangle's weight sits left of its box's middle: nudged right, it looks centred in the disc. */
+.demo-play svg { width: 0.875em; height: 0.875em; margin-left: 0.125em; }
+.demo-play small { font: 500 0.8125em/1 var(--font); font-variant-numeric: tabular-nums; color: rgba(255, 255, 255, 0.64); }
+@container (max-width: 899px) { .demo-play { font-size: 15px; } }
+@container (max-width: 559px) { .demo-play { font-size: 13px; } }
 .demo.done .demo-play { opacity: 1; visibility: visible; }
-.demo-play:hover { background: #000; }
+/* A click anywhere on the screen plays it (site.js), so the whole screen says so: the pointer
+   changes over it and the button answers, wherever on the picture the pointer is. */
+.demo.done .demo-screen { cursor: pointer; }
+/* Only where there is a pointer to hover with: on a touch screen the last tap would hold it. */
+@media (hover: hover) { .demo.done .demo-screen:hover ~ .demo-play, .demo-play:hover { background: #000; scale: 1.04; } }
+.demo-play:active { scale: 0.98; }
 .demo-play:focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; }
-@media (max-width: 720px) { .demo-play { height: 32px; padding: 0 13px 0 11px; font-size: 12.5px; } }
+/* The first time it is well inside the window (site.js adds .cue) it calls for the eye: a ring
+   goes out from it three times, then nothing more. */
+.demo-play::after { content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; }
+.demo.done.cue .demo-play::after { animation: demo-cue 1.7s cubic-bezier(0.2, 0.6, 0.3, 1) 0.6s 3; }
+@keyframes demo-cue {
+  from { box-shadow: 0 0 0 0 rgba(28, 28, 30, 0.45); }
+  to { box-shadow: 0 0 0 1.1em rgba(28, 28, 30, 0); }
+}
 
 .demo.animate .mk, .demo.animate .mk b { opacity: 0; }
 .demo.animate .mk.on, .demo.animate .mk.set b { opacity: 1; }
@@ -687,6 +727,41 @@ html.demo-lock { overflow: hidden; }
 .section-head { max-width: 760px; margin-bottom: 56px; }
 .section-lede { margin-top: 16px; font-size: 19px; line-height: 1.6; color: var(--ink-2); text-wrap: pretty; }
 .section-lede strong { color: var(--ink); font-weight: 600; }
+/* A second, quieter paragraph under a section's lede, and a closing line under its content. */
+.section-note { margin-top: 12px; font-size: 15px; line-height: 1.6; color: var(--ink-2); text-wrap: pretty; }
+.section-foot { max-width: 760px; margin-top: 28px; font-size: 15px; line-height: 1.6; color: var(--ink-2); text-wrap: pretty; }
+
+/* ---------- What is different ---------- */
+
+/* A table because it is one: three things, two tools. The Ref column is tinted down its whole
+   length, so that is where the eye ends up; each row's name leads to the section that shows it. */
+.vs { width: 100%; border-collapse: separate; border-spacing: 0; table-layout: fixed; }
+.vs-k { width: 208px; }
+:lang(en) .vs-k { width: 264px; }
+.vs th, .vs td { text-align: left; vertical-align: top; }
+.vs thead th { padding: 16px 28px 14px; font-size: 14px; font-weight: 600; color: var(--ink-3); }
+.vs thead th:last-child { border-radius: var(--r-lg) var(--r-lg) 0 0; background: var(--bg-2); color: var(--ink); }
+.vs tbody th, .vs tbody td { padding: 26px 28px 28px; border-top: 1px solid var(--hair); }
+.vs tbody th { padding-left: 0; padding-right: 16px; }
+.vs tbody th a { display: inline-flex; align-items: center; gap: 8px; font-size: 24px; font-weight: 600; letter-spacing: -0.01em; line-height: 1.35; color: var(--ink); }
+.vs tbody th .i { flex: none; width: 16px; height: 16px; fill: none; stroke: var(--ink-3); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; transition: transform 0.2s ease, stroke 0.15s ease; }
+.vs tbody th a:hover .i { stroke: var(--ink); transform: translateY(2px); }
+.vs tbody td { font-size: 17px; line-height: 1.6; color: var(--ink-2); text-wrap: pretty; }
+.vs tbody td:last-child { background: var(--bg-2); color: var(--ink); }
+.vs tbody tr:last-child td:last-child { border-radius: 0 0 var(--r-lg) var(--r-lg); }
+@media (max-width: 860px) {
+  /* One block per row: its name, then each tool's answer under that tool's name. */
+  .vs, .vs tbody, .vs tr, .vs th, .vs td { display: block; }
+  .vs colgroup { display: none; }
+  .vs thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+  .vs tbody tr { padding: 22px 0 24px; border-top: 1px solid var(--hair); }
+  .vs tbody th, .vs tbody td { padding: 0; border: 0; }
+  .vs tbody th a { font-size: 22px; }
+  .vs tbody td { margin-top: 12px; font-size: 16px; }
+  .vs tbody td::before { content: attr(data-th); display: block; margin-bottom: 2px; font-size: 13px; font-weight: 600; color: var(--ink-3); }
+  .vs tbody td:last-child, .vs tbody tr:last-child td:last-child { padding: 12px 16px 14px; border-radius: var(--r); }
+  .vs tbody td:last-child::before { color: var(--ink-2); }
+}
 
 .split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); gap: 64px; align-items: center; }
 .split-text p + p { margin-top: 16px; }
@@ -711,7 +786,8 @@ html.demo-lock { overflow: hidden; }
   display: flex; flex-direction: column; gap: 10px;
   padding: 28px; border-radius: var(--r-lg); background: var(--bg-2);
 }
-.section-alt .card { background: var(--card); box-shadow: 0 0 0 1px var(--hair); }
+/* Cards that hold a picture in a tinted well keep a paper face on either background. */
+.section-alt .card, .details .card { background: var(--card); box-shadow: 0 0 0 1px var(--hair); }
 .card h3 { font-size: 19px; }
 .card p { color: var(--ink-2); font-size: 15.5px; line-height: 1.6; }
 .card-wide { grid-column: span 2; }
@@ -862,6 +938,32 @@ html.demo-lock { overflow: hidden; }
 .disp.marked::before { content: ""; position: absolute; left: 34px; top: 32px; width: 34px; height: 14px; outline: 1.5px solid var(--red); background: var(--red-tint); }
 
 /* ---------- Legend anatomy ---------- */
+
+/* What the same request takes with an ordinary screenshot: the picture, a few boxes that all
+   look alike, and a message typed to explain them — drawn as that message. */
+.before-intro, .before-after { max-width: 760px; font-size: 17px; line-height: 1.6; color: var(--ink-2); text-wrap: pretty; }
+.before-after { margin: 20px 0 28px; }
+.say {
+  display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: center; gap: 22px;
+  max-width: 860px; margin-top: 16px; padding: 18px 24px 18px 18px; border-radius: 22px 22px 22px 6px; background: var(--bg-2);
+}
+.say p { color: var(--ink); font-size: 19px; line-height: 1.7; text-wrap: pretty; }
+/* The phrases that carry no information for the reader are the ones marked. */
+.say mark { padding: 0.08em 0.2em; border-radius: 5px; background: rgba(255, 149, 0, 0.2); color: inherit; }
+.plain { position: relative; width: 168px; aspect-ratio: 16 / 10; border-radius: 10px; background: var(--card); box-shadow: 0 0 0 1px var(--hair-2); overflow: hidden; }
+.plain i { position: absolute; border-radius: 3px; background: var(--bg-3); }
+.plain i:nth-child(1) { left: 6%; top: 14%; width: 40%; height: 72%; }
+.plain i:nth-child(2) { left: 50%; top: 9%; width: 44%; height: 82%; }
+/* Boxes as any screenshot tool draws them: an outline, no number, nothing to tell them apart. */
+.plain b { position: absolute; border: 1.5px solid var(--red); border-radius: 1px; }
+.plain b:nth-of-type(1) { left: 14%; top: 38%; width: 22%; height: 9%; }
+.plain b:nth-of-type(2) { left: 76%; top: 16%; width: 13%; height: 9%; }
+.plain b:nth-of-type(3) { left: 68%; top: 60%; width: 21%; height: 24%; }
+@media (max-width: 760px) {
+  .say { grid-template-columns: minmax(0, 1fr); gap: 14px; padding: 16px 18px 18px; }
+  .say p { font-size: 17px; }
+  .plain { width: 148px; }
+}
 
 .anatomy { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 40px; align-items: start; }
 .anatomy-legend { font-size: 14px; padding: 26px 28px; line-height: 1.75; }
@@ -1062,6 +1164,8 @@ html.demo-lock { overflow: hidden; }
   body { font-size: 16px; }
   h2 { font-size: 30px; }
   .hero h1 { font-size: 36px; letter-spacing: -0.01em; }
+  /* "Screenshot annotation" stays one line on a 375px phone. */
+  :lang(en) .hero h1 { font-size: 32px; }
   .mark { outline-width: 0.055em; }
   .cta { flex-direction: column; align-items: stretch; width: 100%; }
   .cta .btn { width: 100%; }
@@ -1094,6 +1198,7 @@ html.demo-lock { overflow: hidden; }
   .nowrap { white-space: normal; }
   .way .btn { align-self: stretch; height: auto; min-height: 48px; padding: 10px 16px; white-space: normal; text-align: center; }
   .hero h1 { font-size: 32px; }
+  :lang(en) .hero h1 { font-size: 28px; }
   .copy code { font-size: 13px; }
 }
 
