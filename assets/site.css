@@ -501,6 +501,22 @@ p code, td code, li code, h3 code { padding: 0.1em 0.4em; border-radius: 5px; ba
   opacity: 0; visibility: hidden; transition: opacity 0.5s, visibility 0.5s;
 }
 .demo-scrim.on { opacity: 1; visibility: visible; }
+/* The way out, in the window's corner while the frame is up: over the scrim, not in the frame,
+   which draws only what the app draws. */
+.demo-skip {
+  position: fixed; top: max(12px, env(safe-area-inset-top)); right: max(12px, env(safe-area-inset-right)); z-index: 62;
+  display: inline-flex; align-items: center; gap: 8px; height: 32px; padding: 0 8px 0 14px; border: 0; border-radius: 999px;
+  background: rgba(28, 28, 30, 0.86); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
+  box-shadow: 0 0 0 0.5px rgba(255, 255, 255, 0.18), 0 8px 24px -8px rgba(0, 0, 0, 0.5);
+  color: #fff; font: 600 13px/1 var(--font); white-space: nowrap; cursor: pointer;
+  opacity: 0; visibility: hidden; transition: opacity 0.5s, visibility 0.5s, background 0.15s;
+}
+.demo-skip kbd { padding: 3px 6px; border-radius: 999px; background: rgba(255, 255, 255, 0.16); color: rgba(255, 255, 255, 0.72); font: 500 11px/1 var(--font); }
+.demo-scrim.on + .demo-skip { opacity: 1; visibility: visible; }
+.demo-skip:hover { background: #000; }
+.demo-skip:focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; }
+/* No keyboard to press Esc on. */
+@media (hover: none) { .demo-skip { padding-right: 14px; } .demo-skip kbd { display: none; } }
 html.demo-lock { overflow: hidden; }
 /* Back to the moment before the hotkey: the marks lift off together with the legend dimming. */
 .demo.rewind .mk, .demo.rewind .mk b { transition: opacity 0.35s; }

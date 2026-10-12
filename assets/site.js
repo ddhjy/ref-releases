@@ -136,7 +136,7 @@
     const d = zh
       ? {
         hotkey: "⇧⌘R", request: "要求", typeText: "输入文字", overall: "整体要求", whole: "当前屏幕", cancel: "取消", copy: "复制",
-        toast: "已复制 · 6 处标注", result: "标注效果", play: "看过程", wheel: "滚轮",
+        toast: "已复制 · 6 处标注", result: "标注效果", play: "看过程", wheel: "滚轮", skip: "跳过",
         hints: { frame: "点击元素或拖出区域 · 滚动切换父/子及被遮挡的元素", arrow: "拖动画出箭头", text: "点击要放文字的位置" },
         rows: ["选框 · AXTextField “components” · ~/Projects/ledger/src/components · 访达", "选框 · AXButton “新建发票”", "选框 · UIButton “新建” · 模拟器", "区域", "箭头", "文字"],
         cardHint: "按住空格可复制",
@@ -150,7 +150,7 @@
       }
       : {
         hotkey: "⇧⌘R", request: "Request", typeText: "Type text", overall: "Overall request", whole: "Whole capture", cancel: "Cancel", copy: "Copy",
-        toast: "Copied · 6 annotations", result: "The result", play: "Watch it made", wheel: "Scroll",
+        toast: "Copied · 6 annotations", result: "The result", play: "Watch it made", wheel: "Scroll", skip: "Skip",
         hints: { frame: "Click an element or drag a region · Scroll for parent/child and covered elements", arrow: "Drag to draw an arrow", text: "Click where the text should go" },
         rows: ["Framed element · AXTextField “components” · ~/Projects/ledger/src/components · Finder", "Framed element · AXButton “New invoice”", "Framed element · UIButton “New” · Simulator", "Region", "Arrow", "Text"],
         cardHint: "Hold Space to copy",
@@ -360,12 +360,16 @@ const cursor = el("span", "d-cursor", '<svg viewBox="0 0 23 23" aria-hidden="tru
     /* The frame plays off the page: it comes forward to the middle of the window, scaled so the
        whole image — screen and legend — stays in view while the legend fills in, with the page
        dimmed and held still behind it. ⌘↩ flashes it like a screenshot, and the finished image
-       settles back into its place: what was copied is what the page shows. Esc or a click on
-       the page ends it early. */
+       settles back into its place: what was copied is what the page shows. Esc, a click anywhere
+       or the Skip pill in the window's corner ends it early — lifted, the frame leaves little
+       of the page to click on. */
     const html = document.documentElement;
     const scrim = el("div", "demo-scrim");
     scrim.setAttribute("aria-hidden", "true");
-    document.body.append(scrim);
+    const skipButton = el("button", "demo-skip", `${d.skip}<kbd>Esc</kbd>`);
+    skipButton.type = "button";
+    skipButton.setAttribute("aria-label", d.skip);
+    document.body.append(scrim, skipButton);
     const stay = (e) => e.preventDefault();
     let locked = false, bodyPad = "";
     const lock = () => {
@@ -421,6 +425,9 @@ const cursor = el("span", "d-cursor", '<svg viewBox="0 0 23 23" aria-hidden="tru
       land();
     };
     scrim.addEventListener("click", stop);
+    skipButton.addEventListener("click", stop);
+    /* The play button's own click passes through here once the run has begun. */
+    frame.addEventListener("click", (e) => { if (!e.target.closest(".demo-play")) stop(); });
     document.addEventListener("keydown", (e) => { if (e.key === "Escape") stop(); });
 
     const play = async () => {
