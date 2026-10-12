@@ -32,6 +32,8 @@
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05), 0 2px 8px rgba(0, 0, 0, 0.04);
   --shadow: 0 1px 2px rgba(0, 0, 0, 0.04), 0 16px 40px -12px rgba(0, 0, 0, 0.12);
   --shadow-lg: 0 2px 4px rgba(0, 0, 0, 0.06), 0 40px 80px -24px rgba(0, 0, 0, 0.22);
+  --shadow-lift: 0 2px 6px rgba(0, 0, 0, 0.08), 0 36px 72px -18px rgba(0, 0, 0, 0.28), 0 96px 160px -40px rgba(0, 0, 0, 0.28);
+  --scrim: rgba(255, 255, 255, 0.8);
   --kbd-bg: #ffffff;
   --kbd-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.12), 0 1px 1px rgba(0, 0, 0, 0.06);
 
@@ -72,6 +74,8 @@
     --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
     --shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 16px 40px -12px rgba(0, 0, 0, 0.5);
     --shadow-lg: 0 2px 4px rgba(0, 0, 0, 0.4), 0 40px 80px -24px rgba(0, 0, 0, 0.7);
+    --shadow-lift: 0 2px 6px rgba(0, 0, 0, 0.5), 0 36px 72px -18px rgba(0, 0, 0, 0.7), 0 96px 160px -40px rgba(0, 0, 0, 0.6);
+    --scrim: rgba(22, 22, 23, 0.82);
     --kbd-bg: #2c2c2e;
     --kbd-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.5), 0 1px 1px rgba(0, 0, 0, 0.3);
   }
@@ -228,7 +232,9 @@ p code, td code, li code, h3 code { padding: 0.1em 0.4em; border-radius: 5px; ba
 
 /* ---------- Hero ---------- */
 
-.hero { padding: 72px 0 24px; }
+.hero { padding: 48px 0 24px; }
+/* The image Ref copies sits right under the download, so the first screen shows the product. */
+.hero .container-wide { margin-top: 48px; }
 .hero-copy { display: flex; flex-direction: column; align-items: center; text-align: center; }
 .hero h1 {
   margin: 0; max-width: 20ch;
@@ -253,7 +259,10 @@ p code, td code, li code, h3 code { padding: 0.1em 0.4em; border-radius: 5px; ba
 .fine { margin-top: 18px; font-size: 13px; color: var(--ink-3); font-variant-numeric: tabular-nums; }
 .fine a { text-decoration: underline; text-decoration-color: var(--hair-2); text-underline-offset: 3px; }
 .fine a:hover { color: var(--ink); text-decoration-color: currentColor; }
-/* Shown by site.js when the visitor is not on a Mac: the download would be of no use there. */
+/* What decides whether the download is of any use comes first and reads a step stronger. */
+.fine-req { font-size: 14px; color: var(--ink-2); }
+.fine + .fine { margin-top: 6px; }
+/* Shown by site.js when the visitor is not on a Mac, or on a macOS too old for Ref: the download would be of no use there. */
 .notice {
   max-width: 36em; margin-top: 16px; padding: 10px 16px; border-radius: 12px;
   background: var(--bg-2); box-shadow: 0 0 0 1px var(--hair); font-size: 14px; line-height: 1.6; color: var(--ink-2); text-wrap: pretty;
@@ -283,7 +292,6 @@ p code, td code, li code, h3 code { padding: 0.1em 0.4em; border-radius: 5px; ba
   .why-quote { font-size: 17px; padding: 18px 20px; }
   .why-reasons { grid-template-columns: minmax(0, 1fr); gap: 16px; }
 }
-.demo-lead { max-width: var(--w-wide); margin: 64px auto 20px; text-align: center; font-size: 15px; font-weight: 600; color: var(--ink-2); }
 .demo-frame {
   border-radius: var(--r-lg); overflow: hidden;
   box-shadow: var(--shadow-lg), 0 0 0 1px var(--hair);
@@ -464,17 +472,47 @@ p code, td code, li code, h3 code { padding: 0.1em 0.4em; border-radius: 5px; ba
 /* The hero rests on the finished image; its button plays the capture that made it:
    the hotkey, each pick, the panel filling in, ⌘↩, and the image again. site.js adds
    the button, everything under .d-ui and the classes below. */
-.demo.animate { position: relative; isolation: isolate; }
-.demo.animate::before {
+.demo.animate { position: relative; isolation: isolate; --lift-ease: cubic-bezier(0.32, 0.72, 0, 1); }
+.demo.animate::before, .demo.animate::after {
   content: ""; position: absolute; z-index: -1; inset: 0 0 var(--below, 0px) 0; pointer-events: none;
-  border-radius: var(--r-lg); box-shadow: var(--shadow-lg), 0 0 0 1px var(--hair);
-  transition: bottom 0.7s cubic-bezier(0.3, 0.7, 0.2, 1);
+  border-radius: var(--r-lg);
+}
+.demo.animate::before {
+  box-shadow: var(--shadow-lg), 0 0 0 1px var(--hair);
+  transition: bottom 0.7s cubic-bezier(0.3, 0.7, 0.2, 1), opacity 0.4s;
 }
 .demo.animate .demo-frame { box-shadow: none; }
 .demo.animate .ll { transition: opacity 0.35s; }
 .demo.animate.staged .ll:not(.lit) { opacity: 0.2; }
-.demo:not(.animate) .d-ui, .demo:not(.animate) .demo-play { display: none; }
-.demo.animate .demo-frame { position: relative; }
+.demo:not(.animate) .d-ui, .demo:not(.animate) .demo-play, .demo:not(.animate) .d-flash { display: none; }
+/* While it plays, the frame comes off the page: forward to the middle of the window, scaled so
+   the whole image — screen and legend — is in view, the page dimmed behind it. site.js works
+   out --lift; the frame and the deeper shadow (::after) both follow it, the resting shadow and
+   the caption give way, and the lot sits above the header and the scrim. */
+.demo.animate .demo-frame { position: relative; transform: var(--lift, none); transition: transform 0.7s var(--lift-ease); }
+.demo.animate::after { box-shadow: var(--shadow-lift), 0 0 0 1px var(--hair); opacity: 0; transform: var(--lift, none); transition: transform 0.7s var(--lift-ease), opacity 0.4s; }
+.demo.up { z-index: 61; }
+.demo.up::before { opacity: 0; }
+.demo.up::after { opacity: 1; }
+.demo-caption { transition: opacity 0.4s; }
+.demo.up .demo-caption { opacity: 0; }
+.demo-scrim {
+  position: fixed; inset: 0; z-index: 60; background: var(--scrim); touch-action: none;
+  opacity: 0; visibility: hidden; transition: opacity 0.5s, visibility 0.5s;
+}
+.demo-scrim.on { opacity: 1; visibility: visible; }
+html.demo-lock { overflow: hidden; }
+/* Back to the moment before the hotkey: the marks lift off together with the legend dimming. */
+.demo.rewind .mk, .demo.rewind .mk b { transition: opacity 0.35s; }
+/* ⌘↩: the frame flashes white the way the screen does for a screenshot; the finished image is
+   what the flash leaves behind. */
+.d-flash { position: absolute; inset: 0; z-index: 12; background: #fff; opacity: 0; pointer-events: none; }
+.d-flash.on { animation: d-flash 0.8s forwards; }
+@keyframes d-flash {
+  0% { opacity: 0; animation-timing-function: ease-in; }
+  10% { opacity: 1; animation-timing-function: cubic-bezier(0.2, 0.6, 0.4, 1); }
+  100% { opacity: 0; }
+}
 /* Dead centre of the screen (the screen is 62.5cqw tall; the frame also holds the legend). */
 .demo-play {
   position: absolute; left: 50%; top: 31.25cqw; z-index: 11; transform: translate(-50%, -50%);
@@ -865,7 +903,22 @@ p code, td code, li code, h3 code { padding: 0.1em 0.4em; border-radius: 5px; ba
 .install-head { display: grid; grid-template-columns: auto 1fr; gap: 28px; align-items: start; }
 .install-head img { width: 96px; height: 96px; margin-top: -4px; filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.12)); }
 .install-head h2 { font-size: 34px; }
-.install-ways { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; margin-top: 44px; }
+.install-ways { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; margin-top: 16px; }
+/* What Ref asks for and what it does with it, before the download rather than after. */
+.privacy { margin-top: 40px; padding: 24px; border-radius: var(--r-lg); background: var(--card); box-shadow: 0 0 0 1px var(--hair); }
+.privacy h3 { font-size: 18px; }
+.perms { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 32px; margin: 12px 0 0; }
+.perms div { display: grid; grid-template-columns: 7em minmax(0, 1fr); gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--hair); font-size: 15px; line-height: 1.6; }
+:lang(en) .perms div { grid-template-columns: 10.5em minmax(0, 1fr); }
+.perms dt { font-weight: 600; color: var(--ink); }
+.perms dd { margin: 0; color: var(--ink-2); }
+.pledges { display: flex; flex-direction: column; gap: 6px; margin-top: 16px; }
+.pledges li { position: relative; padding-left: 22px; color: var(--ink-2); font-size: 15px; line-height: 1.6; }
+.pledges li::before { content: ""; position: absolute; left: 3px; top: 0.42em; width: 9px; height: 5px; border-left: 1.8px solid var(--green); border-bottom: 1.8px solid var(--green); transform: rotate(-45deg); }
+@media (max-width: 760px) {
+  .perms { grid-template-columns: minmax(0, 1fr); }
+  .perms div, :lang(en) .perms div { grid-template-columns: minmax(0, 1fr); gap: 0; }
+}
 .way { display: flex; flex-direction: column; gap: 12px; padding: 24px; border-radius: var(--r-lg); background: var(--card); box-shadow: 0 0 0 1px var(--hair); }
 .way h3 { font-size: 18px; }
 .way p { color: var(--ink-2); font-size: 15px; }
@@ -877,7 +930,7 @@ p code, td code, li code, h3 code { padding: 0.1em 0.4em; border-radius: 5px; ba
   position: absolute; left: 0; top: 2px; width: 20px; height: 20px; border-radius: 50%;
   background: var(--ink); color: var(--bg); font: 600 11.5px/20px var(--font); text-align: center;
 }
-.install-req { max-width: 64em; margin-top: 20px; font-size: 14px; line-height: 1.6; color: var(--ink-3); text-wrap: pretty; }
+.install-req { max-width: 64em; margin-top: 28px; font-size: 14px; line-height: 1.6; color: var(--ink-3); text-wrap: pretty; }
 .way-meta { margin-top: auto; padding-top: 6px; font-size: 13px; line-height: 1.6; color: var(--ink-3); }
 .cmd .copy-done { flex: none; font: 600 13px/1 var(--font); color: var(--green); }
 .cmd {
@@ -964,7 +1017,8 @@ p code, td code, li code, h3 code { padding: 0.1em 0.4em; border-radius: 5px; ba
 
 @media (max-width: 900px) {
   :root { --section: 80px; }
-  .hero { padding-top: 56px; }
+  .hero { padding-top: 40px; }
+  .hero .container-wide { margin-top: 36px; }
   .hero h1 { font-size: 48px; }
   .lede { font-size: 17px; }
   .demo { margin-top: 48px; border-radius: 16px; }

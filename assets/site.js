@@ -40,11 +40,24 @@
 
   /* Not on a Mac: say so next to the download, since the DMG is of no use there. iPadOS
      Safari calls itself a Mac but has a touch screen, which a Mac never does. */
-  const notMac = document.querySelectorAll("[data-not-mac]");
-  if (notMac.length) {
-    const platform = (navigator.userAgentData && navigator.userAgentData.platform) || navigator.platform || "";
-    const isMac = /mac/i.test(platform) && !(navigator.maxTouchPoints > 1);
-    if (!isMac) notMac.forEach((el) => { el.hidden = false; });
+  const platform = (navigator.userAgentData && navigator.userAgentData.platform) || navigator.platform || "";
+  const isMac = /mac/i.test(platform) && !(navigator.maxTouchPoints > 1);
+  if (!isMac) document.querySelectorAll("[data-not-mac]").forEach((el) => { el.hidden = false; });
+
+  /* On a Mac whose macOS is too old for Ref: say that too. The user agent string froze at
+     10.15, so only browsers that answer the high-entropy hint tell the real version;
+     elsewhere the line under the download has to do. */
+  const MIN_MACOS = 26;
+  const oldMac = document.querySelectorAll("[data-old-macos]");
+  if (isMac && oldMac.length && navigator.userAgentData && navigator.userAgentData.getHighEntropyValues) {
+    navigator.userAgentData.getHighEntropyValues(["platformVersion"]).then(({ platformVersion }) => {
+      const major = parseInt(platformVersion, 10);
+      if (!(major > 0 && major < MIN_MACOS)) return;
+      oldMac.forEach((el) => {
+        el.querySelectorAll("[data-macos-version]").forEach((v) => { v.textContent = major; });
+        el.hidden = false;
+      });
+    }).catch(() => { /* no answer: the page's text still states the requirement */ });
   }
 
   /* Copy buttons. */
@@ -215,7 +228,10 @@ const cursor = el("span", "d-cursor", '<svg viewBox="0 0 23 23" aria-hidden="tru
     /* Says what the picture is, then offers to play how it was made. */
     const playButton = el("button", "demo-play", `<span>${d.result}</span><i></i><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.5 1.2v9.6L10.6 6z" fill="currentColor"/></svg>${d.play}`);
     playButton.type = "button";
-    frame.append(playButton);
+    /* The shutter at ⌘↩: a white flash over the whole frame, the way the screen flashes for a screenshot. */
+    const flash = el("i", "d-flash");
+    flash.addEventListener("animationend", () => flash.classList.remove("on"));
+    frame.append(playButton, flash);
 
     const sides = ["--x", "--y", "--w", "--h"];
     const home = sides.map((name) => m1.style.getPropertyValue(name));
@@ -329,8 +345,86 @@ const cursor = el("span", "d-cursor", '<svg viewBox="0 0 23 23" aria-hidden="tru
       measure();
     };
 
+    /* At rest: the finished image, every mark placed, the legend in full. */
+    const finish = () => {
+      restore();
+      marks.forEach((m) => m.classList.add("on", "set"));
+      [card, map, panel, keys, toast, flash].forEach((n) => n.classList.remove("on"));
+      ui.querySelectorAll(".d-ripple").forEach((n) => n.remove());
+      copyButton.classList.remove("down");
+      cursor.classList.add("gone");
+      lines.forEach((l) => l.classList.remove("lit"));
+      demo.classList.remove("staged", "rewind");
+    };
+
+    /* The frame plays off the page: it comes forward to the middle of the window, scaled so the
+       whole image — screen and legend — stays in view while the legend fills in, with the page
+       dimmed and held still behind it. ⌘↩ flashes it like a screenshot, and the finished image
+       settles back into its place: what was copied is what the page shows. Esc or a click on
+       the page ends it early. */
+    const html = document.documentElement;
+    const scrim = el("div", "demo-scrim");
+    scrim.setAttribute("aria-hidden", "true");
+    document.body.append(scrim);
+    const stay = (e) => e.preventDefault();
+    let locked = false, bodyPad = "";
+    const lock = () => {
+      if (locked) return;
+      locked = true;
+      /* Where the scrollbar takes room, keep that room so the page does not shift. */
+      const bar = window.innerWidth - html.clientWidth;
+      bodyPad = document.body.style.paddingRight;
+      if (bar > 0) document.body.style.paddingRight = `${bar}px`;
+      html.classList.add("demo-lock");
+      document.addEventListener("touchmove", stay, { passive: false });
+    };
+    const unlock = () => {
+      if (!locked) return;
+      locked = false;
+      html.classList.remove("demo-lock");
+      document.body.style.paddingRight = bodyPad;
+      document.removeEventListener("touchmove", stay);
+    };
+    /* From where it lies to the middle of the window, as large as fits inside a margin. The
+       figure itself never moves, so its box gives the frame's resting place. */
+    const lift = () => {
+      const at = demo.getBoundingClientRect();
+      const w = frame.offsetWidth, h = frame.offsetHeight;
+      const vw = html.clientWidth, vh = window.innerHeight;
+      const pad = Math.max(8, Math.min(24, Math.min(vw, vh) * 0.03));
+      const s = Math.min((vw - 2 * pad) / w, (vh - 2 * pad) / h, 2);
+      const x = vw / 2 - (at.left + w / 2), y = vh / 2 - (at.top + h / 2);
+      demo.style.setProperty("--lift", `translate(${x.toFixed(1)}px, ${y.toFixed(1)}px) scale(${s.toFixed(4)})`);
+    };
+    /* rest → lifting → playing → settling → rest. Every step of a run checks it is still the
+       current one, so a new run — or a stop — cuts it short. */
+    let phase = "rest";
     let run = 0;
+    const settle = async () => {
+      phase = "settling";
+      removeEventListener("resize", lift);
+      if (demo.classList.contains("up")) {
+        demo.style.setProperty("--lift", "translate(0px, 0px) scale(1)");
+        scrim.classList.remove("on");
+        await new Promise((resolve) => setTimeout(resolve, 700));
+        demo.classList.remove("up");
+        demo.style.removeProperty("--lift");
+      }
+      unlock();
+      phase = "rest";
+      demo.classList.add("done");
+    };
+    const land = () => { finish(); return settle(); };
+    const stop = () => {
+      if (phase !== "lifting" && phase !== "playing") return;
+      run += 1;
+      land();
+    };
+    scrim.addEventListener("click", stop);
+    document.addEventListener("keydown", (e) => { if (e.key === "Escape") stop(); });
+
     const play = async () => {
+      if (phase === "settling") return;
       const id = ++run;
       const wait = (ms) => new Promise((resolve, reject) => setTimeout(() => (id === run ? resolve() : reject(0)), ms));
       const tween = (ms, fn) => new Promise((resolve, reject) => {
@@ -343,6 +437,23 @@ const cursor = el("span", "d-cursor", '<svg viewBox="0 0 23 23" aria-hidden="tru
         };
         requestAnimationFrame(tick);
       });
+      /* If the screen's middle is off the window — the quick-start link is a screen below — the
+         page first scrolls it to the middle, so the lift starts from, and lands on, something in view. */
+      const bring = async () => {
+        const vh = window.innerHeight;
+        const r = screen.getBoundingClientRect();
+        const mid = r.top + r.height / 2;
+        if (mid > (header ? header.offsetHeight : 0) && mid < vh) return;
+        const from = window.scrollY;
+        const to = Math.max(0, Math.min(html.scrollHeight - vh, from + mid - vh / 2));
+        const was = html.style.scrollBehavior;
+        html.style.scrollBehavior = "auto";
+        try {
+          await tween(Math.min(650, 250 + Math.abs(to - from) / 6), (k) => { window.scrollTo(0, from + (to - from) * (1 - (1 - k) ** 3)); });
+        } finally {
+          html.style.scrollBehavior = was;
+        }
+      };
       const moveTo = (x, y, ms, ease = "cubic-bezier(0.45, 0, 0.2, 1)") => {
         cursor.style.transition = `left ${ms}ms ${ease}, top ${ms}ms ${ease}, opacity 0.25s`;
         cursor.style.left = `${x}%`;
@@ -385,8 +496,27 @@ const cursor = el("span", "d-cursor", '<svg viewBox="0 0 23 23" aria-hidden="tru
         into.scrollLeft = 0;
       };
 
-      reset();
       try {
+        if (phase === "rest") {
+          phase = "lifting";
+          demo.classList.remove("done");
+          await bring();
+          lock();
+          lift();
+          demo.classList.add("up");
+          scrim.classList.add("on");
+          addEventListener("resize", lift);
+          await wait(950);
+          /* In place: back to the moment before the hotkey — the marks lift off, the legend dims. */
+          demo.classList.add("rewind");
+          reset();
+          await wait(450);
+          demo.classList.remove("rewind");
+        } else {
+          /* Already up: again from the top. */
+          reset();
+        }
+        phase = "playing";
         await wait(700);
         await press(d.hotkey, 1000);
         panel.classList.add("on");
@@ -507,35 +637,39 @@ const cursor = el("span", "d-cursor", '<svg viewBox="0 0 23 23" aria-hidden="tru
         light(0);
         await wait(900);
         copyButton.classList.add("down");
-        await press("⌘↩", 900);
+        keys.textContent = "⌘↩";
+        keys.classList.add("on");
+        await wait(300);
+        /* The shutter: under the flash the overlay goes and the legend is drawn in full, so what
+           the flash leaves behind is the image. */
+        flash.classList.remove("on");
+        void flash.offsetWidth;
+        flash.classList.add("on");
+        await wait(90);
         copyButton.classList.remove("down");
+        keys.classList.remove("on");
         overall.classList.remove("focus");
         panel.classList.remove("on");
         cursor.classList.add("gone");
-        await wait(450);
         light(7);
         demo.classList.remove("staged");
-        await wait(700);
+        await wait(1000);
         toast.classList.add("on");
-        await wait(2600);
+        await wait(1900);
         toast.classList.remove("on");
-        await wait(250);
-        demo.classList.add("done");
+        await wait(300);
+        /* Copied: the image goes back down into the page, where it was all along. */
+        await land();
       } catch (stopped) {
         if (stopped !== 0) throw stopped;
       }
     };
 
-    /* At rest: the finished image, every mark placed. */
-    marks.forEach((m) => m.classList.add("on", "set"));
-    cursor.classList.add("gone");
+    finish();
     demo.classList.add("animate", "done");
     measure();
     new ResizeObserver(measure).observe(frame);
-    playButton.addEventListener("click", () => {
-      screen.scrollIntoView({ block: "center", behavior: "smooth" });
-      play();
-    });
+    playButton.addEventListener("click", play);
     /* The quick-start section offers the same playback; it only exists while the demo does. */
     document.querySelectorAll("[data-play-demo]").forEach((button) => {
       const holder = button.closest("[data-demo-link]");
@@ -545,8 +679,13 @@ const cursor = el("span", "d-cursor", '<svg viewBox="0 0 23 23" aria-hidden="tru
     reduceMotion.addEventListener("change", (e) => {
       if (!e.matches) return;
       run += 1;
+      phase = "rest";
+      removeEventListener("resize", lift);
       restore();
-      demo.classList.remove("animate", "staged", "done");
+      demo.classList.remove("animate", "staged", "done", "up", "rewind");
+      demo.style.removeProperty("--lift");
+      scrim.classList.remove("on");
+      unlock();
       document.querySelectorAll("[data-demo-link]").forEach((el) => { el.hidden = true; });
     });
   }
