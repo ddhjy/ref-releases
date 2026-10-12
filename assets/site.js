@@ -135,7 +135,7 @@
   if (screen && !reduceMotion.matches && "IntersectionObserver" in window) {
     const d = zh
       ? {
-        hotkey: "⇧⌘R", request: "要求", typeText: "输入文字", overall: "整体要求", whole: "当前屏幕", cancel: "取消", copy: "复制",
+        hotkey: "⌥⌘R", request: "要求", typeText: "输入文字", overall: "整体要求", whole: "当前屏幕", cancel: "取消", copy: "复制",
         toast: "已复制 · 6 处标注", play: "播放标注过程", length: "0:38", wheel: "滚轮", skip: "跳过",
         hints: { frame: "点击元素或拖出区域 · 滚动切换父/子及被遮挡的元素", arrow: "拖动画出箭头", text: "点击要放文字的位置" },
         rows: ["选框 · AXTextField “components” · ~/Projects/ledger/src/components · 访达", "选框 · AXButton “新建发票”", "选框 · UIButton “新建” · 模拟器", "区域", "箭头", "文字"],
@@ -149,7 +149,7 @@
         ],
       }
       : {
-        hotkey: "⇧⌘R", request: "Request", typeText: "Type text", overall: "Overall request", whole: "Whole capture", cancel: "Cancel", copy: "Copy",
+        hotkey: "⌥⌘R", request: "Request", typeText: "Type text", overall: "Overall request", whole: "Whole capture", cancel: "Cancel", copy: "Copy",
         toast: "Copied · 6 annotations", play: "Watch how it’s made", length: "0:40", wheel: "Scroll", skip: "Skip",
         hints: { frame: "Click an element or drag a region · Scroll for parent/child and covered elements", arrow: "Drag to draw an arrow", text: "Click where the text should go" },
         rows: ["Framed element · AXTextField “components” · ~/Projects/ledger/src/components · Finder", "Framed element · AXButton “New invoice”", "Framed element · UIButton “New” · Simulator", "Region", "Arrow", "Text"],
