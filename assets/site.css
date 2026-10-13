@@ -87,7 +87,6 @@
 
 html {
   -webkit-text-size-adjust: 100%;
-  scroll-behavior: smooth;
   scroll-padding-top: 88px;
 }
 
@@ -211,10 +210,7 @@ p code, td code, li code, h3 code { padding: 0.1em 0.4em; border-radius: 5px; ba
   transition: color 0.15s ease, background-color 0.15s ease;
 }
 .nav-links a:hover { color: var(--ink); background: var(--hair); }
-.nav-links .nav-lang { display: none; }
 .nav-actions { display: flex; align-items: center; gap: 8px; margin-left: auto; }
-.nav-actions .nav-lang { padding: 8px 12px; border-radius: 9px; font-size: 14px; font-weight: 500; color: var(--ink-2); white-space: nowrap; }
-.nav-actions .nav-lang:hover { color: var(--ink); background: var(--hair); }
 .nav-toggle {
   display: none; position: relative; width: 40px; height: 40px; margin-right: -8px;
   border: 0; border-radius: 10px; background: transparent; cursor: pointer;
@@ -256,9 +252,8 @@ p code, td code, li code, h3 code { padding: 0.1em 0.4em; border-radius: 5px; ba
 /* In English the marked words fall on the second line, where the badge would land on the line
    above it: the mark keeps the room its badge needs. */
 :lang(en) .hero h1 .mark { margin-top: 0.38em; }
-.lede { margin: 28px 0 0; max-width: 46em; font-size: 19px; line-height: 1.65; color: var(--ink-2); text-wrap: pretty; }
 /* The two things the page is about, each a step down to the section that shows it. */
-.lede-2 { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 20px; }
+.lede-2 { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 32px; }
 .lede-2 a {
   display: inline-flex; align-items: center; gap: 10px; min-height: 40px; padding: 6px 14px 6px 16px; border-radius: 999px;
   background: var(--bg-2); box-shadow: 0 0 0 1px var(--hair); font-size: 14.5px; line-height: 1.4; color: var(--ink-2); text-align: left; text-decoration: none;
@@ -267,9 +262,6 @@ p code, td code, li code, h3 code { padding: 0.1em 0.4em; border-radius: 5px; ba
 .lede-2 a:hover { color: var(--ink); box-shadow: 0 0 0 1px var(--hair-2); }
 .lede-2 b { color: var(--ink); font-size: 16px; white-space: nowrap; }
 .lede-2 a::after { content: ""; flex: none; width: 7px; height: 7px; margin: 0 2px 0 -2px; border-right: 1.5px solid var(--ink-3); border-bottom: 1.5px solid var(--ink-3); transform: rotate(-45deg); }
-/* Chinese breaks between any two characters, which splits words at a line's end; here, where
-   two centred lines are all there is, break at the punctuation instead. */
-:lang(zh) .lede { word-break: keep-all; overflow-wrap: break-word; }
 .cta { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-top: 36px; }
 /* Shown by site.js when the visitor is not on a Mac, or on a macOS too old for Ref: the download would be of no use there. */
 .notice {
@@ -1134,8 +1126,6 @@ html.demo-lock { overflow: hidden; }
   }
   .nav-links.open { transform: none; opacity: 1; visibility: visible; }
   .nav-links a { padding: 12px 10px; font-size: 16px; }
-  .nav-links .nav-lang { display: block; margin-top: 8px; border-top: 1px solid var(--hair); border-radius: 0; padding-top: 16px; }
-  .nav-actions .nav-lang { display: none; }
   .nav-toggle { display: block; }
 }
 
@@ -1144,7 +1134,6 @@ html.demo-lock { overflow: hidden; }
   .hero { padding-top: 40px; }
   .hero .container-wide { margin-top: 36px; }
   .hero h1 { font-size: 48px; }
-  .lede { font-size: 17px; }
   .demo { margin-top: 48px; border-radius: 16px; }
   .vs2, .precise-grid { grid-template-columns: minmax(0, 1fr); }
   /* With the block full width, the two pairs fit side by side. */
@@ -1215,6 +1204,5 @@ html.demo-lock { overflow: hidden; }
 /* ---------- Motion ---------- */
 
 @media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
   *, *::before, *::after { animation-duration: 0.001ms !important; animation-delay: 0s !important; transition-duration: 0.001ms !important; }
 }

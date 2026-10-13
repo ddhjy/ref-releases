@@ -40,6 +40,7 @@
 <link rel="preload" href="assets/img/brand.svg" as="image" type="image/svg+xml">
 <link rel="preconnect" href="https://api.github.com" crossorigin>
 <link rel="stylesheet" href="assets/site.css">
+<script src="assets/lang.js"></script>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -70,14 +71,12 @@
     <nav class="nav-links" id="nav" aria-label="页面导航">
       <a href="#faster">更快</a>
       <a href="#precise">更准</a>
-      <a href="#details">更多操作</a>
+      <a href="#details">更多</a>
       <a href="#install">安装</a>
-      <a href="#faq">常见问题</a>
-      <a class="nav-lang" href="en/" lang="en" hreflang="en">English</a>
+      <a href="#faq">问答</a>
     </nav>
     <div class="nav-actions">
-      <a class="nav-lang" href="en/" lang="en" hreflang="en">English</a>
-      <a class="btn btn-primary btn-sm" href="/download/Ref-0.3.15.dmg" data-download-dmg>下载</a>
+      <a class="btn btn-primary btn-sm" href="#install">下载</a>
       <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav" aria-label="打开菜单">
         <span></span><span></span>
       </button>
@@ -91,7 +90,6 @@
 <section class="hero" aria-labelledby="hero-title">
   <div class="container hero-copy">
     <h1 id="hero-title"><span class="mark">给 AI 看的<b class="badge" aria-hidden="true"></b></span><span class="nowrap">截图标注工具</span></h1>
-    <p class="lede">按热键，点一下你想说的东西，粘贴给 Cursor、ChatGPT 或 Claude。</p>
     <ul class="lede-2">
       <li><a href="#faster"><b>更快</b><span>移过去就贴住，点一下就编号</span></a></li>
       <li><a href="#precise"><b>更准</b><span>要求、关系、路径都跟着编号写进图</span></a></li>
@@ -391,7 +389,7 @@ Ref · 2880×1800 px · com.apple.Safari “发票 — Ledger” · 2026-10-07 1
 <section class="section section-alt" id="details" aria-labelledby="details-title">
   <div class="container">
     <header class="section-head">
-      <h2 id="details-title">更多操作</h2>
+      <h2 id="details-title">更多</h2>
       <p class="section-lede">上手用不到这些，需要时再回来看。</p>
     </header>
     <div class="bento details">
@@ -528,21 +526,9 @@ Ref · 2880×1800 px · com.apple.Safari “发票 — Ledger” · 2026-10-07 1
 <section class="section section-alt" id="faq" aria-labelledby="faq-title">
   <div class="container narrow">
     <header class="section-head">
-      <h2 id="faq-title">常见问题</h2>
+      <h2 id="faq-title">问答</h2>
     </header>
     <div class="faq">
-      <details>
-        <summary>能替代我现在的截图工具吗？只能发给 AI 吗？</summary>
-        <p>不用替代。Ref 只管要发出去说事的那张图：总是整屏，只有红色标注，结果只进剪贴板。复制出来的是一张普通的图，发给同事、贴到飞书或微信都行。</p>
-      </details>
-      <details open id="faq-version">
-        <summary>我的 Mac 能装吗？怎么看系统版本？</summary>
-        <p>需要 macOS 26 (Tahoe) 或更高版本，Apple 芯片和 Intel 都可以。点屏幕左上角的苹果图标 → “关于本机”就能看到版本号；不够的话到“系统设置 → 通用 → 软件更新”升级。只有 Mac 版。</p>
-      </details>
-      <details>
-        <summary>打开时被拦住怎么办？</summary>
-        <p>安装包经过 Apple 公证，正常不会被拦。万一提示“无法打开”，到“系统设置 → 隐私与安全性”页面底部点“仍要打开”。</p>
-      </details>
       <details>
         <summary>为什么要四项权限？会不会偷偷录屏或上传？</summary>
         <p>每项权限只做一件事，见<a href="#privacy">权限与隐私</a>。只在按下热键那一刻截图，不上传任何内容。</p>
@@ -608,12 +594,12 @@ Ref · 2880×1800 px · com.apple.Safari “发票 — Ledger” · 2026-10-07 1
       <h3>了解</h3>
       <a href="#faster">更快</a>
       <a href="#precise">更准</a>
-      <a href="#details">更多操作</a>
+      <a href="#details">更多</a>
       <a href="#shortcuts">快捷键</a>
     </nav>
     <nav aria-label="支持">
       <h3>支持</h3>
-      <a href="#faq">常见问题</a>
+      <a href="#faq">问答</a>
       <a href="https://github.com/ddhjy/ref-releases/issues" rel="noopener">问题反馈</a>
     </nav>
   </div>

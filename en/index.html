@@ -40,6 +40,7 @@
 <link rel="preload" href="../assets/img/brand.svg" as="image" type="image/svg+xml">
 <link rel="preconnect" href="https://api.github.com" crossorigin>
 <link rel="stylesheet" href="../assets/site.css">
+<script src="../assets/lang.js"></script>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -73,11 +74,9 @@
       <a href="#details">More</a>
       <a href="#install">Install</a>
       <a href="#faq">FAQ</a>
-      <a class="nav-lang" href="../" lang="zh-Hans" hreflang="zh-Hans">中文</a>
     </nav>
     <div class="nav-actions">
-      <a class="nav-lang" href="../" lang="zh-Hans" hreflang="zh-Hans">中文</a>
-      <a class="btn btn-primary btn-sm" href="/download/Ref-0.3.15.dmg" data-download-dmg>Download</a>
+      <a class="btn btn-primary btn-sm" href="#install">Download</a>
       <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav" aria-label="Open menu">
         <span></span><span></span>
       </button>
@@ -91,7 +90,6 @@
 <section class="hero" aria-labelledby="hero-title">
   <div class="container hero-copy">
     <h1 id="hero-title">Screenshot annotation <span class="mark">built for AI<b class="badge" aria-hidden="true"></b></span></h1>
-    <p class="lede">Press a hotkey, click what you mean, paste it into Cursor, ChatGPT or Claude.</p>
     <ul class="lede-2">
       <li><a href="#faster"><b>Faster</b><span>Point to snap, click to number</span></a></li>
       <li><a href="#precise"><b>More precise</b><span>Requests, relations and paths go in by number</span></a></li>
@@ -531,18 +529,6 @@ Ref · 2880×1800 px · com.apple.Safari “Invoices — Ledger” · 2026-10-07
       <h2 id="faq-title">FAQ</h2>
     </header>
     <div class="faq">
-      <details>
-        <summary>Does it replace my screenshot tool? Is it only for AI?</summary>
-        <p>No need to. Ref handles only the image you send to explain something: always the full screen, red marks only, result on the clipboard. What you copy is an ordinary image, so it works just as well for a colleague, Slack or Messages.</p>
-      </details>
-      <details open id="faq-version">
-        <summary>Will it run on my Mac? How do I check my macOS version?</summary>
-        <p>Ref needs macOS 26 (Tahoe) or later, on Apple silicon or Intel. Click the Apple menu in the top-left corner → About This Mac to see your version; if it’s older, update under System Settings → General → Software Update first. Mac only.</p>
-      </details>
-      <details>
-        <summary>What if macOS won’t open it?</summary>
-        <p>The installer is notarized by Apple, so it normally opens without a warning. If you ever see “can’t be opened”, go to System Settings → Privacy &amp; Security and click “Open Anyway” at the bottom.</p>
-      </details>
       <details>
         <summary>Why four permissions? Does it record my screen or upload anything?</summary>
         <p>Each permission does one job; see <a href="#privacy">Permissions &amp; privacy</a>. Ref captures only at the moment you press the hotkey and uploads nothing.</p>

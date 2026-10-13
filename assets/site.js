@@ -20,6 +20,11 @@
     addEventListener("scroll", onScroll, { passive: true });
   }
 
+  /* The footer's language links are the one manual switch: lang.js keeps to the choice. */
+  document.querySelectorAll(".footer-langs a").forEach((a) => {
+    a.addEventListener("click", () => { try { localStorage.setItem("ref-lang", a.lang.toLowerCase().startsWith("zh") ? "zh" : "en"); } catch (e) { /* The link still works. */ } });
+  });
+
   /* Mobile navigation. */
   const toggle = document.querySelector(".nav-toggle");
   const nav = document.getElementById("nav");
@@ -715,9 +720,34 @@ const cursor = el("span", "d-cursor", '<svg viewBox="0 0 23 23" aria-hidden="tru
   const unfoldHash = () => unfold(decodeURIComponent(location.hash.slice(1)));
   unfoldHash();
   addEventListener("hashchange", unfoldHash);
-  /* Before the browser scrolls there, so the block is open when it arrives. */
+  /* In-page links: the block is opened first, then the page goes there in a fixed, short time
+     however far it is — the browser's own smooth scroll takes over a second across the page.
+     With reduced motion it simply arrives. */
+  let glide = 0;
   document.addEventListener("click", (e) => {
     const a = e.target.closest('a[href^="#"]');
-    if (a) unfold(decodeURIComponent(a.getAttribute("href").slice(1)));
+    if (!a) return;
+    const id = decodeURIComponent(a.getAttribute("href").slice(1));
+    unfold(id);
+    const target = id && document.getElementById(id);
+    if (!target || e.defaultPrevented || e.button || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+    e.preventDefault();
+    const root = document.documentElement;
+    const from = window.scrollY;
+    const pad = parseFloat(getComputedStyle(root).scrollPaddingTop) || 0;
+    const to = Math.max(0, Math.min(root.scrollHeight - window.innerHeight, from + target.getBoundingClientRect().top - pad));
+    if (location.hash !== `#${id}`) history.pushState(null, "", `#${id}`);
+    const run = ++glide;
+    const start = performance.now();
+    const ms = reduceMotion.matches ? 0 : 280;
+    const step = (now) => {
+      if (run !== glide) return;
+      const k = ms ? Math.min(1, (now - start) / ms) : 1;
+      window.scrollTo(0, from + (to - from) * (1 - (1 - k) ** 3));
+      if (k < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
   });
+  /* The visitor's own scrolling takes over at once. */
+  ["wheel", "touchstart", "keydown"].forEach((type) => addEventListener(type, () => { glide += 1; }, { passive: true }));
 })();
