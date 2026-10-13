@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Ref — 给 AI 看的截图标注工具 · macOS</title>
-<meta name="description" content="给 AI 看的截图标注工具，住在 macOS 菜单栏里。更快：鼠标移过去自动贴住元素，点一下就编号。更准：你的要求、元素之间的关系、路径和链接都跟着编号写进图里。粘贴给 Cursor、ChatGPT、Claude 就行。">
+<meta name="description" content="给 AI 看的截图标注工具，住在 macOS 菜单栏里。更快：智能选框，一键选中。更准：自动编号，页面、提示、补充信息自动关联。粘贴给 Cursor、ChatGPT、Claude 就行。">
 <meta name="color-scheme" content="light dark">
 <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
 <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#161617">
@@ -21,7 +21,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:locale:alternate" content="en_US">
 <meta property="og:title" content="Ref — 给 AI 看的截图标注工具">
-<meta property="og:description" content="更快：鼠标移过去自动贴住元素，点一下就编号。更准：你的要求、元素之间的关系、路径和链接都跟着编号写进图里。粘贴给 Cursor、ChatGPT、Claude 就行。">
+<meta property="og:description" content="更快：智能选框，一键选中。更准：自动编号，页面、提示、补充信息自动关联。粘贴给 Cursor、ChatGPT、Claude 就行。">
 <meta property="og:url" content="https://ref.suixinapp.com/">
 <meta property="og:image" content="https://ref.suixinapp.com/assets/img/og.png">
 <meta property="og:image:width" content="1200">
@@ -29,7 +29,7 @@
 <meta property="og:image:alt" content="Ref：截图上的编号标记和底部的标注说明">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Ref — 给 AI 看的截图标注工具">
-<meta name="twitter:description" content="点一下就编号；你的要求、路径和链接跟着编号写进图里。粘贴给 Cursor、ChatGPT、Claude 就行。">
+<meta name="twitter:description" content="智能选框，一键选中；自动编号，页面、提示、补充信息自动关联。粘贴给 Cursor、ChatGPT、Claude 就行。">
 <meta name="twitter:image" content="https://ref.suixinapp.com/assets/img/og.png">
 
 <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
@@ -91,8 +91,8 @@
   <div class="container hero-copy">
     <h1 id="hero-title"><span class="mark">给 AI 看的<b class="badge" aria-hidden="true"></b></span><span class="nowrap">截图标注工具</span></h1>
     <ul class="lede-2">
-      <li><a href="#faster"><b>更快</b><span>移过去就贴住，点一下就编号</span></a></li>
-      <li><a href="#precise"><b>更准</b><span>要求、关系、路径都跟着编号写进图</span></a></li>
+      <li><a href="#faster"><b>更快</b><span>智能选框，一键选中</span></a></li>
+      <li><a href="#precise"><b>更准</b><span>自动编号，页面、提示、补充信息自动关联</span></a></li>
     </ul>
     <p class="notice" data-old-macos hidden>你的 Mac 是 macOS <span data-macos-version></span>，Ref 需要 macOS 26。先到“系统设置 → 通用 → 软件更新”升级系统，再回来下载。</p>
     <p class="notice" data-not-mac hidden>Ref 是 Mac 应用，你现在用的设备看起来不是 Mac。把网址发到你的 Mac 上再下载：<button class="link-btn copy" type="button" data-copy="https://ref.suixinapp.com/"><span class="copy-idle">复制网址</span><span class="copy-done">已复制</span></button></p>
@@ -200,22 +200,22 @@
 
       <pre class="demo-legend" data-legend><span class="ll" data-n="0"><em>整体要求：</em>照 2 的样式在 4 加一个导出按钮，代码放到 1，iOS 端加在 3 旁边</span>
 <span class="ll" data-n="1">├─ <i class="lb" data-n="1">①</i> 新组件放这里
-│  └─ AXTextField “components” · folder · ~/Projects/ledger/src/components ·
-│     com.apple.finder · 23%×25%</span>
+<s>│  └─ AXTextField “components” · folder · ~/Projects/ledger/src/components ·
+│     com.apple.finder · 23%×25%</s></span>
 <span class="ll" data-n="2">├─ <i class="lb" data-n="2">②</i> 参考它的样式
-│  └─ AXButton “新建发票” · 93%×13%
+<s>│  └─ AXButton “新建发票” · 93%×13%
 │     ↳ Toolbar @ src/components/Toolbar.tsx:18 · button.primary · 112×32
-│       13px Inter 600 #FFFFFF bg #0D44E8</span>
+│       13px Inter 600 #FFFFFF bg #0D44E8</s></span>
 <span class="ll" data-n="3">├─ <i class="lb" data-n="3">③</i> iOS 端加在它左边
-│  └─ UIButton “新建” · com.apple.iphonesimulator · 44%×39%
+<s>│  └─ UIButton “新建” · com.apple.iphonesimulator · 44%×39%
 │     ↳ PillButton : UIButton · InvoiceListViewController.addButton ·
-│       (296, 62) 80×44 pt · 17pt SFProText-Semibold #FFFFFF bg #0D44E8 · 圆角 22</span>
+│       (296, 62) 80×44 pt · 17pt SFProText-Semibold #FFFFFF bg #0D44E8 · 圆角 22</s></span>
 <span class="ll" data-n="4">├─ <i class="lb" data-n="4">④</i> 导出按钮放这里
-│  └─ 区域 · 75%×71% – 95%×88%</span>
+<s>│  └─ 区域 · 75%×71% – 95%×88%</s></span>
 <span class="ll" data-n="5">├─ <i class="lb" data-n="5">⑤</i> 右边和表格对齐
-│  └─ 箭头 · 92%×66% 指向 96%×47%</span>
+<s>│  └─ 箭头 · 92%×66% 指向 96%×47%</s></span>
 <span class="ll" data-n="6">└─ <i class="lb" data-n="6">⑥</i> 文案：导出 CSV
-   └─ 文字 · 77%×78%</span>
+<s>   └─ 文字 · 77%×78%</s></span>
 <span class="ll sig" data-n="7">页面 · http://localhost:3100/invoices
 Ref · 2880×1800 px · com.apple.Safari “发票 — Ledger” · 2026-10-07 15:55</span></pre>
       <!-- Notes on the picture, not part of it: the caption says the same in words. -->
@@ -234,7 +234,7 @@ Ref · 2880×1800 px · com.apple.Safari “发票 — Ledger” · 2026-10-07 1
   <div class="container">
     <header class="section-head">
       <h2 id="faster-title">更快</h2>
-      <p class="section-lede">鼠标移过去，高亮自己贴住元素。点一下，编号自动排。</p>
+      <p class="section-lede">智能选框：鼠标移过去，高亮自己贴住元素。一键选中：点一下就标好。</p>
     </header>
 
     <div class="vs2">
@@ -304,7 +304,7 @@ Ref · 2880×1800 px · com.apple.Safari “发票 — Ledger” · 2026-10-07 1
   <div class="container">
     <header class="section-head">
       <h2 id="precise-title">更准</h2>
-      <p class="section-lede">每处一个编号。你的要求、元素之间的关系、路径和链接，都跟着编号写进图里。</p>
+      <p class="section-lede">每处自动编号。页面上的元素、你写的提示、路径和链接这些补充信息，都自动关联到编号上，一起写进图里。</p>
     </header>
 
     <div class="precise-grid">

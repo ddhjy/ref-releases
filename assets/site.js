@@ -141,7 +141,7 @@
     const d = zh
       ? {
         hotkey: "⌥⌘R", request: "要求", typeText: "输入文字", overall: "整体要求", whole: "当前屏幕", cancel: "取消", copy: "复制",
-        toast: "已复制 · 6 处标注", play: "播放标注过程", length: "0:38", wheel: "滚轮", skip: "跳过",
+        toast: "已复制 · 6 处标注", play: "标注演示", length: "0:38", wheel: "滚轮", skip: "跳过",
         hints: { frame: "点击元素或拖出区域 · 滚动切换父/子及被遮挡的元素", arrow: "拖动画出箭头", text: "点击要放文字的位置" },
         rows: ["选框 · AXTextField “components” · ~/Projects/ledger/src/components · 访达", "选框 · AXButton “新建发票”", "选框 · UIButton “新建” · 模拟器", "区域", "箭头", "文字"],
         cardHint: "按住空格可复制",
@@ -155,7 +155,7 @@
       }
       : {
         hotkey: "⌥⌘R", request: "Request", typeText: "Type text", overall: "Overall request", whole: "Whole capture", cancel: "Cancel", copy: "Copy",
-        toast: "Copied · 6 annotations", play: "Watch how it’s made", length: "0:40", wheel: "Scroll", skip: "Skip",
+        toast: "Copied · 6 annotations", play: "Watch the demo", length: "0:40", wheel: "Scroll", skip: "Skip",
         hints: { frame: "Click an element or drag a region · Scroll for parent/child and covered elements", arrow: "Drag to draw an arrow", text: "Click where the text should go" },
         rows: ["Framed element · AXTextField “components” · ~/Projects/ledger/src/components · Finder", "Framed element · AXButton “New invoice”", "Framed element · UIButton “New” · Simulator", "Region", "Arrow", "Text"],
         cardHint: "Hold Space to copy",
@@ -414,7 +414,7 @@ const cursor = el("span", "d-cursor", '<svg viewBox="0 0 23 23" aria-hidden="tru
       if (demo.classList.contains("up")) {
         demo.style.setProperty("--lift", "translate(0px, 0px) scale(1)");
         scrim.classList.remove("on");
-        await new Promise((resolve) => setTimeout(resolve, 700));
+        await new Promise((resolve) => setTimeout(resolve, 800));
         demo.classList.remove("up");
         demo.style.removeProperty("--lift");
       }
@@ -438,11 +438,22 @@ const cursor = el("span", "d-cursor", '<svg viewBox="0 0 23 23" aria-hidden="tru
       if (phase !== "rest") stop(); else if (screen.contains(e.target)) play();
     });
     document.addEventListener("keydown", (e) => { if (e.key === "Escape") stop(); });
+    /* The button answers the pointer being over the screen. The page can come to lie under a
+       pointer that has not moved — a wheel scroll — and :hover does not notice that, so the
+       pointer's last place is kept and looked up again on every scroll. */
+    let at = null, looking = false;
+    const look = () => {
+      looking = false;
+      const under = at && document.elementFromPoint(at.x, at.y);
+      demo.classList.toggle("over", !!under && (screen.contains(under) || playButton.contains(under)));
+    };
+    const lookSoon = () => { if (!looking) { looking = true; requestAnimationFrame(look); } };
+    addEventListener("pointermove", (e) => { if (e.pointerType === "mouse") { at = { x: e.clientX, y: e.clientY }; lookSoon(); } }, { passive: true });
+    addEventListener("scroll", lookSoon, { passive: true });
+    html.addEventListener("pointerleave", () => { at = null; lookSoon(); });
 
     const play = async () => {
       if (phase === "settling") return;
-      cue.disconnect();
-      demo.classList.remove("cue");
       const id = ++run;
       const wait = (ms) => new Promise((resolve, reject) => setTimeout(() => (id === run ? resolve() : reject(0)), ms));
       const tween = (ms, fn) => new Promise((resolve, reject) => {
@@ -524,7 +535,7 @@ const cursor = el("span", "d-cursor", '<svg viewBox="0 0 23 23" aria-hidden="tru
           demo.classList.add("up");
           scrim.classList.add("on");
           addEventListener("resize", lift);
-          await wait(950);
+          await wait(1000);
           /* In place: back to the moment before the hotkey — the marks lift off, the legend dims. */
           demo.classList.add("rewind");
           reset();
@@ -683,28 +694,18 @@ const cursor = el("span", "d-cursor", '<svg viewBox="0 0 23 23" aria-hidden="tru
       }
     };
 
-    /* The first time the play button is well inside the window it calls for the eye: a ring goes
-       out from it a few times, then nothing more. A run puts an end to it. */
-    const cue = new IntersectionObserver(([entry]) => {
-      if (!entry.isIntersecting) return;
-      cue.disconnect();
-      demo.classList.add("cue");
-    }, { rootMargin: "-15% 0px", threshold: 1 });
-
     finish();
     demo.classList.add("animate", "done");
     measure();
     new ResizeObserver(measure).observe(frame);
-    cue.observe(playButton);
     playButton.addEventListener("click", play);
     reduceMotion.addEventListener("change", (e) => {
       if (!e.matches) return;
       run += 1;
       phase = "rest";
       removeEventListener("resize", lift);
-      cue.disconnect();
       restore();
-      demo.classList.remove("animate", "staged", "done", "up", "rewind", "cue");
+      demo.classList.remove("animate", "staged", "done", "up", "rewind", "over");
       demo.style.removeProperty("--lift");
       scrim.classList.remove("on");
       unlock();

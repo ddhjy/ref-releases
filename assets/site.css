@@ -160,7 +160,10 @@ table { border-collapse: collapse; }
 .btn-secondary:hover { box-shadow: 0 0 0 1px var(--ink-3), var(--shadow-sm); }
 .btn-contrast { background: #ffffff; color: #1d1d1f; box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2); }
 .btn-contrast:hover { background: #f5f5f7; }
-.btn-sm { height: 36px; padding: 0 14px; border-radius: 10px; font-size: 14px; }
+/* The header's one button: a pill, like the hero's own controls, and no taller than the brand
+   mark beside it — a finger gets the old height back. */
+.btn-sm { height: 32px; padding: 0 16px; border-radius: 999px; font-size: 14px; }
+@media (pointer: coarse) { .btn-sm { height: 36px; } }
 .btn-lg { height: 52px; padding: 0 24px; font-size: 17px; border-radius: 15px; }
 
 .copy { position: relative; }
@@ -261,6 +264,10 @@ p code, td code, li code, h3 code { padding: 0.1em 0.4em; border-radius: 5px; ba
 }
 .lede-2 a:hover { color: var(--ink); box-shadow: 0 0 0 1px var(--hair-2); }
 .lede-2 b { color: var(--ink); font-size: 16px; white-space: nowrap; }
+/* Where a line has to wrap, in two even halves rather than one word left over — and in
+   Chinese at the punctuation, not through a word. */
+.lede-2 span { text-wrap: balance; }
+:lang(zh) .lede-2 span { word-break: keep-all; overflow-wrap: break-word; }
 .lede-2 a::after { content: ""; flex: none; width: 7px; height: 7px; margin: 0 2px 0 -2px; border-right: 1.5px solid var(--ink-3); border-bottom: 1.5px solid var(--ink-3); transform: rotate(-45deg); }
 .cta { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-top: 36px; }
 /* Shown by site.js when the visitor is not on a Mac, or on a macOS too old for Ref: the download would be of no use there. */
@@ -435,7 +442,8 @@ p code, td code, li code, h3 code { padding: 0.1em 0.4em; border-radius: 5px; ba
 }
 /* A line too long for the band continues indented under its text, the way the app draws it. */
 .demo-legend { text-indent: 6ch hanging each-line; }
-.demo-legend s { text-decoration: none; color: var(--legend-ink-2); }
+/* What Ref wrote under a note, fainter than the note: the footer's white at 72%. */
+.demo-legend s { text-decoration: none; color: #c0c0c0; }
 .demo-legend .ll { display: inline; }
 .demo-legend em { font-style: normal; color: #ff3b30; }
 /* The badge as the legend carries it; the same glyph stands for a mark wherever the page refers to one. */
@@ -488,14 +496,19 @@ p code, td code, li code, h3 code { padding: 0.1em 0.4em; border-radius: 5px; ba
 /* The hero rests on the finished image; its button plays the capture that made it:
    the hotkey, each pick, the panel filling in, ⌘↩, and the image again. site.js adds
    the button, everything under .d-ui and the classes below. */
-.demo.animate { position: relative; isolation: isolate; --lift-ease: cubic-bezier(0.32, 0.72, 0, 1); }
+.demo.animate { position: relative; isolation: isolate; --lift-time: 0.8s; --lift-ease: cubic-bezier(0.3, 0, 0.1, 1); }
+/* The lift moves as a spring that just fails to overshoot: off from a standstill, fastest a tenth
+   of the way in, then a long settle. Where linear() is not known, a curve of the same character. */
+@supports (transition-timing-function: linear(0, 1)) {
+  .demo.animate { --lift-ease: linear(0, 0.012 2%, 0.041 4%, 0.084 6%, 0.163 9%, 0.25 12%, 0.366 16%, 0.475 20%, 0.594 25%, 0.692 30%, 0.782 36%, 0.858 43%, 0.908 50%, 0.952 60%, 0.979 72%, 0.991 85%, 1); }
+}
 .demo.animate::before, .demo.animate::after {
   content: ""; position: absolute; z-index: -1; inset: 0 0 var(--below, 0px) 0; pointer-events: none;
   border-radius: var(--r-lg);
 }
 .demo.animate::before {
   box-shadow: var(--shadow-lg), 0 0 0 1px var(--hair);
-  transition: bottom 0.7s cubic-bezier(0.3, 0.7, 0.2, 1), opacity 0.4s;
+  transition: bottom 0.7s cubic-bezier(0.3, 0.7, 0.2, 1), opacity var(--lift-time) var(--lift-ease);
 }
 .demo.animate .demo-frame { box-shadow: none; }
 .demo.animate .ll { transition: opacity 0.35s; }
@@ -504,9 +517,10 @@ p code, td code, li code, h3 code { padding: 0.1em 0.4em; border-radius: 5px; ba
 /* While it plays, the frame comes off the page: forward to the middle of the window, scaled so
    the whole image — screen and legend — is in view, the page dimmed behind it. site.js works
    out --lift; the frame and the deeper shadow (::after) both follow it, the resting shadow and
-   the caption give way, and the lot sits above the header and the scrim. */
-.demo.animate .demo-frame { position: relative; transform: var(--lift, none); transition: transform 0.7s var(--lift-ease); }
-.demo.animate::after { box-shadow: var(--shadow-lift), 0 0 0 1px var(--hair); opacity: 0; transform: var(--lift, none); transition: transform 0.7s var(--lift-ease), opacity 0.4s; }
+   the caption give way, and the lot sits above the header and the scrim. One clock and one
+   curve for the frame and both shadows, so the shadow deepens as the frame rises. */
+.demo.animate .demo-frame { position: relative; transform: var(--lift, none); transition: transform var(--lift-time) var(--lift-ease); }
+.demo.animate::after { box-shadow: var(--shadow-lift), 0 0 0 1px var(--hair); opacity: 0; transform: var(--lift, none); transition: transform var(--lift-time) var(--lift-ease), opacity var(--lift-time) var(--lift-ease); }
 .demo.up { z-index: 61; }
 .demo.up::before { opacity: 0; }
 .demo.up::after { opacity: 1; }
@@ -566,21 +580,17 @@ html.demo-lock { overflow: hidden; }
 @container (max-width: 899px) { .demo-play { font-size: 15px; } }
 @container (max-width: 559px) { .demo-play { font-size: 13px; } }
 .demo.done .demo-play { opacity: 1; visibility: visible; }
+/* Pressed, it sinks into the picture as it fades, and comes back up the same way. */
+.demo.animate:not(.done) .demo-play { scale: 0.9; }
 /* A click anywhere on the screen plays it (site.js), so the whole screen says so: the pointer
    changes over it and the button answers, wherever on the picture the pointer is. */
 .demo.done .demo-screen { cursor: pointer; }
-/* Only where there is a pointer to hover with: on a touch screen the last tap would hold it. */
-@media (hover: hover) { .demo.done .demo-screen:hover ~ .demo-play, .demo-play:hover { background: #000; scale: 1.04; } }
+/* Only where there is a pointer to hover with: on a touch screen the last tap would hold it.
+   :hover waits for the pointer to move, so a page scrolled under a still pointer would not
+   answer; site.js sets .over from where the pointer is, on a move and on a scroll alike. */
+@media (hover: hover) { .demo.done.over .demo-play, .demo-play:hover { background: #000; scale: 1.04; } }
 .demo-play:active { scale: 0.98; }
 .demo-play:focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; }
-/* The first time it is well inside the window (site.js adds .cue) it calls for the eye: a ring
-   goes out from it three times, then nothing more. */
-.demo-play::after { content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; }
-.demo.done.cue .demo-play::after { animation: demo-cue 1.7s cubic-bezier(0.2, 0.6, 0.3, 1) 0.6s 3; }
-@keyframes demo-cue {
-  from { box-shadow: 0 0 0 0 rgba(28, 28, 30, 0.45); }
-  to { box-shadow: 0 0 0 1.1em rgba(28, 28, 30, 0); }
-}
 
 .demo.animate .mk, .demo.animate .mk b { opacity: 0; }
 .demo.animate .mk.on, .demo.animate .mk.set b { opacity: 1; }
@@ -735,11 +745,11 @@ html.demo-lock { overflow: hidden; }
 .vs2-item:not(.is-ref) .chips li { background: var(--card); }
 .vs2-item figcaption b { display: inline-flex; align-items: center; gap: 8px; font-size: 17px; }
 /* Which of the two to take, before a word is read: a red cross, a green tick. Drawn, not written. */
-.vs2-item figcaption b::before {
+.vs2-item figcaption b::before, .say-tag::before {
   content: ""; flex: none; width: 20px; height: 20px; border-radius: 50%;
   background: var(--red) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M6.6 6.6l6.8 6.8m0-6.8l-6.8 6.8' fill='none' stroke='%23fff' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E") center / 100% no-repeat;
 }
-.vs2-item.is-ref figcaption b::before {
+.vs2-item.is-ref figcaption b::before, .say-after .say-tag::before {
   background-color: var(--green);
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M5.8 10.4l2.9 2.9 5.6-6.3' fill='none' stroke='%23fff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
 }
@@ -983,7 +993,13 @@ html.demo-lock { overflow: hidden; }
 /* The same request said over an ordinary screenshot, and said with the numbers. */
 .relate { display: flex; flex-direction: column; gap: 12px; }
 .say { position: relative; padding: 14px 20px 16px; border-radius: 18px 18px 18px 6px; background: var(--card); box-shadow: 0 0 0 1px var(--hair); }
-.say-tag { display: block; margin-bottom: 4px; font-size: 12px; font-weight: 600; color: var(--ink-3); }
+.say-tag { display: flex; align-items: center; gap: 6px; margin-bottom: 6px; font-size: 12px; font-weight: 600; color: var(--ink-2); }
+/* The verdict as in the first comparison: red ground and a cross on the ordinary one, green and
+   a tick on Ref's, the same two glyphs at the tag's size. */
+.say-before, .say-after { box-shadow: none; }
+.say-before { background: var(--red-tint); }
+.say-after { background: color-mix(in srgb, var(--green) 14%, transparent); }
+.say-tag::before { width: 16px; height: 16px; }
 .say p { font-size: 16px; line-height: 1.7; text-wrap: pretty; }
 .say-before p { color: var(--ink-2); }
 .say-after p { font-weight: 500; color: var(--ink); }
