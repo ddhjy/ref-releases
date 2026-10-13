@@ -44,7 +44,9 @@
   --r: 12px;
   --r-lg: 20px;
   --w: 1200px;
-  --w-wide: 1280px;
+  /* The hero's picture keeps the page's own edges: the header above it and every section below
+     line up with it. */
+  --w-wide: var(--w);
   --gutter: 24px;
   --section: 112px;
 }
@@ -252,9 +254,6 @@ p code, td code, li code, h3 code { padding: 0.1em 0.4em; border-radius: 5px; ba
 }
 /* The number is drawn, not written: as text it would read as part of the headline. */
 .mark .badge::after { content: "1"; }
-/* In English the marked words fall on the second line, where the badge would land on the line
-   above it: the mark keeps the room its badge needs. */
-:lang(en) .hero h1 .mark { margin-top: 0.38em; }
 /* The two things the page is about, each a step down to the section that shows it. */
 .lede-2 { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 32px; }
 .lede-2 a {
