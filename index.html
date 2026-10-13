@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Ref — AI 友好的截图标注工具 · macOS</title>
-<meta name="description" content="AI 友好的截图标注工具，住在 macOS 菜单栏里。更快：智能选框，一键选中。更准：自动编号，页面、提示、补充信息自动关联。粘贴给 Cursor、ChatGPT、Claude 就行。">
+<meta name="description" content="AI 友好的截图标注工具，住在 macOS 菜单栏里。更快：智能选框，一键选中。更准：自动编号，细节自动读出，整理成说明。粘贴给 Cursor、ChatGPT、Claude 就行。">
 <meta name="color-scheme" content="light dark">
 <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
 <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#161617">
@@ -21,7 +21,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:locale:alternate" content="en_US">
 <meta property="og:title" content="Ref — AI 友好的截图标注工具">
-<meta property="og:description" content="更快：智能选框，一键选中。更准：自动编号，页面、提示、补充信息自动关联。粘贴给 Cursor、ChatGPT、Claude 就行。">
+<meta property="og:description" content="更快：智能选框，一键选中。更准：自动编号，细节自动读出，整理成说明。粘贴给 Cursor、ChatGPT、Claude 就行。">
 <meta property="og:url" content="https://ref.suixinapp.com/">
 <meta property="og:image" content="https://ref.suixinapp.com/assets/img/og.png">
 <meta property="og:image:width" content="1200">
@@ -29,7 +29,7 @@
 <meta property="og:image:alt" content="Ref：截图上的编号标记和底部的标注说明">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Ref — AI 友好的截图标注工具">
-<meta name="twitter:description" content="智能选框，一键选中；自动编号，页面、提示、补充信息自动关联。粘贴给 Cursor、ChatGPT、Claude 就行。">
+<meta name="twitter:description" content="智能选框，一键选中；自动编号，细节自动读出，整理成说明。粘贴给 Cursor、ChatGPT、Claude 就行。">
 <meta name="twitter:image" content="https://ref.suixinapp.com/assets/img/og.png">
 
 <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
@@ -92,7 +92,7 @@
     <h1 id="hero-title"><span class="mark">AI 友好的</span><span class="nowrap">截图标注工具</span></h1>
     <ul class="lede-2">
       <li><a href="#faster"><b>更快</b><span>智能选框，一键选中</span></a></li>
-      <li><a href="#precise"><b>更准</b><span>自动编号，页面、提示、补充信息自动关联</span></a></li>
+      <li><a href="#precise"><b>更准</b><span>自动编号，细节自动读出，整理成说明</span></a></li>
     </ul>
     <p class="notice" data-old-macos hidden>你的 Mac 是 macOS <span data-macos-version></span>，Ref 需要 macOS 26。先到“系统设置 → 通用 → 软件更新”升级系统，再回来下载。</p>
     <p class="notice" data-not-mac hidden>Ref 是 Mac 应用，你现在用的设备看起来不是 Mac。把网址发到你的 Mac 上再下载：<button class="link-btn copy" type="button" data-copy="https://ref.suixinapp.com/"><span class="copy-idle">复制网址</span><span class="copy-done">已复制</span></button></p>
@@ -304,7 +304,7 @@ Ref · 2880×1800 px · com.apple.Safari “发票 — Ledger” · 2026-10-26 1
   <div class="container">
     <header class="section-head">
       <h2 id="precise-title">更准</h2>
-      <p class="section-lede">每处自动编号。页面上的元素、你写的提示、路径和链接这些补充信息，都自动关联到编号上，一起写进图里。</p>
+      <p class="section-lede">每处自动编号。元素是什么、在哪个页面、路径和链接是什么，Ref 自动读出来，连同你写的提示按编号整理成说明，一起写进图里。</p>
     </header>
 
     <div class="precise-grid">
