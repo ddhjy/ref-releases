@@ -90,21 +90,12 @@
 <!-- ========== Hero ========== -->
 <section class="hero" aria-labelledby="hero-title">
   <div class="container hero-copy">
-    <h1 id="hero-title">Screenshot annotation <span class="mark">built for AI<b class="badge" aria-hidden="true">1</b></span></h1>
+    <h1 id="hero-title">Screenshot annotation <span class="mark">built for AI<b class="badge" aria-hidden="true"></b></span></h1>
     <p class="lede">Press a hotkey, click what you mean, paste it into Cursor, ChatGPT or Claude.</p>
     <ul class="lede-2">
       <li><a href="#faster"><b>Faster</b><span>Point to snap, click to number</span></a></li>
       <li><a href="#precise"><b>More precise</b><span>Requests, relations and paths go in by number</span></a></li>
     </ul>
-    <div class="cta">
-      <a class="btn btn-primary btn-lg" href="/download/Ref-0.3.15.dmg" data-download-dmg>
-        <svg class="i" viewBox="0 0 20 20" aria-hidden="true"><path d="M10 3v9m0 0 3.5-3.5M10 12 6.5 8.5M4 14.5v1A1.5 1.5 0 0 0 5.5 17h9a1.5 1.5 0 0 0 1.5-1.5v-1"/></svg>
-        Download Ref for Mac
-      </a>
-      <a class="btn btn-secondary btn-lg" href="#faster">See how it marks</a>
-    </div>
-    <p class="fine fine-req">Free · Requires macOS 26 or later · <a href="#faq-version">Which version do I have?</a></p>
-    <p class="fine">Captures only when you press the hotkey, uploads nothing · Notarized by Apple · <a href="#privacy">Permissions &amp; privacy</a></p>
     <p class="notice" data-old-macos hidden>Your Mac is on macOS <span data-macos-version></span>, and Ref needs macOS 26. Update under System Settings → General → Software Update first, then come back to download.</p>
     <p class="notice" data-not-mac hidden>Ref is a Mac app, and this device doesn’t look like a Mac. Send the address to your Mac and download it there: <button class="link-btn copy" type="button" data-copy="https://ref.suixinapp.com/en/"><span class="copy-idle">Copy link</span><span class="copy-done">Copied</span></button></p>
   </div>
@@ -238,10 +229,6 @@ Ref · 2880×1800 px · com.apple.Safari “Invoices — Ledger” · 2026-10-07
       <figcaption class="demo-caption">This is what lands on the clipboard. ①–⑥ on the image match ①–⑥ in the legend below, so the AI reads it by number.</figcaption>
     </figure>
   </div>
-  <div class="container paste">
-    <p class="paste-title">Paste it into any AI that reads images</p>
-    <ul class="paste-list"><li>Cursor</li><li>ChatGPT</li><li>Claude</li><li>Codex</li><li>Grok</li><li>WorkBuddy</li><li>QuickGPT</li></ul>
-  </div>
 </section>
 
 <!-- ========== Faster ========== -->
@@ -311,28 +298,6 @@ Ref · 2880×1800 px · com.apple.Safari “Invoices — Ledger” · 2026-10-07
         </figcaption>
       </figure>
     </div>
-
-    <ol class="flow">
-      <li>
-        <span class="flow-n" aria-hidden="true">1</span>
-        <div class="flow-visual"><span class="keycap">⌥⌘R</span></div>
-        <h3>Press the hotkey</h3>
-        <p>Option + Command + R, in any app.</p>
-      </li>
-      <li>
-        <span class="flow-n" aria-hidden="true">2</span>
-        <div class="flow-visual"><span class="flow-mark"><b>1</b>New invoice</span><span class="flow-field">Match this style<i>Tab</i></span></div>
-        <h3>Click a few things</h3>
-        <p>Press <kbd>Tab</kbd> to add a request.</p>
-      </li>
-      <li>
-        <span class="flow-n" aria-hidden="true">3</span>
-        <div class="flow-visual"><span class="keycap">⌘⏎</span><span class="flow-then" aria-hidden="true">→</span><span class="keycap">⌘V</span></div>
-        <h3>Paste</h3>
-        <p><kbd>⌘1</kbd>–<kbd>⌘5</kbd> sends it straight to an AI.</p>
-      </li>
-    </ol>
-    <p class="flow-foot" data-demo-link hidden>Want to see it first? <button class="link-btn" type="button" data-play-demo>Play how the image above was made</button></p>
   </div>
 </section>
 
@@ -486,22 +451,6 @@ Ref · 2880×1800 px · com.apple.Safari “Invoices — Ledger” · 2026-10-07
         <h3>Press twice for just a screenshot</h3>
         <p>No annotation view; the whole screen is copied right away.</p>
       </article>
-      <article class="card">
-        <div class="card-visual">
-          <div class="displays"><span class="disp marked"><b>1</b><b>2</b></span><span class="disp"></span></div>
-        </div>
-        <h3>Several displays, one image each</h3>
-        <p>Only displays with marks are output, one full image per display, never cropped.</p>
-      </article>
-      <article class="card card-wide">
-        <div class="card-visual">
-          <pre class="sample code">open ref://capture
-open ref://settings
-open ref://permissions</pre>
-        </div>
-        <h3>Trigger it from scripts or Shortcuts</h3>
-        <p>Raycast, Alfred, Shortcuts and the terminal can all call <code>ref://</code>.</p>
-      </article>
     </div>
 
     <details class="fold" id="shortcuts">
@@ -540,7 +489,7 @@ open ref://permissions</pre>
         <img src="../assets/img/icon-256.png" width="96" height="96" alt="" decoding="async">
         <div>
           <h2 id="install-title">Install</h2>
-          <p class="section-lede">Free. Once installed it is just an icon in the menu bar; the first launch walks you through four permissions, and it updates itself.</p>
+          <p class="section-lede">Once installed it is just an icon in the menu bar; the first launch walks you through four permissions, and it updates itself.</p>
         </div>
       </div>
       <div class="privacy" id="privacy">
@@ -569,16 +518,6 @@ open ref://permissions</pre>
             Download <span data-dmg-name>Ref-0.3.15.dmg</span>
           </a>
           <p class="way-meta"><span data-dmg-size>5.0 MB</span> · macOS 26 or later · Apple silicon and Intel · Notarized by Apple · <a href="https://github.com/ddhjy/ref-releases/releases/latest" data-release-link>Release notes and checksums</a></p>
-        </div>
-        <div class="way">
-          <h3>Or use Homebrew</h3>
-          <button class="cmd copy" type="button" data-copy="brew install --cask ddhjy/tap/ref" title="Copy the Homebrew install command">
-            <span class="sr-only">Copy </span><code><span class="prompt" aria-hidden="true">$</span> brew install --cask ddhjy/tap/ref</code>
-            <span class="copy-done" aria-hidden="true">Copied</span>
-            <svg class="i i-copy" viewBox="0 0 20 20" aria-hidden="true"><rect x="7" y="7" width="9" height="9" rx="2"/><path d="M4 13V5a1 1 0 0 1 1-1h8"/></svg>
-            <svg class="i i-done" viewBox="0 0 20 20" aria-hidden="true"><path d="m4.5 10.5 3.5 3.5 7.5-8"/></svg>
-          </button>
-          <p class="way-meta">Later, <code>brew upgrade --cask ref</code> updates it too · <a href="https://github.com/ddhjy/homebrew-tap" rel="noopener">ddhjy/homebrew-tap</a></p>
         </div>
       </div>
     </div>
@@ -609,8 +548,8 @@ open ref://permissions</pre>
         <p>Each permission does one job; see <a href="#privacy">Permissions &amp; privacy</a>. Ref captures only at the moment you press the hotkey and uploads nothing.</p>
       </details>
       <details>
-        <summary>Does it cost anything? How do updates work?</summary>
-        <p>It’s free. Ref checks for a new version once a day and installs it on its own; to check right away, use the menu bar icon → Check for Updates….</p>
+        <summary>How do updates work?</summary>
+        <p>Ref checks for a new version once a day and installs it on its own; to check right away, use the menu bar icon → Check for Updates….</p>
       </details>
       <details>
         <summary>How do I start it at login? How do I quit or uninstall it?</summary>
@@ -644,7 +583,7 @@ open ref://permissions</pre>
     <div class="container">
       <img src="../assets/img/icon-192.png" width="80" height="80" alt="" decoding="async" loading="lazy">
       <h2>Next time you’d say “that button”,<br>press ⌥⌘R.</h2>
-      <p>Free. Requires macOS 26 or later.</p>
+      <p>Requires macOS 26 or later.</p>
       <div class="cta">
         <a class="btn btn-contrast btn-lg" href="/download/Ref-0.3.15.dmg" data-download-dmg>Download Ref for Mac</a>
       </div>

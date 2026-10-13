@@ -236,7 +236,7 @@ const cursor = el("span", "d-cursor", '<svg viewBox="0 0 23 23" aria-hidden="tru
     frame.append(playButton, flash);
 
     const sides = ["--x", "--y", "--w", "--h"];
-    const home = sides.map((name) => m1.style.getPropertyValue(name));
+    const home = sides.map((name) => m2.style.getPropertyValue(name));
     const showCard = (title, fields) => {
       card.innerHTML = `<b><em></em><small></small></b>${fields.map(() => "<span><i></i><em></em></span>").join("")}`;
       /* The names share one column, as wide as the longest. */
@@ -250,28 +250,25 @@ const cursor = el("span", "d-cursor", '<svg viewBox="0 0 23 23" aria-hidden="tru
         cells[1].classList.toggle("code", !!code);
       });
     };
-    const cardBelow = ([x, y, , h]) => Object.assign(card.style, { left: `${x}%`, right: "auto", top: `calc(${y + h}% + 8 * var(--pt))`, bottom: "auto" });
+    /* Under the element and against the screen's right edge, where ② and what holds it both end. */
+    const cardBelow = ([, y, , h]) => Object.assign(card.style, { left: "auto", right: "calc(8 * var(--pt))", top: `calc(${y + h}% + 8 * var(--pt))`, bottom: "auto" });
 
-    /* What the wheel walks under the pointer at ①, outermost first: the list row, the name's
-       cell, the name itself. Boxes are [x, y, w, h] in percent of the screen, read off the
-       picture's own row. */
+    /* What lies under the pointer at ②, outermost first: the button and the words on it. The
+       pointer lands on the words, so that is what the highlight takes; the wheel goes out to the
+       button. Boxes are [x, y, w, h] in percent of the screen, the words' read off the picture. */
     const layers = () => {
-      const row = screen.querySelector('[data-mark="1"]');
       const all = screen.getBoundingClientRect();
-      const box = (...nodes) => {
-        const r = nodes.map((n) => n.getBoundingClientRect());
-        const left = Math.min(...r.map((b) => b.left)), top = Math.min(...r.map((b) => b.top));
-        return [(left - all.left) / all.width * 100, (top - all.top) / all.height * 100,
-          (Math.max(...r.map((b) => b.right)) - left) / all.width * 100, (Math.max(...r.map((b) => b.bottom)) - top) / all.height * 100];
-      };
-      const [title, fields] = d.cards[0];
-      /* The screen is 1440 by 900 points. */
-      const brief = (b) => [[fields[2][0], `${Math.round(b[2] * 14.4)}×${Math.round(b[3] * 9)} pt`, 1], fields[3]];
-      /* The cell is as tall as its row, and as wide as the name column. */
-      const line = box(row), name = box(row.querySelector("em"), row.querySelector("span"));
-      const outer = [["AXRow", line], ["AXCell", [name[0], line[1], name[2], line[3]]]]
-        .map(([role, b]) => ({ role, box: b, fields: brief(b) }));
-      return [...outer, { role: title, name: fields[0][1], box: home.map(parseFloat), fields }];
+      const words = document.createRange();
+      words.selectNodeContents(screen.querySelector('[data-mark="2"]'));
+      const r = words.getBoundingClientRect();
+      const text = [(r.left - all.left) / all.width * 100, (r.top - all.top) / all.height * 100, r.width / all.width * 100, r.height / all.height * 100];
+      const [title, fields] = d.cards[1];
+      const button = home.map(parseFloat);
+      /* The words in the page's own pixels, at the scale the button's size gives. */
+      const [bw, bh] = fields[4][1].split("×").map(Number);
+      const size = `${Math.round(text[2] / button[2] * bw)}×${Math.round(text[3] / button[3] * bh)}`;
+      return [{ role: title, name: fields[0][1], box: button, fields },
+        { role: "AXStaticText", name: fields[0][1], box: text, fields: [fields[0], [fields[4][0], size, 1], fields[8], fields[9]] }];
     };
     /* LayerMap: a wireframe of the elements to scale over one row each, indented by nesting,
        the pointer's own hit marked with its glyph. */
@@ -282,14 +279,14 @@ const cursor = el("span", "d-cursor", '<svg viewBox="0 0 23 23" aria-hidden="tru
         + `<i class="d-cross" style="left:${(px - ex) / ew * 100}%;top:${(py - ey) / eh * 100}%"></i></div></div>`
         + stack.map((layer, depth) => `<div class="d-lrow" style="--depth:${depth}">${layer.role}${layer.name ? `<em>${layer.name}</em>` : ""}`
           + `${depth === stack.length - 1 ? icon("M3.4 1.8l9.4 5.4-4 1.1 2.4 4.3-1.9 1.1-2.4-4.3-3 2.9z", true) : ""}</div>`).join("");
-      /* Right of the pointer, the hit's row — the last — level with it. */
-      Object.assign(map.style, { left: `calc(${px}% + 16 * var(--pt))`, bottom: `calc(${100 - py}% - 15 * var(--pt))` });
+      /* Left of the pointer — ② sits at the screen's right edge — the hit's row, the last, level with it. */
+      Object.assign(map.style, { right: `calc(${100 - px}% + 16 * var(--pt))`, bottom: `calc(${100 - py}% - 15 * var(--pt))` });
     };
     /* The selection moves: the map's row and box, the highlight on the canvas, the card. */
     const select = (stack, k) => {
       map.querySelectorAll(".d-lrow").forEach((r, i) => r.classList.toggle("cur", i === k));
       map.querySelectorAll(".d-box").forEach((b, i) => { b.classList.toggle("cur", i === k); b.classList.toggle("hold", i === k - 1); });
-      sides.forEach((name, i) => m1.style.setProperty(name, `${stack[k].box[i]}%`));
+      sides.forEach((name, i) => m2.style.setProperty(name, `${stack[k].box[i]}%`));
       showCard(stack[k].role, stack[k].fields);
       cardBelow(stack[k].box);
     };
@@ -315,7 +312,7 @@ const cursor = el("span", "d-cursor", '<svg viewBox="0 0 23 23" aria-hidden="tru
       return row.querySelector(".d-field");
     };
     const restore = () => {
-      sides.forEach((name, i) => m1.style.setProperty(name, home[i]));
+      sides.forEach((name, i) => m2.style.setProperty(name, home[i]));
       m3.style.transition = "";
       m3.style.setProperty("--w", final.w);
       m3.style.setProperty("--h", final.h);
@@ -542,33 +539,33 @@ const cursor = el("span", "d-cursor", '<svg viewBox="0 0 23 23" aria-hidden="tru
         /* ① ② ③ — point: the highlight is the frame itself and the card says what Ref read; click adds the badge. */
         for (const [i, m] of [m1, m2, mSim].entries()) {
           const [x, y, w, h] = ["--x", "--y", "--w", "--h"].map((name) => pct(m, name));
-          /* ① is pointed at near its end, so the map coming up beside the pointer leaves the name in view. */
-          const at = [x + w * (i ? 0.5 : 0.82), y + h * 0.5];
+          const at = [x + w * 0.5, y + h * 0.5];
           await moveTo(...at, i ? 750 : 650);
-          showCard(...d.cards[i]);
-          /* Above the element, else below; kept inside the screen. */
-          Object.assign(card.style, i === 1
-            ? { left: "auto", right: "calc(8 * var(--pt))", top: `calc(${y + h}% + 8 * var(--pt))`, bottom: "auto" }
-            : { left: `${x}%`, right: "auto", top: "auto", bottom: `calc(${100 - y}% + 8 * var(--pt))` });
+          /* ② is pointed at in its middle, on the words: the highlight takes those, not the button. */
+          const stack = i === 1 ? layers() : null;
+          if (stack) select(stack, 1);
+          else {
+            showCard(...d.cards[i]);
+            /* Above the element; kept inside the screen. */
+            Object.assign(card.style, { left: `${x}%`, right: "auto", top: "auto", bottom: `calc(${100 - y}% + 8 * var(--pt))` });
+          }
           m.classList.add("on");
           card.classList.add("on");
-          /* The card is the point of hovering: hold long enough to read it, the first one longest. */
-          await wait(i ? 1300 : 1400);
-          if (!i) {
-            /* The wheel: the first notch only brings up the map and the card gives way below;
-               then out to the cell and the row, and back in to the name. */
-            const stack = layers();
-            const notch = async (k, ms) => { select(stack, k); await wait(ms); };
+          /* The card is the point of hovering: hold long enough to read it. ① is nothing but
+             point and click, so the first thing seen is how fast a pick is. */
+          await wait(i ? 1300 : 1100);
+          if (stack) {
+            /* What the wheel is for, once a plain pick has been seen: the card says the highlight
+               has only the words. The first notch brings up the map, the next goes out to the
+               button, and the card fills with what the button carries — its component and source. */
             buildMap(stack, at);
+            select(stack, 1);
             keys.textContent = `${d.wheel} ↑`;
             keys.classList.add("on");
             map.classList.add("on");
-            await notch(2, 750);
-            await notch(1, 500);
-            await notch(0, 950);
-            keys.textContent = `${d.wheel} ↓`;
-            await notch(1, 500);
-            await notch(2, 800);
+            await wait(800);
+            select(stack, 0);
+            await wait(1700);
             keys.classList.remove("on");
             map.classList.remove("on");
             await wait(450);
@@ -695,12 +692,6 @@ const cursor = el("span", "d-cursor", '<svg viewBox="0 0 23 23" aria-hidden="tru
     new ResizeObserver(measure).observe(frame);
     cue.observe(playButton);
     playButton.addEventListener("click", play);
-    /* The quick-start section offers the same playback; it only exists while the demo does. */
-    document.querySelectorAll("[data-play-demo]").forEach((button) => {
-      const holder = button.closest("[data-demo-link]");
-      if (holder) holder.hidden = false;
-      button.addEventListener("click", () => playButton.click());
-    });
     reduceMotion.addEventListener("change", (e) => {
       if (!e.matches) return;
       run += 1;
@@ -712,7 +703,6 @@ const cursor = el("span", "d-cursor", '<svg viewBox="0 0 23 23" aria-hidden="tru
       demo.style.removeProperty("--lift");
       scrim.classList.remove("on");
       unlock();
-      document.querySelectorAll("[data-demo-link]").forEach((el) => { el.hidden = true; });
     });
   }
 
