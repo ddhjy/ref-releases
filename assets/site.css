@@ -239,21 +239,12 @@ p code, td code, li code, h3 code { padding: 0.1em 0.4em; border-radius: 5px; ba
   margin: 0; max-width: 20ch;
   font-size: 68px; line-height: 1.16; letter-spacing: -0.015em; font-weight: 600;
 }
-/* The headline carries a mark the way the app draws one: a square ring outside the words,
-   a flat badge off the top-left corner on the diagonal. */
+/* The words that set Ref apart are underlined in the marker's red: a rule drawn under them,
+   clear of the glyphs, where a text underline would run through the feet of Chinese characters. */
 .mark {
-  position: relative; display: inline-block; margin: 0 0.1em 0 0.56em; padding: 0 0.1em; line-height: 1.1;
-  outline: 0.045em solid var(--red); background: var(--red-tint);
+  display: inline-block; padding-bottom: 0.06em; line-height: 1.1;
+  background: linear-gradient(var(--red), var(--red)) 0 100% / 100% 0.07em no-repeat;
 }
-.mark .badge {
-  position: absolute; left: -1.05em; top: -1.05em; transform: translate(-50%, -50%);
-  font: 700 0.27em/1 var(--font); font-variant-numeric: tabular-nums;
-  width: 1.667em; height: 1.667em; border-radius: 50%;
-  background: var(--red); color: #fff;
-  display: grid; place-items: center;
-}
-/* The number is drawn, not written: as text it would read as part of the headline. */
-.mark .badge::after { content: "1"; }
 /* The two things the page is about, each a step down to the section that shows it. */
 .lede-2 { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 32px; }
 .lede-2 a {
@@ -1179,7 +1170,6 @@ html.demo-lock { overflow: hidden; }
   .hero h1 { font-size: 36px; letter-spacing: -0.01em; }
   /* "Screenshot annotation" stays one line on a 375px phone. */
   :lang(en) .hero h1 { font-size: 32px; }
-  .mark { outline-width: 0.055em; }
   .cta { flex-direction: column; align-items: stretch; width: 100%; }
   .cta .btn { width: 100%; }
   .copy code { font-size: 14px; }
