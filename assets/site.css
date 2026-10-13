@@ -738,8 +738,9 @@ html.demo-lock { overflow: hidden; }
   display: flex; flex-direction: column; margin: 0; border-radius: var(--r-lg); overflow: hidden;
   background: var(--card); box-shadow: 0 0 0 1px var(--hair);
 }
-.vs2-item figcaption { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; padding: 18px 24px 22px; }
-/* The verdict again as the caption's ground: red under the ordinary tool, green under Ref. */
+.vs2-item figcaption { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; padding: 20px 24px; }
+/* The verdict first, as the caption's ground above each window: red over the ordinary tool,
+   green over Ref. */
 .vs2-item figcaption { background: var(--red-tint); }
 .vs2-item.is-ref figcaption { background: color-mix(in srgb, var(--green) 14%, transparent); }
 .vs2-item:not(.is-ref) .chips li { background: var(--card); }
@@ -1192,7 +1193,7 @@ html.demo-lock { overflow: hidden; }
   .card-wide { grid-column: auto; }
   .card-visual { min-height: 196px; }
   .card, .way, .pblock { padding: 22px; }
-  .vs2-item figcaption { padding: 16px 18px 18px; }
+  .vs2-item figcaption { padding: 16px 18px; }
   .bind { grid-template-columns: minmax(0, 1fr); }
   /* The nav strip keeps only the active tab and the marked button; the rest would push the button out. */
   .crop-page > span:not(.on, .cbtn) { display: none; }
