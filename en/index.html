@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Ref — Screenshot annotation built for AI · macOS</title>
-<meta name="description" content="Screenshot annotation built for AI, in the macOS menu bar. Press a hotkey and click what you mean: Ref knows which file, which button, which line of code it is, numbers it, and writes it into the image with your request. Paste it into Cursor, ChatGPT or Claude.">
+<meta name="description" content="Screenshot annotation built for AI, in the macOS menu bar. Faster: point and the highlight snaps to the element, click and it's numbered. More precise: your requests, how things relate, paths and links all go into the image beside the numbers. Paste it into Cursor, ChatGPT or Claude.">
 <meta name="color-scheme" content="light dark">
 <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
 <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#161617">
@@ -21,7 +21,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:locale:alternate" content="zh_CN">
 <meta property="og:title" content="Ref — Screenshot annotation built for AI">
-<meta property="og:description" content="It works like the screenshot tool you already use: press a hotkey, mark what you mean, paste. The difference is that Ref knows what you clicked: one click marks it, every spot gets a number, and the image says which file, button or line of code it is.">
+<meta property="og:description" content="Faster: point and it snaps, click and it's numbered. More precise: your requests, how things relate, paths and links go into the image beside the numbers. Paste it into Cursor, ChatGPT or Claude.">
 <meta property="og:url" content="https://ref.suixinapp.com/en/">
 <meta property="og:image" content="https://ref.suixinapp.com/assets/img/og-en.png">
 <meta property="og:image:width" content="1200">
@@ -29,7 +29,7 @@
 <meta property="og:image:alt" content="Ref: numbered marks on a screenshot and the legend band underneath">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Ref — Screenshot annotation built for AI">
-<meta name="twitter:description" content="One click marks it, every spot gets a number, and the image says which file, button or line of code it is. Paste it into Cursor, ChatGPT or Claude.">
+<meta name="twitter:description" content="Click and it's numbered; your requests, paths and links go into the image beside the numbers. Paste it into Cursor, ChatGPT or Claude.">
 <meta name="twitter:image" content="https://ref.suixinapp.com/assets/img/og-en.png">
 
 <link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
@@ -47,7 +47,7 @@
   "name": "Ref",
   "operatingSystem": "macOS 26",
   "applicationCategory": "UtilitiesApplication",
-  "description": "Screenshot annotation built for AI, in the macOS menu bar. Press a hotkey and click what you mean: Ref knows which file, which button, which line of code it is, numbers it, and composes one image with your requests and its own legend on the clipboard.",
+  "description": "Screenshot annotation built for AI, in the macOS menu bar. Press a hotkey and click what you mean: Ref snaps to the element, numbers it, and writes your request together with its path and links into one image on the clipboard.",
   "softwareVersion": "0.3.15",
   "downloadUrl": "https://github.com/ddhjy/ref-releases/releases/latest",
   "releaseNotes": "https://github.com/ddhjy/ref-releases/releases",
@@ -68,11 +68,9 @@
       <span>Ref</span>
     </a>
     <nav class="nav-links" id="nav" aria-label="Page">
-      <a href="#start">Faster marking</a>
-      <a href="#legend">Clearer references</a>
-      <a href="#reads">Richer context</a>
+      <a href="#faster">Faster</a>
+      <a href="#precise">More precise</a>
       <a href="#details">More</a>
-      <a href="#shortcuts">Shortcuts</a>
       <a href="#install">Install</a>
       <a href="#faq">FAQ</a>
       <a class="nav-lang" href="../" lang="zh-Hans" hreflang="zh-Hans">中文</a>
@@ -93,14 +91,17 @@
 <section class="hero" aria-labelledby="hero-title">
   <div class="container hero-copy">
     <h1 id="hero-title">Screenshot annotation <span class="mark">built for AI<b class="badge" aria-hidden="true">1</b></span></h1>
-    <p class="lede">It works like the screenshot tool you already use: press a hotkey, mark what you mean, paste into Cursor, ChatGPT or Claude.</p>
-    <p class="lede">The difference is that Ref knows what you clicked. One click marks it, every spot gets a number, and the image says which file, which button, which line of code it is.</p>
+    <p class="lede">Press a hotkey, click what you mean, paste it into Cursor, ChatGPT or Claude.</p>
+    <ul class="lede-2">
+      <li><a href="#faster"><b>Faster</b><span>Point to snap, click to number</span></a></li>
+      <li><a href="#precise"><b>More precise</b><span>Requests, relations and paths go in by number</span></a></li>
+    </ul>
     <div class="cta">
       <a class="btn btn-primary btn-lg" href="/download/Ref-0.3.15.dmg" data-download-dmg>
         <svg class="i" viewBox="0 0 20 20" aria-hidden="true"><path d="M10 3v9m0 0 3.5-3.5M10 12 6.5 8.5M4 14.5v1A1.5 1.5 0 0 0 5.5 17h9a1.5 1.5 0 0 0 1.5-1.5v-1"/></svg>
         Download Ref for Mac
       </a>
-      <a class="btn btn-secondary btn-lg" href="#why">See what’s different</a>
+      <a class="btn btn-secondary btn-lg" href="#faster">See how it marks</a>
     </div>
     <p class="fine fine-req">Free · Requires macOS 26 or later · <a href="#faq-version">Which version do I have?</a></p>
     <p class="fine">Captures only when you press the hotkey, uploads nothing · Notarized by Apple · <a href="#privacy">Permissions &amp; privacy</a></p>
@@ -230,11 +231,11 @@
 Ref · 2880×1800 px · com.apple.Safari “Invoices — Ledger” · 2026-10-07 15:55</span></pre>
       <!-- Notes on the picture, not part of it: the caption says the same in words. -->
       <ul class="demo-guides" aria-hidden="true">
-        <li class="dg dg-num" style="--x:27.4cqw;--from:17cqw;--line:4"><span>Clearer</span><i></i>Same <b>2</b> as on the image</li>
-        <li class="dg dg-read" style="--x:51cqw;--line:5;--lines:3"><span>Richer</span><i></i>Ref read these three lines</li>
+        <li class="dg dg-num" style="--x:27.4cqw;--from:17cqw;--line:4"><span>Number</span><i></i>Same <b>2</b> as on the image</li>
+        <li class="dg dg-read" style="--x:51cqw;--line:5;--lines:3"><span>Context</span><i></i>Ref read these three lines</li>
       </ul>
       </div>
-      <figcaption class="demo-caption">This is what lands on the clipboard: numbered marks placed by clicking, and a legend underneath that lists your requests and what Ref read. ①–⑥ on the image match ①–⑥ in the legend, so the AI can refer to them by number.</figcaption>
+      <figcaption class="demo-caption">This is what lands on the clipboard. ①–⑥ on the image match ①–⑥ in the legend below, so the AI reads it by number.</figcaption>
     </figure>
   </div>
   <div class="container paste">
@@ -243,167 +244,190 @@ Ref · 2880×1800 px · com.apple.Safari “Invoices — Ledger” · 2026-10-07
   </div>
 </section>
 
-<!-- ========== What is different ========== -->
-<section class="section" id="why" aria-labelledby="why-title">
+<!-- ========== Faster ========== -->
+<section class="section section-alt" id="faster" aria-labelledby="faster-title">
   <div class="container">
     <header class="section-head">
-      <h2 id="why-title">How it differs from an ordinary screenshot tool</h2>
-      <p class="section-lede">An ordinary screenshot tool treats the screen as a picture, and the boxes on it are ones you draw. <strong>Ref knows what you clicked</strong>: which file, which button, which line of code. Three things change.</p>
+      <h2 id="faster-title">Faster</h2>
+      <p class="section-lede">Move the pointer and the highlight snaps to the element. Click, and it is numbered.</p>
     </header>
-    <table class="vs" role="table">
-      <colgroup><col class="vs-k"><col><col></colgroup>
-      <thead>
-        <tr role="row"><td role="presentation"></td><th scope="col" role="columnheader">Ordinary screenshot tool</th><th scope="col" role="columnheader">Ref</th></tr>
-      </thead>
-      <tbody>
-        <tr role="row">
-          <th scope="row" role="rowheader"><a href="#start">Faster marking<svg class="i" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 3v10m0 0 4-4m-4 4L4 9"/></svg></a></th>
-          <td role="cell" data-th="Ordinary screenshot tool">Pick a tool, drag out a box and line it up with the edges. To write something, switch to the text tool.</td>
-          <td role="cell" data-th="Ref">Move the pointer and the highlight snaps to the button or file under it. One click marks it and numbers it.</td>
-        </tr>
-        <tr role="row">
-          <th scope="row" role="rowheader"><a href="#legend">Clearer references<svg class="i" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 3v10m0 0 4-4m-4 4L4 9"/></svg></a></th>
-          <td role="cell" data-th="Ordinary screenshot tool">A few identical red boxes. What each one means has to be typed out separately, back in the chat.</td>
-          <td role="cell" data-th="Ref">Every spot gets a number, and each request is written under the image beside its number.</td>
-        </tr>
-        <tr role="row">
-          <th scope="row" role="rowheader"><a href="#reads">Richer context<svg class="i" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 3v10m0 0 4-4m-4 4L4 9"/></svg></a></th>
-          <td role="cell" data-th="Ordinary screenshot tool">A screenshot is only pixels. The full path, the component name, the line of code: you type them in, or the AI guesses.</td>
-          <td role="cell" data-th="Ref">Ref reads whatever you click: path, URL, component name, source location, font and colors. All of it goes into the image.</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-</section>
 
-<!-- ========== Quick start ========== -->
-<section class="section section-alt" id="start" aria-labelledby="start-title">
-  <div class="container">
-    <header class="section-head">
-      <h2 id="start-title">Faster marking</h2>
-      <p class="section-lede"><strong>One click is one annotation.</strong> Move the pointer over a button, a file or a line of code and the highlight snaps to it. Click, and the frame is drawn and numbered. No tool to pick first, no box to drag into place. The whole thing takes three steps:</p>
-    </header>
-    <ol class="steps">
+    <div class="vs2">
+      <figure class="vs2-item">
+        <div class="mini-wrap" aria-hidden="true">
+          <div class="mini">
+            <div class="mini-bar"><span class="mini-lights"><i></i><i></i><i></i></span><span class="mini-url">localhost:3100/invoices</span></div>
+            <div class="mini-nav"><b>Ledger</b><span class="on">Invoices</span><span>Customers</span><span>Reports</span><span class="mini-btn">New invoice<i class="plain-box"><small>148 × 38</small><svg class="xhair" viewBox="0 0 16 16"><path d="M8 1v14M1 8h14" stroke="#fff" stroke-width="3"/><path d="M8 1v14M1 8h14" stroke="#1d1d1f" stroke-width="1"/></svg></i></span></div>
+            <div class="mini-body">
+              <div class="mini-h"><span class="mini-hw plain-prev">Invoices</span><small>24 this month · $128,400 outstanding</small></div>
+              <div class="mini-table">
+                <div class="mini-tr"><span>INV-0241</span><span>Northwind</span><span>$12,800</span><span><i class="mini-st paid">Paid</i></span></div>
+                <div class="mini-tr"><span>INV-0240</span><span>Acme</span><span>$9,600</span><span><i class="mini-st">Due</i></span></div>
+                <div class="mini-tr"><span>INV-0239</span><span><i class="plain-prev">Globex</i></span><span>$32,000</span><span><i class="mini-st">Due</i></span></div>
+                <div class="mini-tr"><span>INV-0238</span><span>Initech</span><span>$4,500</span><span><i class="mini-st paid">Paid</i></span></div>
+              </div>
+            </div>
+          </div>
+          <div class="plain-tools">
+            <i class="pt on"><svg viewBox="0 0 16 16"><rect x="2.5" y="3.5" width="11" height="9" rx="1"/></svg></i>
+            <i class="pt"><svg viewBox="0 0 16 16"><ellipse cx="8" cy="8" rx="5.5" ry="4.5"/></svg></i>
+            <i class="pt"><svg viewBox="0 0 16 16"><path d="M3 13 13 3M7.5 3H13v5.5"/></svg></i>
+            <i class="pt"><svg viewBox="0 0 16 16"><path d="m3 13 1-3.5L11.5 2 14 4.5 6.5 12 3 13Z"/></svg></i>
+            <i class="pt"><svg viewBox="0 0 16 16"><path d="M3.5 4h9M8 4v9"/></svg></i>
+            <i class="pt"><svg viewBox="0 0 16 16"><path d="M3 3h4v4H3zM9 9h4v4H9z" fill="currentColor" stroke="none"/><path d="M9 3h4v4H9zM3 9h4v4H3z" fill="currentColor" stroke="none" opacity=".35"/></svg></i>
+          </div>
+        </div>
+        <figcaption>
+          <b>Ordinary screenshot tool</b>
+          <ul class="chips"><li>Pick a tool</li><li>Drag a box</li><li>Line it up</li><li>Switch to text</li><li>Type</li></ul>
+        </figcaption>
+      </figure>
+
+      <figure class="vs2-item is-ref">
+        <div class="mini-wrap" aria-hidden="true">
+          <div class="mini">
+            <div class="mini-bar"><span class="mini-lights"><i></i><i></i><i></i></span><span class="mini-url">localhost:3100/invoices</span></div>
+            <div class="mini-nav"><b>Ledger</b><span class="on">Invoices</span><span>Customers</span><span>Reports</span><span class="mini-btn mm hover">New invoice<svg class="xhair mini-cursor" viewBox="0 0 16 16"><path d="M8 1v14M1 8h14" stroke="#fff" stroke-width="3"/><path d="M8 1v14M1 8h14" stroke="#1d1d1f" stroke-width="1"/></svg></span></div>
+            <div class="mini-body">
+              <div class="mini-h"><span class="mini-hw mm set" data-n="1">Invoices</span><small>24 this month · $128,400 outstanding</small></div>
+              <div class="mini-table">
+                <div class="mini-tr"><span>INV-0241</span><span>Northwind</span><span>$12,800</span><span><i class="mini-st paid">Paid</i></span></div>
+                <div class="mini-tr"><span>INV-0240</span><span>Acme</span><span>$9,600</span><span><i class="mini-st">Due</i></span></div>
+                <div class="mini-tr"><span>INV-0239</span><span><i class="mm set" data-n="2">Globex</i></span><span>$32,000</span><span><i class="mini-st">Due</i></span></div>
+                <div class="mini-tr"><span>INV-0238</span><span>Initech</span><span>$4,500</span><span><i class="mini-st paid">Paid</i></span></div>
+              </div>
+            </div>
+            <div class="mini-card">
+              <b>AXButton<small>Hold Space to copy</small></b>
+              <span><i>Name</i><em>New invoice</em></span>
+              <span><i>Selector</i><em>button.primary</em></span>
+              <span><i>Page</i><em>localhost:3100/invoices</em></span>
+            </div>
+          </div>
+        </div>
+        <figcaption>
+          <b>Ref</b>
+          <ul class="chips"><li>Point</li><li>Click</li></ul>
+        </figcaption>
+      </figure>
+    </div>
+
+    <ol class="flow">
       <li>
-        <span class="step-n" aria-hidden="true">1</span>
-        <div class="step-visual"><span class="keycap">⌥⌘R</span></div>
-        <h3>Press <kbd>⌥⌘R</kbd> anywhere</h3>
-        <p>That is Shift + Command + R. The screen freezes and a panel appears at the bottom. It works in whatever is open — Finder, a browser, an editor, any other app.</p>
+        <span class="flow-n" aria-hidden="true">1</span>
+        <div class="flow-visual"><span class="keycap">⌥⌘R</span></div>
+        <h3>Press the hotkey</h3>
+        <p>Option + Command + R, in any app.</p>
       </li>
       <li>
-        <span class="step-n" aria-hidden="true">2</span>
-        <div class="step-visual"><span class="step-mark"><b>1</b>New invoice</span><span class="step-field">Match this style<i>Tab</i></span></div>
-        <h3>Click what you mean, add a request</h3>
-        <p>Click the file, button or line of code. Ref reads what it is and gives it a number. Press <kbd>Tab</kbd> to type a few words about it, or drag to mark a region. Click as many things as you like.</p>
+        <span class="flow-n" aria-hidden="true">2</span>
+        <div class="flow-visual"><span class="flow-mark"><b>1</b>New invoice</span><span class="flow-field">Match this style<i>Tab</i></span></div>
+        <h3>Click a few things</h3>
+        <p>Press <kbd>Tab</kbd> to add a request.</p>
       </li>
       <li>
-        <span class="step-n" aria-hidden="true">3</span>
-        <div class="step-visual"><span class="keycap">⌘⏎</span><span class="step-then" aria-hidden="true">→</span><span class="keycap">⌘V</span></div>
-        <h3>Press <kbd>⌘⏎</kbd>, then paste</h3>
-        <p>That is Command + Return. The image is on your clipboard. Press <kbd>⌘V</kbd> in Cursor, ChatGPT or Claude, and the AI can refer to every spot by its number. To skip the paste as well, press <kbd>⌘1</kbd>–<kbd>⌘5</kbd> and it is sent straight there.</p>
+        <span class="flow-n" aria-hidden="true">3</span>
+        <div class="flow-visual"><span class="keycap">⌘⏎</span><span class="flow-then" aria-hidden="true">→</span><span class="keycap">⌘V</span></div>
+        <h3>Paste</h3>
+        <p><kbd>⌘1</kbd>–<kbd>⌘5</kbd> sends it straight to an AI.</p>
       </li>
     </ol>
-    <p class="steps-foot" data-demo-link hidden>Want to see it happen first? <button class="link-btn" type="button" data-play-demo>Play how the image above was made</button></p>
+    <p class="flow-foot" data-demo-link hidden>Want to see it first? <button class="link-btn" type="button" data-play-demo>Play how the image above was made</button></p>
   </div>
 </section>
 
-<!-- ========== Legend ========== -->
-<section class="section" id="legend" aria-labelledby="legend-title">
+<!-- ========== More precise ========== -->
+<section class="section" id="precise" aria-labelledby="precise-title">
   <div class="container">
     <header class="section-head">
-      <h2 id="legend-title">Clearer references</h2>
-      <p class="section-lede"><strong>Every spot gets a number, and your request is written into the image.</strong> ① on the image and ① in the legend underneath are the same spot, with your request next to what it points at. The AI never has to work out which sentence goes with which box.</p>
+      <h2 id="precise-title">More precise</h2>
+      <p class="section-lede">Every spot gets a number. Your requests, how the elements relate, paths and links all go into the image beside it.</p>
     </header>
-    <p class="before-intro">With an ordinary screenshot, the image only has a few identical red boxes, and the explanation has to be typed separately:</p>
-    <blockquote class="say">
-      <span class="plain" aria-hidden="true"><i></i><i></i><b></b><b></b><b></b></span>
-      <p>“<mark>That Overlay folder</mark> in the Finder window on the left… no, the one under Sources… make it look like <mark>that Login button</mark> in Safari, and put an export button in <mark>that empty space</mark> at the bottom right.”</p>
-    </blockquote>
-    <p class="before-after">The AI has to guess at all three highlighted phrases. Mark the same thing with Ref, and this is the legend under the image:</p>
-    <div class="anatomy">
-      <pre class="legend anatomy-legend"><span class="hl" data-hl="1"><em>Overall request: </em>add an Export button in 3, styled like 2; code in 1</span>
-<span class="hl" data-hl="2">├─ <i class="lb" data-n="1">①</i> New module goes here</span>
-<span class="hl" data-hl="3">│  └─ AXTextField “Overlay” · folder · ~/Projects/<wbr>ref/<wbr>Sources/<wbr>Ref/<wbr>Overlay · 18%×36%</span>
-├─ <i class="lb" data-n="2">②</i> Match this style
-│  └─ AXButton “Login” · com.apple.Safari · 78%×18%
-├─ <i class="lb" data-n="3">③</i> Export button goes here
-│  └─ region · 61%×67% – 82%×84%
-├─ <i class="lb" data-n="4">④</i> Style comes from here
-│  └─ arrow · 66%×62% to 78%×22%
-└─ <i class="lb" data-n="5">⑤</i> Icon: square.and.arrow.up
-   └─ text · 62%×88%
-<span class="hl sig" data-hl="4">page · http://localhost:3100/login
-Ref · 2880×1800 px · com.apple.finder “Projects” · 2026-09-21 22:13</span></pre>
-      <ol class="anatomy-notes">
-        <li data-for="1"><b>Overall request</b>One line about the whole image. You can mark nothing at all and still write just this.</li>
-        <li data-for="2"><b>Your request</b>One per number: what should happen to it.</li>
-        <li data-for="3"><b>What Ref read</b>What it is, which app it’s in, and where on the screen. Paths, URLs and selectors are written in full, never shortened.</li>
-        <li data-for="4"><b>Signature</b>The page’s URL when a web element is marked, then the screen size, the frontmost app at the time, and the time.</li>
-      </ol>
-    </div>
-    <p class="section-foot">A request left unwritten shows as “-”, so the structure never changes. Frames, arrows and text share this one numbering, and undo never renumbers.</p>
-  </div>
-</section>
 
-<!-- ========== What Ref reads ========== -->
-<section class="section section-alt" id="reads" aria-labelledby="reads-title">
-  <div class="container">
-    <header class="section-head">
-      <h2 id="reads-title">Richer context</h2>
-      <p class="section-lede"><strong>What a screenshot can’t show, Ref writes in for you.</strong> A screenshot is only pixels: you can see a blue button, but not which component it is or which file and line it is written on; you can see a folder’s name, but not its full path. For every element you click, Ref reads what it is and writes that into the legend as is. How much it can read depends on the app you click in.</p>
-      <p class="section-note">Words like AXButton or AXTextField in the samples below are macOS’s names for interface elements. The AI understands them, so you don’t have to.</p>
-    </header>
-    <div class="bento reads">
-      <article class="card">
-        <h3><img class="app-icon" src="../assets/img/app-finder.svg" alt="" width="28" height="28">Finder</h3>
-        <p>Files, folders, folders and disks in the sidebar, or the empty part of a window — always the full path.</p>
-        <pre class="sample">AXTextField “Overlay” · folder · ~/Projects/<wbr>ref/<wbr>Sources/<wbr>Ref/<wbr>Overlay</pre>
+    <div class="precise-grid">
+      <article class="pblock">
+        <h3>Your request sits with the thing it points at</h3>
+        <div class="bind" aria-hidden="true">
+          <div class="bind-col">
+            <div class="bind-crop crop-finder">
+              <div class="crow"><i class="cico"></i>api</div>
+              <div class="crow"><i class="cico"></i><span class="mm set" data-n="1">components</span></div>
+              <div class="crow"><i class="cico"></i>hooks</div>
+            </div>
+            <pre class="bind-line"><i class="lb" data-n="1">①</i> New component goes here
+<s>└─ folder · ~/Projects/ledger/src/components</s></pre>
+          </div>
+          <div class="bind-col">
+            <div class="bind-crop crop-page"><b>Ledger</b><span class="on">Invoices</span><span>Customers</span><span class="cbtn mm set" data-n="2">New invoice</span></div>
+            <pre class="bind-line"><i class="lb" data-n="2">②</i> Match this style
+<s>└─ AXButton · button.primary · Toolbar.tsx:18</s></pre>
+          </div>
+        </div>
+        <p class="pblock-note">① on the image and ① in the legend are the same spot. The AI never guesses which sentence goes with which box.</p>
       </article>
-      <article class="card">
-        <h3><img class="app-icon" src="../assets/img/app-editor.svg" alt="" width="28" height="28">Code editors</h3>
-        <p>In the file tree, the file’s full path; in the editor, the file name and the line the cursor is on.</p>
-        <pre class="sample">line · ~/Projects/<wbr>ref/<wbr>Sources/<wbr>Ref/<wbr>Output/<wbr>MarkerRenderer.swift:142
-↳ “ctx.fillEllipse(in: rect)”</pre>
-        <ul class="apps"><li>Xcode</li><li>VS Code</li><li>Cursor</li><li>Trae</li><li>Windsurf</li><li>Zed</li><li>Sublime Text</li><li>Nova</li><li>TextMate</li><li>BBEdit</li></ul>
+
+      <article class="pblock">
+        <h3>Say how things relate, by number</h3>
+        <div class="relate">
+          <blockquote class="say say-before">
+            <span class="say-tag">Ordinary screenshot</span>
+            <p>“<mark>That folder</mark> in the Finder on the left… no, <mark>the one under src</mark>… make it look like <mark>that blue button</mark>, put an Export button in <mark>the empty space at the bottom right</mark>, and on iOS too, <mark>next to that New button</mark>.”</p>
+          </blockquote>
+          <blockquote class="say say-after">
+            <span class="say-tag">Ref · Overall request</span>
+            <p>Add an Export button in <i class="lb" data-n="4">④</i>, styled like <i class="lb" data-n="2">②</i>; the code goes in <i class="lb" data-n="1">①</i>; on iOS, next to <i class="lb" data-n="3">③</i>.</p>
+          </blockquote>
+          <ul class="relate-key" aria-hidden="true">
+            <li><i class="lb" data-n="1">①</i>components</li>
+            <li><i class="lb" data-n="2">②</i>New invoice</li>
+            <li><i class="lb" data-n="3">③</i>New</li>
+            <li><i class="lb" data-n="4">④</i>bottom-right region</li>
+          </ul>
+        </div>
+        <p class="pblock-note">Every element has a number, so even the overall request is exact.</p>
       </article>
-      <article class="card">
-        <h3><img class="app-icon" src="../assets/img/app-terminal.svg" alt="" width="28" height="28">Terminals</h3>
-        <p>The line the cursor is on.</p>
-        <pre class="sample">line “make release VERSION=0.3.4”
-↳ line 12</pre>
-        <ul class="apps"><li>Terminal</li><li>iTerm2</li><li>Ghostty</li><li>Warp</li><li>kitty</li><li>WezTerm</li><li>Alacritty</li></ul>
-      </article>
-      <article class="card card-wide">
-        <h3><img class="app-icon" src="../assets/img/app-browser.svg" alt="" width="28" height="28">Browsers</h3>
-        <p>The address bar gives the URL. Page elements give their type, text and the page’s URL; table cells add the column name and row, and anything inside a section adds its heading.</p>
-        <p>With Allow JavaScript from Apple Events turned on in the browser, Ref also reads the CSS selector, size, font and colors — and on local React / Vue / Svelte / Angular pages, the component name and source location.</p>
-        <pre class="sample">AXButton “Login”
-↳ LoginForm @ src/<wbr>auth/<wbr>LoginForm.tsx:42 · button.primary · 180×32
-  15px Inter 600 #FFFFFF bg #0D44E8
-page · http://localhost:3100/<wbr>login</pre>
-        <ul class="apps"><li>Safari</li><li>Chrome</li><li>Edge</li><li>Arc</li><li>Brave</li><li>Vivaldi</li><li>Firefox</li></ul>
-      </article>
-      <article class="card">
-        <h3><img class="app-icon" src="../assets/img/app-simulator.svg" alt="" width="28" height="28">iOS Simulator</h3>
-        <p>Control type, text, accessibilityIdentifier, hint and device name. If the app embeds <a href="https://github.com/QMUI/LookinServer" rel="noopener">LookinServer</a>, also the view class, owning controller and ivar, frame, font, colors, corner radius and the action it triggers.</p>
-        <pre class="sample">UILabel “Total $128.00” · 41%×62%
-↳ PriceLabel : UILabel · CartViewController.totalLabel · (16,&nbsp;612) 200×22&nbsp;pt · 17pt SFPro-Semibold #1A1C1F · radius 8</pre>
-      </article>
-      <article class="card">
-        <h3><img class="app-icon" src="../assets/img/app-other.svg" alt="" width="28" height="28">Other apps</h3>
-        <p>Control type plus its title or text. Some apps expose nothing to the system; drag a region there instead and write a request.</p>
-        <pre class="sample">AXButton “Export”</pre>
+
+      <article class="pblock pblock-wide">
+        <h3>Not just pixels: paths, links and control details come along</h3>
+        <ul class="ctx" aria-hidden="true">
+          <li>
+            <span class="ctx-el"><span class="ctx-folder"><i class="cico"></i><span class="mm set" data-n="1">components</span></span></span>
+            <span class="ctx-arrow"><svg viewBox="0 0 24 24"><path d="M4 12h15m0 0-5-5m5 5-5 5"/></svg></span>
+            <pre class="ctx-info">folder · ~/Projects/ledger/src/components</pre>
+          </li>
+          <li>
+            <span class="ctx-el"><span class="ctx-btn mm set" data-n="2">New invoice</span></span>
+            <span class="ctx-arrow"><svg viewBox="0 0 24 24"><path d="M4 12h15m0 0-5-5m5 5-5 5"/></svg></span>
+            <pre class="ctx-info">AXButton · http://localhost:3100/invoices
+<s>↳ Toolbar @ src/components/Toolbar.tsx:18 · button.primary</s></pre>
+          </li>
+          <li>
+            <span class="ctx-el"><span class="ctx-pill mm set" data-n="3">New</span></span>
+            <span class="ctx-arrow"><svg viewBox="0 0 24 24"><path d="M4 12h15m0 0-5-5m5 5-5 5"/></svg></span>
+            <pre class="ctx-info">UIButton · PillButton · InvoiceListViewController.addButton
+<s>↳ (296, 62) 80×44 pt · 17pt SFProText-Semibold</s></pre>
+          </li>
+        </ul>
+        <p class="pblock-note">With only a name, the AI can’t find that folder. With the path, it opens it.</p>
+        <ul class="reads-row">
+          <li><img class="app-icon" src="../assets/img/app-finder.svg" alt="" width="26" height="26"><b>Finder</b><span>Full path</span></li>
+          <li><img class="app-icon" src="../assets/img/app-editor.svg" alt="" width="26" height="26"><b>Code editors</b><span>File path · cursor line</span></li>
+          <li><img class="app-icon" src="../assets/img/app-terminal.svg" alt="" width="26" height="26"><b>Terminals</b><span>Current line</span></li>
+          <li><img class="app-icon" src="../assets/img/app-browser.svg" alt="" width="26" height="26"><b>Browsers</b><span>URL · selector · component &amp; source</span></li>
+          <li><img class="app-icon" src="../assets/img/app-simulator.svg" alt="" width="26" height="26"><b>iOS Simulator</b><span>View class · frame · font &amp; colors</span></li>
+          <li><img class="app-icon" src="../assets/img/app-other.svg" alt="" width="26" height="26"><b>Other apps</b><span>Control type · title</span></li>
+        </ul>
       </article>
     </div>
   </div>
 </section>
 
 <!-- ========== Details ========== -->
-<section class="section" id="details" aria-labelledby="details-title">
+<section class="section section-alt" id="details" aria-labelledby="details-title">
   <div class="container">
     <header class="section-head">
-      <h2 id="details-title">More you can do</h2>
-      <p class="section-lede"><strong>You don’t need any of this to get started.</strong> Come back when elements are stacked and hard to hit, when you want just one piece of information, or when you want to trigger Ref from somewhere else.</p>
+      <h2 id="details-title">More</h2>
+      <p class="section-lede">None of this is needed to get started.</p>
     </header>
     <div class="bento details">
       <article class="card card-wide">
@@ -424,7 +448,7 @@ page · http://localhost:3100/<wbr>login</pre>
           </div>
         </div>
         <h3>Scroll through layers, with a minimap</h3>
-        <p>When several elements are stacked under the cursor, scroll to move between them: up for the parent, down for children and anything covered. A minimap appears next to the cursor listing them by level, with their outlines drawn to scale — size and nesting at a glance. On a trackpad, each step gives a light tap.</p>
+        <p>When elements are stacked, scroll up for the parent, down for children and anything covered.</p>
       </article>
       <article class="card">
         <div class="card-visual">
@@ -436,14 +460,14 @@ page · http://localhost:3100/<wbr>login</pre>
           </div>
         </div>
         <h3>Hold Space, take one item</h3>
-        <p>Hold <kbd>Space</kbd> and the highlight stays on the current element while the card shows everything a click would record. Move over and click a row to copy just that item — a path, a piece of text — without taking a screenshot at all.</p>
+        <p>Click a row in the card to copy just that item, with no screenshot.</p>
       </article>
       <article class="card">
         <div class="card-visual">
           <div class="tools"><span class="tool on"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.4 1.8l9.4 5.4-4 1.1 2.4 4.3-1.9 1.1-2.4-4.3-3 2.9z" fill="currentColor"/></svg><kbd>F</kbd></span><span class="tool"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M12.5 3.5l-9 9m0-6.2v6.2h6.2" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg><kbd>A</kbd></span><span class="tool"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 13L8 3l4.5 10M5.3 9.4h5.4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg><kbd>T</kbd></span></div>
         </div>
-        <h3>Frames, arrows and text share one numbering</h3>
-        <p>A frame, an arrow or a piece of text is one numbered record each, so ① on the image is ① in the legend. Place text and just type: it appears on the canvas as you go.</p>
+        <h3>Frames, arrows and text, one numbering</h3>
+        <p><kbd>F</kbd> <kbd>A</kbd> <kbd>T</kbd> switch tools; undo never renumbers.</p>
       </article>
       <article class="card">
         <div class="card-visual">
@@ -453,22 +477,21 @@ page · http://localhost:3100/<wbr>login</pre>
           </div>
         </div>
         <h3>Send straight to an AI</h3>
-        <p>The send button remembers the last app you used; the small arrow at its end switches. It sends to ChatGPT, Claude, WorkBuddy, QuickGPT or Grok Bot, on <kbd>⌘1</kbd>–<kbd>⌘5</kbd>.</p>
-        <p>ChatGPT opens a new Codex chat with your requests filled in, and you press send. Grok Bot opens the Bot you choose, picked once on the first send.</p>
+        <p><kbd>⌘1</kbd>–<kbd>⌘5</kbd>: ChatGPT, Claude, WorkBuddy, QuickGPT, Grok Bot.</p>
       </article>
       <article class="card">
         <div class="card-visual">
           <div class="keys"><span class="keycap">⌥⌘R</span><span class="keys-x">×2</span></div>
         </div>
         <h3>Press twice for just a screenshot</h3>
-        <p>Press <kbd>⌥⌘R</kbd> twice — no need to wait for the annotation view. You get the screen as it was on the first press; with several displays, the one the mouse is on at the second press.</p>
+        <p>No annotation view; the whole screen is copied right away.</p>
       </article>
       <article class="card">
         <div class="card-visual">
           <div class="displays"><span class="disp marked"><b>1</b><b>2</b></span><span class="disp"></span></div>
         </div>
         <h3>Several displays, one image each</h3>
-        <p>Only displays with marks on them are output — one image per display, always the full screen, never cropped.</p>
+        <p>Only displays with marks are output, one full image per display, never cropped.</p>
       </article>
       <article class="card card-wide">
         <div class="card-visual">
@@ -477,40 +500,35 @@ open ref://settings
 open ref://permissions</pre>
         </div>
         <h3>Trigger it from scripts or Shortcuts</h3>
-        <p>Ref answers <code>ref://</code> links, so you can call it from Raycast, Alfred, Shortcuts or the terminal.</p>
+        <p>Raycast, Alfred, Shortcuts and the terminal can all call <code>ref://</code>.</p>
       </article>
     </div>
-  </div>
-</section>
 
-<!-- ========== Shortcuts ========== -->
-<section class="section section-alt" id="shortcuts" aria-labelledby="shortcuts-title">
-  <div class="container">
-    <header class="section-head">
-      <h2 id="shortcuts-title">Shortcuts</h2>
-    </header>
-    <div class="keys-table">
-      <table>
-        <tbody>
-          <tr><th scope="row"><kbd>⌥⌘R</kbd></th><td>Start a capture / finish and copy; press twice to capture and copy right away</td></tr>
-          <tr><th scope="row">Click / drag</th><td>Frame an element / frame a region</td></tr>
-          <tr><th scope="row">Scroll</th><td>Move between the elements under the cursor: up for the parent, down for children and covered elements</td></tr>
-          <tr><th scope="row">Hold <kbd>Space</kbd></th><td>Lock the current highlight; click a row in the card to copy that item</td></tr>
-          <tr><th scope="row"><kbd>F</kbd> <kbd>A</kbd> <kbd>T</kbd></th><td>Frame tool / Arrow tool / Text tool</td></tr>
-          <tr><th scope="row"><kbd>⌘Z</kbd> <kbd>⇧⌘Z</kbd></th><td>Undo / redo, without renumbering</td></tr>
-        </tbody>
-      </table>
-      <table>
-        <tbody>
-          <tr><th scope="row"><kbd>Tab</kbd></th><td>Enter the request marked Tab; inside a field, move on to the next one</td></tr>
-          <tr><th scope="row"><kbd>⏎</kbd></th><td>On the canvas, enter the current request; in a field, return to the canvas. Never ends the capture</td></tr>
-          <tr><th scope="row"><kbd>⌘⏎</kbd></th><td>Finish and copy</td></tr>
-          <tr><th scope="row"><kbd>⌘1</kbd> … <kbd>⌘5</kbd></th><td>Finish and send to ChatGPT / Claude / WorkBuddy / QuickGPT / Grok Bot</td></tr>
-          <tr><th scope="row"><kbd>Esc</kbd></th><td>Back out one level; asks again when there is content</td></tr>
-          <tr><th scope="row"><kbd>⌘0</kbd></th><td>Discard right away</td></tr>
-        </tbody>
-      </table>
-    </div>
+    <details class="fold" id="shortcuts">
+      <summary><h3>Shortcuts</h3><span class="fold-hint">All 12</span></summary>
+      <div class="keys-table">
+        <table>
+          <tbody>
+            <tr><th scope="row"><kbd>⌥⌘R</kbd></th><td>Start a capture / finish and copy; press twice to capture and copy right away</td></tr>
+            <tr><th scope="row">Click / drag</th><td>Frame an element / frame a region</td></tr>
+            <tr><th scope="row">Scroll</th><td>Move between the elements under the cursor: up for the parent, down for children and covered elements</td></tr>
+            <tr><th scope="row">Hold <kbd>Space</kbd></th><td>Lock the current highlight; click a row in the card to copy that item</td></tr>
+            <tr><th scope="row"><kbd>F</kbd> <kbd>A</kbd> <kbd>T</kbd></th><td>Frame tool / Arrow tool / Text tool</td></tr>
+            <tr><th scope="row"><kbd>⌘Z</kbd> <kbd>⇧⌘Z</kbd></th><td>Undo / redo, without renumbering</td></tr>
+          </tbody>
+        </table>
+        <table>
+          <tbody>
+            <tr><th scope="row"><kbd>Tab</kbd></th><td>Enter the request marked Tab; inside a field, move on to the next one</td></tr>
+            <tr><th scope="row"><kbd>⏎</kbd></th><td>On the canvas, enter the current request; in a field, return to the canvas. Never ends the capture</td></tr>
+            <tr><th scope="row"><kbd>⌘⏎</kbd></th><td>Finish and copy</td></tr>
+            <tr><th scope="row"><kbd>⌘1</kbd> … <kbd>⌘5</kbd></th><td>Finish and send to ChatGPT / Claude / WorkBuddy / QuickGPT / Grok Bot</td></tr>
+            <tr><th scope="row"><kbd>Esc</kbd></th><td>Back out one level; asks again when there is content</td></tr>
+            <tr><th scope="row"><kbd>⌘0</kbd></th><td>Discard right away</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </details>
   </div>
 </section>
 
@@ -522,7 +540,7 @@ open ref://permissions</pre>
         <img src="../assets/img/icon-256.png" width="96" height="96" alt="" decoding="async">
         <div>
           <h2 id="install-title">Install</h2>
-          <p class="section-lede"><strong>Free, and a couple of minutes.</strong> Ref has no main window; once installed it is just an icon in the menu bar at the top of the screen. On first launch it walks you through allowing four system permissions; what each one is for is listed below. Once they are allowed, press the hotkey and go.</p>
+          <p class="section-lede">Free. Once installed it is just an icon in the menu bar; the first launch walks you through four permissions, and it updates itself.</p>
         </div>
       </div>
       <div class="privacy" id="privacy">
@@ -530,40 +548,37 @@ open ref://permissions</pre>
         <dl class="perms">
           <div><dt>Screen Recording</dt><dd>Takes one screenshot the moment you press the hotkey.</dd></div>
           <div><dt>Accessibility</dt><dd>Identifies the button, file or text under the cursor.</dd></div>
-          <div><dt>Finder Automation</dt><dd>Asks Finder for a file’s path when Accessibility can’t provide it.</dd></div>
+          <div><dt>Finder Automation</dt><dd>Reads a file’s full path.</dd></div>
           <div><dt>Browser Automation</dt><dd>Reads a web element’s URL, selector and styles.</dd></div>
         </dl>
         <ul class="pledges">
-          <li>Ref captures the screen only at the moment you press the hotkey. It never records continuously.</li>
-          <li>Screenshots and annotations stay on your Mac; where you paste or send them is up to you. Ref itself uploads nothing and collects no analytics.</li>
-          <li>The only network access is a daily check with GitHub for a new version, and downloading it when there is one.</li>
+          <li>Captures the screen only at the moment you press the hotkey, never continuously.</li>
+          <li>Uploads nothing, collects no analytics. The only network access is a daily check for updates.</li>
         </ul>
       </div>
-      <p class="install-req">Requires macOS 26 (Tahoe) or later. Not sure which version you have? Click the Apple menu in the top-left corner → About This Mac. Once installed you never need to come back here: Ref updates itself.</p>
       <div class="install-ways">
         <div class="way">
           <h3>Download the installer</h3>
           <ol class="way-steps">
-            <li>Click the button below, then open the downloaded <span data-dmg-name>Ref-0.3.15.dmg</span>.</li>
-            <li>Drag Ref into your Applications folder and open it from there (or from Launchpad). Don’t run it from inside the installer window — it can’t update itself from there.</li>
-            <li>Allow the four permissions when asked. Ref is now in your menu bar.</li>
+            <li>Download and open <span data-dmg-name>Ref-0.3.15.dmg</span>.</li>
+            <li>Drag Ref into Applications and open it from there. Don’t run it from inside the installer window — it can’t update from there.</li>
+            <li>Allow the four permissions when asked.</li>
           </ol>
           <a class="btn btn-primary" href="/download/Ref-0.3.15.dmg" data-download-dmg>
             <svg class="i" viewBox="0 0 20 20" aria-hidden="true"><path d="M10 3v9m0 0 3.5-3.5M10 12 6.5 8.5M4 14.5v1A1.5 1.5 0 0 0 5.5 17h9a1.5 1.5 0 0 0 1.5-1.5v-1"/></svg>
             Download <span data-dmg-name>Ref-0.3.15.dmg</span>
           </a>
-          <p class="way-meta"><span data-dmg-size>5.0 MB</span> · Works on Apple silicon and Intel Macs · Notarized by Apple (Developer ID signed), so it opens without warnings · <a href="https://github.com/ddhjy/ref-releases/releases/latest" data-release-link>Release notes and checksums</a></p>
+          <p class="way-meta"><span data-dmg-size>5.0 MB</span> · macOS 26 or later · Apple silicon and Intel · Notarized by Apple · <a href="https://github.com/ddhjy/ref-releases/releases/latest" data-release-link>Release notes and checksums</a></p>
         </div>
         <div class="way">
-          <h3>Or use Homebrew (optional)</h3>
-          <p>Already using Homebrew? One command installs it: copy it below, paste it into Terminal and press Return. It’s the same Ref, and <code>brew upgrade --cask ref</code> updates it later. Never heard of Homebrew? Use “Download the installer” instead.</p>
+          <h3>Or use Homebrew</h3>
           <button class="cmd copy" type="button" data-copy="brew install --cask ddhjy/tap/ref" title="Copy the Homebrew install command">
             <span class="sr-only">Copy </span><code><span class="prompt" aria-hidden="true">$</span> brew install --cask ddhjy/tap/ref</code>
             <span class="copy-done" aria-hidden="true">Copied</span>
             <svg class="i i-copy" viewBox="0 0 20 20" aria-hidden="true"><rect x="7" y="7" width="9" height="9" rx="2"/><path d="M4 13V5a1 1 0 0 1 1-1h8"/></svg>
             <svg class="i i-done" viewBox="0 0 20 20" aria-hidden="true"><path d="m4.5 10.5 3.5 3.5 7.5-8"/></svg>
           </button>
-          <p class="way-meta"><a href="https://github.com/ddhjy/homebrew-tap" rel="noopener">ddhjy/homebrew-tap</a></p>
+          <p class="way-meta">Later, <code>brew upgrade --cask ref</code> updates it too · <a href="https://github.com/ddhjy/homebrew-tap" rel="noopener">ddhjy/homebrew-tap</a></p>
         </div>
       </div>
     </div>
@@ -577,41 +592,41 @@ open ref://permissions</pre>
       <h2 id="faq-title">FAQ</h2>
     </header>
     <div class="faq">
-      <details open>
+      <details>
         <summary>Does it replace my screenshot tool? Is it only for AI?</summary>
-        <p>It doesn’t need to. Ref handles one job: the image you send to explain something. It always captures the full screen, marks only in red and puts the result on the clipboard, with no cropping, blurring or pinning, so keep your usual tool for everyday screenshots. And you can send the result to anyone: what you copy is an ordinary image with the legend drawn into it, so it pastes into Slack, Messages or anything else that takes an image, and a colleague can read it too.</p>
+        <p>No need to. Ref handles only the image you send to explain something: always the full screen, red marks only, result on the clipboard. What you copy is an ordinary image, so it works just as well for a colleague, Slack or Messages.</p>
       </details>
       <details open id="faq-version">
         <summary>Will it run on my Mac? How do I check my macOS version?</summary>
-        <p>Ref needs macOS 26 (Tahoe) or later and runs on both Apple silicon and Intel Macs. Click the Apple menu in the top-left corner → About This Mac to see your version; if it’s older, update under System Settings → General → Software Update first. Ref is Mac-only — there is no Windows or phone version.</p>
+        <p>Ref needs macOS 26 (Tahoe) or later, on Apple silicon or Intel. Click the Apple menu in the top-left corner → About This Mac to see your version; if it’s older, update under System Settings → General → Software Update first. Mac only.</p>
       </details>
       <details>
-        <summary>How do I install it after downloading? What if macOS won’t open it?</summary>
-        <p>Double-click the downloaded <span data-dmg-name>Ref-0.3.15.dmg</span>, drag Ref into your Applications folder, then open it from Applications or Launchpad. The installer is notarized by Apple, so it normally opens without a warning; if you ever see “can’t be opened”, go to System Settings → Privacy &amp; Security and click “Open Anyway” at the bottom. The first launch opens a permissions page that walks you through allowing each one; after that Ref lives only in the menu bar at the top of the screen — no main window, and that is normal.</p>
+        <summary>What if macOS won’t open it?</summary>
+        <p>The installer is notarized by Apple, so it normally opens without a warning. If you ever see “can’t be opened”, go to System Settings → Privacy &amp; Security and click “Open Anyway” at the bottom.</p>
       </details>
       <details>
         <summary>Why four permissions? Does it record my screen or upload anything?</summary>
-        <p>Each permission does one job. Ref only captures the screen at the moment you press the hotkey; it never records continuously and never uploads anything. See <a href="#privacy">Permissions &amp; privacy</a> for what each one does.</p>
+        <p>Each permission does one job; see <a href="#privacy">Permissions &amp; privacy</a>. Ref captures only at the moment you press the hotkey and uploads nothing.</p>
       </details>
       <details>
         <summary>Does it cost anything? How do updates work?</summary>
-        <p>It’s free. Ref checks for a new version once a day and, if there is one, downloads, verifies and installs it and relaunches on its own — nothing to click. To check right away, use the menu bar icon → Check for Updates…. Installs made with Homebrew update themselves the same way.</p>
+        <p>It’s free. Ref checks for a new version once a day and installs it on its own; to check right away, use the menu bar icon → Check for Updates….</p>
       </details>
       <details>
         <summary>How do I start it at login? How do I quit or uninstall it?</summary>
-        <p>Start at login: click the menu bar icon → “Settings…” → General and turn on “Launch at login”. Quit: menu bar icon → “Quit Ref”. Uninstall: quit Ref, then drag it from Applications to the Trash; if you installed with Homebrew, run <code>brew uninstall --cask ref</code> in Terminal.</p>
+        <p>Menu bar icon → “Settings…” → General → “Launch at login”. Quit: menu bar icon → “Quit Ref”. Uninstall: quit Ref, then drag it from Applications to the Trash; if you installed with Homebrew, run <code>brew uninstall --cask ref</code>.</p>
       </details>
       <details>
         <summary>Nothing happens when I press the hotkey</summary>
-        <p>All four permissions have to be allowed: Screen Recording, Accessibility, Finder Automation and Browser Automation. If one is missing, pressing the hotkey lists it and takes you to Ref’s Settings → Permissions (you can also check any time via the Ref menu bar icon → “Permissions…”); after turning on Screen Recording, Ref may need to be reopened. If all four are on, the hotkey probably clashes with another app: click the menu bar icon → “Settings…” → General and pick another hotkey.</p>
+        <p>Check that all four permissions are allowed (menu bar icon → “Permissions…”); after turning on Screen Recording, Ref may need to be reopened. If they are all on, the hotkey probably clashes with another app: pick another under “Settings…” → General.</p>
+      </details>
+      <details>
+        <summary>How do I get selectors and component names for web elements?</summary>
+        <p>Turn on Allow JavaScript from Apple Events in the browser: in Chrome under View › Developer; in Safari under Settings › Developer (if that tab is missing, first check “Show features for web developers” under Advanced).</p>
       </details>
       <details>
         <summary>Some app gives nothing useful</summary>
         <p>Some apps expose no interface information to the system. Drag a region there instead and write a request.</p>
-      </details>
-      <details>
-        <summary>How do I get selectors and component names for web elements?</summary>
-        <p>Turn on Allow JavaScript from Apple Events in the browser: in Chrome under View › Developer; in Safari under Settings › Developer (if that tab is missing, first check “Show features for web developers” under Advanced). While it is off, the Browser Automation row in Ref’s Settings → Permissions says so.</p>
       </details>
       <details>
         <summary>The first click in Chrome or VS Code is a bit slow</summary>
@@ -652,9 +667,9 @@ open ref://permissions</pre>
     </nav>
     <nav aria-label="Learn">
       <h3>Learn</h3>
-      <a href="#start">Faster marking</a>
-      <a href="#legend">Clearer references</a>
-      <a href="#reads">Richer context</a>
+      <a href="#faster">Faster</a>
+      <a href="#precise">More precise</a>
+      <a href="#details">More</a>
       <a href="#shortcuts">Shortcuts</a>
     </nav>
     <nav aria-label="Support">

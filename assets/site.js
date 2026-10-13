@@ -35,7 +35,7 @@
     document.addEventListener("click", (e) => {
       if (nav.classList.contains("open") && !nav.contains(e.target) && !toggle.contains(e.target)) setOpen(false);
     });
-    window.matchMedia("(min-width: 1121px)").addEventListener("change", (e) => { if (e.matches) setOpen(false); });
+    window.matchMedia("(min-width: 901px)").addEventListener("change", (e) => { if (e.matches) setOpen(false); });
   }
 
   /* Not on a Mac: say so next to the download, since the DMG is of no use there. iPadOS
@@ -716,21 +716,18 @@ const cursor = el("span", "d-cursor", '<svg viewBox="0 0 23 23" aria-hidden="tru
     });
   }
 
-  /* Legend anatomy: pointing at a note lights the matching line. */
-  const notes = document.querySelectorAll(".anatomy-notes li[data-for]");
-  const lines = document.querySelectorAll(".anatomy-legend .hl[data-hl]");
-  if (notes.length && lines.length) {
-    const set = (id) => {
-      lines.forEach((l) => l.classList.toggle("active", l.dataset.hl === id));
-      notes.forEach((n) => n.classList.toggle("active", n.dataset.for === id));
-    };
-    notes.forEach((n) => {
-      n.addEventListener("mouseenter", () => set(n.dataset.for));
-      n.addEventListener("mouseleave", () => set(null));
-    });
-    lines.forEach((l) => {
-      l.addEventListener("mouseenter", () => set(l.dataset.hl));
-      l.addEventListener("mouseleave", () => set(null));
-    });
-  }
+  /* A link into a folded block — the shortcuts under “More” — opens it on the way. */
+  const unfold = (id) => {
+    for (let node = id && document.getElementById(id); node; node = node.parentElement) {
+      if (node.tagName === "DETAILS") node.open = true;
+    }
+  };
+  const unfoldHash = () => unfold(decodeURIComponent(location.hash.slice(1)));
+  unfoldHash();
+  addEventListener("hashchange", unfoldHash);
+  /* Before the browser scrolls there, so the block is open when it arrives. */
+  document.addEventListener("click", (e) => {
+    const a = e.target.closest('a[href^="#"]');
+    if (a) unfold(decodeURIComponent(a.getAttribute("href").slice(1)));
+  });
 })();
