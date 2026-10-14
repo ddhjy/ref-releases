@@ -778,14 +778,15 @@ html.demo-lock { overflow: hidden; }
   position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); padding: 0 3cqw; height: 3.2cqw; border-radius: 1cqw;
   background: #e4e4e7; font-size: max(7px, 1.7cqw); line-height: 3.2cqw; color: #3a3a3c; white-space: nowrap;
 }
-.mini-nav { display: flex; align-items: center; gap: 2.6cqw; height: 6.5cqw; padding: 0 3cqw; border-bottom: 1px solid rgba(0, 0, 0, 0.07); color: #6e6e73; }
+.mini-nav { display: flex; align-items: center; gap: 2.6cqw; height: 6.5cqw; padding: 0 max(18px, 5cqw); border-bottom: 1px solid rgba(0, 0, 0, 0.07); color: #6e6e73; }
 .mini-nav b { margin-right: 0.6cqw; font-size: 1.1em; color: #1d1d1f; }
 .mini-nav .on { color: #1d1d1f; font-weight: 600; }
 .mini-btn {
   position: relative; display: inline-flex; align-items: center; margin-left: auto; height: 3.6cqw; padding: 0 1.8cqw; border-radius: 0.9cqw;
   background: #0d44e8; color: #fff; font-weight: 600; white-space: nowrap;
 }
-.mini-body { padding: 3cqw; }
+/* Room at the left for a badge off the heading's corner. */
+.mini-body { padding: 3cqw max(18px, 5cqw); }
 .mini-h { display: flex; align-items: baseline; gap: 1.6cqw; margin-bottom: 2cqw; }
 .mini-hw { font-size: 3cqw; font-weight: 700; line-height: 1.2; }
 .mini-h small { font-size: max(7px, 1.7cqw); color: #6e6e73; }
@@ -796,20 +797,22 @@ html.demo-lock { overflow: hidden; }
 .mini-st { display: inline-block; padding: 0 1.2cqw; border-radius: 999px; background: #fff4d6; color: #855c00; font-size: 0.85em; font-weight: 600; line-height: 1.7; }
 .mini-st.paid { background: #e3f6e8; color: #1f7a3a; }
 
-/* A mark as the app draws one: the element's own box ringed in the marker red, the badge off its
-   top-left corner. .hover is the highlight before the click, with the crosshair on it. */
+/* A mark as the app draws one: a square ring outside the element's frame whatever the element's
+   own corners are, the marker's tint over it, and the badge clear of the top-left corner on the
+   diagonal. --f is how far the frame stands off the glyphs: text has a frame around it, a button
+   is its own. .hover is the highlight before the click, with the crosshair on it. */
 .mm { position: relative; }
-.mm.set { outline: 2px solid var(--red); outline-offset: 2px; background: var(--red-tint); }
+.mm.set::after { content: ""; position: absolute; inset: calc(var(--f, 2px) * -1); background: var(--red-tint); outline: 2px solid var(--red); pointer-events: none; }
 .mm.set::before {
-  content: attr(data-n); position: absolute; left: -2px; top: -2px; z-index: 2; transform: translate(-55%, -55%);
+  --off: calc((var(--f, 2px) + 2px + var(--b, 18px) * 0.53) * -1);
+  content: attr(data-n); position: absolute; left: var(--off); top: var(--off); z-index: 2; transform: translate(-50%, -50%);
   width: var(--b, 18px); height: var(--b, 18px); border-radius: 50%; background: var(--red); color: #fff;
   font-family: var(--font); font-weight: 700; font-size: calc(var(--b, 18px) * 0.6); line-height: var(--b, 18px); text-align: center; font-variant-numeric: tabular-nums;
   transition: scale 0.15s ease;
 }
 .mini .mm { --b: max(12px, 3cqw); }
-/* A marked button keeps its own face: the tint is for text, which has none. */
-.mini-btn.mm.set, .cbtn.mm.set, .ctx-btn.mm.set, .ctx-pill.mm.set { background: #0d44e8; }
-.mm.hover::after { content: ""; position: absolute; inset: 0; border-radius: inherit; background: rgba(255, 59, 48, 0.3); box-shadow: 0 0 0 2px var(--red); }
+.mini-btn.mm, .cbtn.mm, .ctx-btn.mm, .ctx-pill.mm { --f: 0px; }
+.mm.hover::after { content: ""; position: absolute; inset: 0; background: rgba(255, 59, 48, 0.3); box-shadow: 0 0 0 2px var(--red); }
 .xhair { width: 16px; height: 16px; fill: none; }
 .mini-cursor { position: absolute; left: 50%; top: 50%; z-index: 3; transform: translate(-50%, -50%); width: max(12px, 3cqw); height: max(12px, 3cqw); }
 
