@@ -200,10 +200,10 @@
 
       <pre class="demo-legend" data-legend><span class="ll" data-n="0"><em>整体要求：</em>照 2 的样式在 4 加一个导出按钮，代码放到 1，iOS 端加在 3 旁边</span>
 <span class="ll" data-n="1">├─ <i class="lb" data-n="1">①</i> 新组件放这里
-<s>│  └─ AXTextField “components” · folder · ~/Projects/ledger/src/components ·
+<s>│  └─ 输入框 “components” · folder · ~/Projects/ledger/src/components ·
 │     com.apple.finder · 23%×25%</s></span>
 <span class="ll" data-n="2">├─ <i class="lb" data-n="2">②</i> 参考它的样式
-<s>│  └─ AXButton “新建发票” · 93%×13%
+<s>│  └─ 按钮 “新建发票” · 93%×13%
 │     ↳ Toolbar @ src/components/Toolbar.tsx:18 · button.primary · 112×32
 │       13px Inter 600 #FFFFFF bg #0D44E8</s></span>
 <span class="ll" data-n="3">├─ <i class="lb" data-n="3">③</i> iOS 端加在它左边
@@ -287,7 +287,7 @@ Ref · 2880×1800 px · com.apple.Safari “发票 — Ledger” · 2026-10-26 1
               </div>
             </div>
             <div class="mini-card">
-              <b>AXButton<small>按住空格可复制</small></b>
+              <b>按钮<small>按住空格可复制</small></b>
               <span><i>名称</i><em>新建发票</em></span>
               <span><i>选择器</i><em>button.primary</em></span>
               <span><i>页面</i><em>localhost:3100/invoices</em></span>
@@ -323,7 +323,7 @@ Ref · 2880×1800 px · com.apple.Safari “发票 — Ledger” · 2026-10-26 1
           <div class="bind-col">
             <div class="bind-crop crop-page"><b>Ledger</b><span class="on">发票</span><span>客户</span><span class="cbtn mm set" data-n="2">新建发票</span></div>
             <pre class="bind-line"><i class="lb" data-n="2">②</i> 参考它的样式
-<s>└─ AXButton · button.primary · Toolbar.tsx:18</s></pre>
+<s>└─ 按钮 · button.primary · Toolbar.tsx:18</s></pre>
           </div>
         </div>
         <p class="pblock-note">图上的 ①、说明里的 ①，是同一处。AI 不用猜哪句话说的是哪个框。</p>
@@ -361,7 +361,7 @@ Ref · 2880×1800 px · com.apple.Safari “发票 — Ledger” · 2026-10-26 1
           <li>
             <span class="ctx-el"><span class="ctx-btn mm set" data-n="2">新建发票</span></span>
             <span class="ctx-arrow"><svg viewBox="0 0 24 24"><path d="M4 12h15m0 0-5-5m5 5-5 5"/></svg></span>
-            <pre class="ctx-info">AXButton · http://localhost:3100/invoices
+            <pre class="ctx-info">按钮 · http://localhost:3100/invoices
 <s>↳ Toolbar @ src/components/Toolbar.tsx:18 · button.primary</s></pre>
           </li>
           <li>
@@ -401,12 +401,12 @@ Ref · 2880×1800 px · com.apple.Safari “发票 — Ledger” · 2026-10-26 1
               <span class="cross"></span>
             </div>
             <ul class="map-rows">
-              <li>AXWindow <s>ledger</s></li>
-              <li class="in1">AXSplitGroup</li>
-              <li class="in2">AXScrollArea</li>
-              <li class="in3 sel">AXRow</li>
-              <li class="in4">AXTextField <s>components</s><i class="hit"></i></li>
-              <li class="in4">AXImage</li>
+              <li>窗口 <s>ledger</s></li>
+              <li class="in1">分栏</li>
+              <li class="in2">滚动区域</li>
+              <li class="in3 sel">行</li>
+              <li class="in4">输入框 <s>components</s><i class="hit"></i></li>
+              <li class="in4">图片</li>
             </ul>
           </div>
         </div>
@@ -416,7 +416,7 @@ Ref · 2880×1800 px · com.apple.Safari “发票 — Ledger” · 2026-10-26 1
       <article class="card">
         <div class="card-visual">
           <div class="hover-card small">
-            <div class="hover-row"><span>AXTextField</span><em>点一行复制</em></div>
+            <div class="hover-row"><span>输入框</span><em>点一行复制</em></div>
             <div class="hover-row"><span>名称</span><b>components</b><i class="cp"></i></div>
             <div class="hover-row on"><span>路径</span><code>/Users/<wbr>kai/<wbr>Projects/<wbr>ledger/<wbr>src/<wbr>components</code><i class="cp"></i></div>
             <div class="hover-row"><span>应用</span><code>com.apple.finder</code><i class="cp"></i></div>

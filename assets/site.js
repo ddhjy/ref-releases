@@ -143,11 +143,12 @@
         hotkey: "⌥⌘R", request: "要求", typeText: "输入文字", overall: "整体要求", whole: "当前屏幕", cancel: "取消", copy: "复制",
         toast: "已复制 · 6 处标注", play: "标注演示", length: "0:38", wheel: "滚轮", skip: "跳过",
         hints: { frame: "点击元素或拖出区域 · 滚动切换父/子及被遮挡的元素", arrow: "拖动画出箭头", text: "点击要放文字的位置" },
-        rows: ["选框 · AXTextField “components” · ~/Projects/ledger/src/components · 访达", "选框 · AXButton “新建发票”", "选框 · UIButton “新建” · 模拟器", "区域", "箭头", "文字"],
+        textRole: "文本",
+        rows: ["选框 · 输入框 “components” · ~/Projects/ledger/src/components · 访达", "选框 · 按钮 “新建发票”", "选框 · UIButton “新建” · 模拟器", "区域", "箭头", "文字"],
         cardHint: "按住空格可复制",
         cards: [
-          ["AXTextField", [["名称", "components"], ["路径", "/Users/kai/Projects/ledger/src/components", 1], ["尺寸", "82×21 pt", 1], ["应用", "com.apple.finder", 1]]],
-          ["AXButton", [["名称", "新建发票"], ["组件", "Toolbar", 1], ["源码", "src/components/Toolbar.tsx:18", 1], ["选择器", "button.primary", 1], ["尺寸", "112×32", 1],
+          ["输入框", [["名称", "components"], ["路径", "/Users/kai/Projects/ledger/src/components", 1], ["尺寸", "82×21 pt", 1], ["应用", "com.apple.finder", 1]]],
+          ["按钮", [["名称", "新建发票"], ["组件", "Toolbar", 1], ["源码", "src/components/Toolbar.tsx:18", 1], ["选择器", "button.primary", 1], ["尺寸", "112×32", 1],
             ["字体", "13px Inter 600", 1], ["颜色", "#FFFFFF", 1], ["背景", "#0D44E8", 1], ["页面", "http://localhost:3100/invoices", 1], ["应用", "com.apple.Safari", 1]]],
           ["UIButton", [["名称", "新建"], ["类", "PillButton", 1], ["属性", "InvoiceListViewController.addButton", 1], ["Frame", "(296, 62) 80×44 pt", 1],
             ["字体", "17pt SFProText-Semibold", 1], ["颜色", "#FFFFFF", 1], ["背景", "#0D44E8", 1], ["圆角", "22", 1], ["设备", "iPhone 17 Pro"], ["应用", "com.apple.iphonesimulator", 1]]],
@@ -157,11 +158,12 @@
         hotkey: "⌥⌘R", request: "Request", typeText: "Type text", overall: "Overall request", whole: "Whole capture", cancel: "Cancel", copy: "Copy",
         toast: "Copied · 6 annotations", play: "Watch the demo", length: "0:40", wheel: "Scroll", skip: "Skip",
         hints: { frame: "Click an element or drag a region · Scroll for parent/child and covered elements", arrow: "Drag to draw an arrow", text: "Click where the text should go" },
-        rows: ["Framed element · AXTextField “components” · ~/Projects/ledger/src/components · Finder", "Framed element · AXButton “New invoice”", "Framed element · UIButton “New” · Simulator", "Region", "Arrow", "Text"],
+        textRole: "Text",
+        rows: ["Framed element · text field “components” · ~/Projects/ledger/src/components · Finder", "Framed element · button “New invoice”", "Framed element · UIButton “New” · Simulator", "Region", "Arrow", "Text"],
         cardHint: "Hold Space to copy",
         cards: [
-          ["AXTextField", [["Name", "components"], ["Path", "/Users/kai/Projects/ledger/src/components", 1], ["Size", "82×21 pt", 1], ["App", "com.apple.finder", 1]]],
-          ["AXButton", [["Name", "New invoice"], ["Component", "Toolbar", 1], ["Source", "src/components/Toolbar.tsx:18", 1], ["Selector", "button.primary", 1], ["Size", "124×32", 1],
+          ["Text field", [["Name", "components"], ["Path", "/Users/kai/Projects/ledger/src/components", 1], ["Size", "82×21 pt", 1], ["App", "com.apple.finder", 1]]],
+          ["Button", [["Name", "New invoice"], ["Component", "Toolbar", 1], ["Source", "src/components/Toolbar.tsx:18", 1], ["Selector", "button.primary", 1], ["Size", "124×32", 1],
             ["Font", "13px Inter 600", 1], ["Color", "#FFFFFF", 1], ["Background", "#0D44E8", 1], ["Page", "http://localhost:3100/invoices", 1], ["App", "com.apple.Safari", 1]]],
           ["UIButton", [["Name", "New"], ["Class", "PillButton", 1], ["Property", "InvoiceListViewController.addButton", 1], ["Frame", "(296, 62) 80×44 pt", 1],
             ["Font", "17pt SFProText-Semibold", 1], ["Color", "#FFFFFF", 1], ["Background", "#0D44E8", 1], ["Corner radius", "22", 1], ["Device", "iPhone 17 Pro"], ["App", "com.apple.iphonesimulator", 1]]],
@@ -272,8 +274,9 @@ const cursor = el("span", "d-cursor", '<svg viewBox="0 0 23 23" aria-hidden="tru
       /* The words in the page's own pixels, at the scale the button's size gives. */
       const [bw, bh] = fields[4][1].split("×").map(Number);
       const size = `${Math.round(text[2] / button[2] * bw)}×${Math.round(text[3] / button[3] * bh)}`;
-      return [{ role: title, name: fields[0][1], box: button, fields },
-        { role: "AXStaticText", name: fields[0][1], box: text, fields: [fields[0], [fields[4][0], size, 1], fields[8], fields[9]] }];
+      /* The map names every layer; the card heads plain text by what it says. */
+      return [{ role: title, title, name: fields[0][1], box: button, fields },
+        { role: d.textRole, title: fields[0][1], name: fields[0][1], box: text, fields: [fields[0], [fields[4][0], size, 1], fields[8], fields[9]] }];
     };
     /* LayerMap: a wireframe of the elements to scale over one row each, indented by nesting,
        the pointer's own hit marked with its glyph. */
@@ -292,7 +295,7 @@ const cursor = el("span", "d-cursor", '<svg viewBox="0 0 23 23" aria-hidden="tru
       map.querySelectorAll(".d-lrow").forEach((r, i) => r.classList.toggle("cur", i === k));
       map.querySelectorAll(".d-box").forEach((b, i) => { b.classList.toggle("cur", i === k); b.classList.toggle("hold", i === k - 1); });
       sides.forEach((name, i) => m2.style.setProperty(name, `${stack[k].box[i]}%`));
-      showCard(stack[k].role, stack[k].fields);
+      showCard(stack[k].title, stack[k].fields);
       cardBelow(stack[k].box);
     };
 
