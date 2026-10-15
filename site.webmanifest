@@ -1,7 +1,7 @@
 {
   "name": "Ref",
   "short_name": "Ref",
-  "description": "AI 友好的截图标注工具：按下热键，点一下你想说的东西，Ref 认得它是哪个文件、哪个按钮、哪行代码，编上号写进图里。",
+  "description": "AI 友好的截图标注：按下热键，点一下你想说的东西，Ref 认得它是哪个文件、哪个按钮、哪行代码，编上号写进图里。",
   "lang": "zh-CN",
   "start_url": "./",
   "scope": "./",
