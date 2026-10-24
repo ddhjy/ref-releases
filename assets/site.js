@@ -142,7 +142,7 @@
       ? {
         hotkey: "⌥⌘R", request: "要求", typeText: "输入文字", overall: "整体要求", whole: "当前屏幕", cancel: "取消", copy: "复制",
         toast: "已复制 · 6 处标注", play: "标注演示", length: "0:38", wheel: "滚轮", skip: "跳过",
-        hints: { frame: "点击元素或拖出区域 · 滚动切换父/子及被遮挡的元素", arrow: "拖动画出箭头", text: "点击要放文字的位置" },
+        hints: { frame: "点击元素或拖出区域 · 滚动切换父/子及被遮挡的元素", arrow: "点击要指的位置，或拖动画出箭头", text: "点击要放文字的位置" },
         textRole: "文本",
         rows: ["选框 · 输入框 “components” · ~/Projects/ledger/src/components · 访达", "选框 · 按钮 “新建发票”", "选框 · UIButton “新建” · 模拟器", "区域", "箭头", "文字"],
         cardHint: "按住空格可复制",
@@ -157,7 +157,7 @@
       : {
         hotkey: "⌥⌘R", request: "Request", typeText: "Type text", overall: "Overall request", whole: "Whole capture", cancel: "Cancel", copy: "Copy",
         toast: "Copied · 6 annotations", play: "Watch the demo", length: "0:40", wheel: "Scroll", skip: "Skip",
-        hints: { frame: "Click an element or drag a region · Scroll for parent/child and covered elements", arrow: "Drag to draw an arrow", text: "Click where the text should go" },
+        hints: { frame: "Click an element or drag a region · Scroll for parent/child and covered elements", arrow: "Click where the arrow should point, or drag to draw one", text: "Click where the text should go" },
         textRole: "Text",
         rows: ["Framed element · text field “components” · ~/Projects/ledger/src/components · Finder", "Framed element · button “New invoice”", "Framed element · UIButton “New” · Simulator", "Region", "Arrow", "Text"],
         cardHint: "Hold Space to copy",
